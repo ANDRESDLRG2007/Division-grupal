@@ -291,7 +291,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
     <div
       className={`${
         isModal
-          ? 'fixed inset-0 z-50 bg-[#090b11]/95 backdrop-blur-xl flex flex-col items-center justify-center p-4 overflow-y-auto'
+          ? 'fixed inset-0 z-50 bg-[#0b0f19]/96 backdrop-blur-2xl flex flex-col items-center justify-center p-4 overflow-y-auto'
           : 'px-4 py-3 animate-fade-in'
       }`}
     >
@@ -303,37 +303,37 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               playClickSound();
               onCerrar();
             }}
-            className="absolute top-4 right-4 w-9 h-9 rounded-full bg-white/[0.08] hover:bg-white/[0.15] border border-white/[0.1] flex items-center justify-center text-white transition-all active:scale-90"
+            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-slate-800/80 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-white transition-all active:scale-90 shadow-md"
           >
-            <X size={18} />
+            <X size={20} />
           </button>
         )}
 
         {/* Title Header */}
         <div className="text-center mb-3">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold mb-1.5 shadow-sm">
-            <Flame size={13} className="animate-bounce text-amber-400" />
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border-2 border-amber-500/40 text-amber-300 text-xs font-black mb-1.5 shadow-md shadow-amber-500/10">
+            <Flame size={14} className="text-amber-400" />
             RULETA UNIVERSITARIA 🎰
           </div>
-          <h2 className="text-xl font-extrabold text-white tracking-tight">
+          <h2 className="text-xl font-black text-white tracking-tight">
             {modo === 'pagador' ? '¿Quién paga la cuenta?' : modo === 'castigo' ? 'Ruleta de Castigos' : 'Ruleta Personalizada'}
           </h2>
-          <p className="text-xs text-zinc-400">
+          <p className="text-xs text-slate-300 font-semibold mt-0.5">
             {count < 2 ? '⚠️ Agrega al menos 2 opciones' : `Girando entre ${count} opciones`}
           </p>
         </div>
 
         {/* Mode Selector Tabs */}
-        <div className="w-full grid grid-cols-3 gap-1.5 p-1 bg-white/[0.04] border border-white/[0.08] rounded-2xl mb-4">
+        <div className="w-full grid grid-cols-3 gap-1.5 p-1.5 bg-[#12192b] border-2 border-slate-700/80 rounded-2xl mb-4 shadow-md">
           <button
             onClick={() => {
               playClickSound();
               setModo('pagador');
             }}
-            className={`py-2 px-1 text-xs font-bold rounded-xl transition-all ${
+            className={`py-2 px-1 text-xs font-black rounded-xl transition-all active:scale-95 ${
               modo === 'pagador'
-                ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md'
-                : 'text-zinc-400 hover:text-white'
+                ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-600/30'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
             💸 Quién paga
@@ -343,10 +343,10 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               playClickSound();
               setModo('castigo');
             }}
-            className={`py-2 px-1 text-xs font-bold rounded-xl transition-all ${
+            className={`py-2 px-1 text-xs font-black rounded-xl transition-all active:scale-95 ${
               modo === 'castigo'
-                ? 'bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md'
-                : 'text-zinc-400 hover:text-white'
+                ? 'bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md shadow-rose-600/30'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
             🧽 Castigos
@@ -356,10 +356,10 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               playClickSound();
               setModo('personalizado');
             }}
-            className={`py-2 px-1 text-xs font-bold rounded-xl transition-all ${
+            className={`py-2 px-1 text-xs font-black rounded-xl transition-all active:scale-95 ${
               modo === 'personalizado'
-                ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 text-white shadow-md'
-                : 'text-zinc-400 hover:text-white'
+                ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 text-slate-950 shadow-md shadow-emerald-600/30'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
             ✏️ Libre
@@ -369,16 +369,16 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         {/* Source selector for "Quién Paga" */}
         {modo === 'pagador' && (
           <div className="flex items-center gap-2 mb-3 text-xs">
-            <span className="text-zinc-400 font-medium">Usar lista de:</span>
+            <span className="text-slate-400 font-bold">Usar lista de:</span>
             <button
               onClick={() => {
                 playClickSound();
                 setFuentePersonas('contactos');
               }}
-              className={`px-3 py-1 rounded-full font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl font-black transition-all active:scale-95 ${
                 fuentePersonas === 'contactos'
-                  ? 'bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm'
-                  : 'bg-white/[0.05] text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-cyan-500/25 text-cyan-200 border-2 border-cyan-400 shadow-sm'
+                  : 'bg-[#141b2d] border border-slate-700 text-slate-400 hover:text-white'
               }`}
             >
               🍕 Salidas ({contactos.length})
@@ -388,10 +388,10 @@ export const RuletaModal: React.FC<RuletaProps> = ({
                 playClickSound();
                 setFuentePersonas('roomies');
               }}
-              className={`px-3 py-1 rounded-full font-bold transition-all ${
+              className={`px-3 py-1.5 rounded-xl font-black transition-all active:scale-95 ${
                 fuentePersonas === 'roomies'
-                  ? 'bg-violet-500/20 text-violet-300 border border-violet-500/40 shadow-sm'
-                  : 'bg-white/[0.05] text-zinc-400 hover:text-zinc-200'
+                  ? 'bg-violet-500/25 text-violet-200 border-2 border-violet-400 shadow-sm'
+                  : 'bg-[#141b2d] border border-slate-700 text-slate-400 hover:text-white'
               }`}
             >
               🏠 Roomies ({roomies.length})
@@ -400,10 +400,10 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         )}
 
         {/* Wheel Canvas Display */}
-        <div className="relative my-2 flex items-center justify-center">
+        <div className="relative my-2 flex items-center justify-center p-3 rounded-3xl bg-[#12192b]/80 border-2 border-slate-700/60 shadow-2xl">
           <canvas
             ref={canvasRef}
-            className="w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] block"
+            className="w-[280px] h-[280px] sm:w-[320px] sm:h-[320px] block rounded-full"
           />
         </div>
 
@@ -411,22 +411,22 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         <button
           onClick={girar}
           disabled={girando || count < 2}
-          className={`w-full max-w-[280px] mt-3 py-3.5 px-6 rounded-2xl font-extrabold text-base tracking-wide flex items-center justify-center gap-2 transition-all active:scale-95 ${
+          className={`w-full max-w-[300px] mt-4 py-4 px-6 rounded-2xl font-black text-base tracking-wide flex items-center justify-center gap-2 transition-all active:scale-95 border-2 border-amber-300/30 ${
             girando
-              ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed shadow-none'
+              ? 'bg-slate-800 text-slate-500 cursor-not-allowed shadow-none border-transparent'
               : count < 2
-              ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
-              : 'bg-gradient-to-r from-amber-400 via-rose-500 to-violet-600 text-white shadow-xl shadow-rose-500/25 hover:brightness-110'
+              ? 'bg-slate-800 text-slate-500 cursor-not-allowed border-transparent'
+              : 'bg-gradient-to-r from-amber-400 via-rose-500 to-violet-600 text-white shadow-xl shadow-rose-500/30 hover:brightness-110'
           }`}
         >
           {girando ? (
             <>
-              <RotateCw className="animate-spin" size={18} />
-              Girando la suerte...
+              <RotateCw className="animate-spin" size={20} />
+              Girando la ruleta...
             </>
           ) : (
             <>
-              <Dices size={20} />
+              <Dices size={22} className="stroke-[2.5]" />
               ¡GIRAR RULETA!
             </>
           )}
@@ -434,29 +434,29 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
         {/* Result Winner Popup / Banner */}
         {mostrarGanador && ganador && (
-          <div className="w-full mt-4 p-4 rounded-2xl bg-gradient-to-br from-violet-950/80 via-indigo-950/90 to-rose-950/80 border-2 border-amber-400/40 shadow-2xl animate-pop-in text-center">
-            <div className="inline-flex items-center gap-1 text-2xl mb-1">
+          <div className="w-full mt-4 p-5 rounded-2xl bg-gradient-to-br from-violet-950/90 via-[#151d32] to-slate-900 border-2 border-amber-400 shadow-2xl animate-pop-in text-center">
+            <div className="inline-flex items-center gap-1.5 text-2xl mb-1">
               <PartyPopper className="text-amber-400 animate-bounce" />
               <span>👑</span>
               <Sparkles className="text-violet-400 animate-pulse" />
             </div>
 
-            <p className="text-[11px] font-bold uppercase tracking-widest text-amber-300/90">
-              {modo === 'castigo' ? 'Le toca el castigo a:' : 'Hoy le toca invitar a:'}
+            <p className="text-[11px] font-black uppercase tracking-widest text-amber-300">
+              {modo === 'castigo' ? 'Le toca el castigo a:' : 'Hoy le toca pagar a:'}
             </p>
 
-            <h3 className="text-2xl font-black text-white tracking-tight my-1 text-gradient-gold">
+            <h3 className="text-2xl font-black text-white tracking-tight my-1.5 text-gradient-gold">
               {ganador}
             </h3>
 
-            <p className="text-xs text-zinc-300 italic mb-3">
+            <p className="text-xs text-slate-200 font-medium italic mb-4">
               "{memeActual}"
             </p>
 
-            <div className="flex items-center gap-2 justify-center">
+            <div className="flex items-center gap-2.5 justify-center">
               <button
                 onClick={compartirResultado}
-                className="py-2 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-1.5 shadow-lg shadow-emerald-600/30 transition-all active:scale-95"
+                className="py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-black flex items-center gap-1.5 shadow-lg shadow-emerald-600/30 transition-all active:scale-95"
               >
                 <Share2 size={14} />
                 Mandar al WhatsApp
@@ -464,9 +464,9 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
               <button
                 onClick={girar}
-                className="py-2 px-3 rounded-xl bg-white/[0.08] hover:bg-white/[0.15] border border-white/[0.1] text-zinc-200 text-xs font-semibold flex items-center gap-1 transition-all active:scale-95"
+                className="py-2.5 px-3.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 text-xs font-black flex items-center gap-1 transition-all active:scale-95"
               >
-                <RotateCw size={13} />
+                <RotateCw size={14} />
                 Otra vez
               </button>
             </div>
@@ -475,21 +475,21 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
         {/* Custom Items Manager when in 'personalizado' mode */}
         {modo === 'personalizado' && (
-          <div className="w-full mt-5 p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.07]">
-            <p className="text-xs font-bold text-zinc-300 mb-2 flex items-center gap-1">
-              Opciones de la ruleta ({customItems.length}):
+          <div className="w-full mt-5 p-4 rounded-2xl bg-[#12192b] border-2 border-slate-700/80 shadow-md">
+            <p className="text-xs font-black text-slate-200 mb-2.5 flex items-center gap-1.5">
+              <span>🎯</span> Opciones de la ruleta ({customItems.length}):
             </p>
-            <div className="flex flex-wrap gap-1.5 mb-2.5">
+            <div className="flex flex-wrap gap-2 mb-3">
               {customItems.map((item, idx) => (
                 <span
                   key={idx}
-                  className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/[0.06] border border-white/[0.08] text-xs text-zinc-200"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800/90 border border-slate-700 text-xs font-bold text-slate-100"
                 >
                   {item}
                   {customItems.length > 2 && (
                     <button
                       onClick={() => eliminarCustomItem(idx)}
-                      className="hover:text-rose-400 ml-0.5 text-zinc-500"
+                      className="hover:text-rose-400 ml-1 text-slate-400 font-bold"
                     >
                       ×
                     </button>
@@ -498,20 +498,20 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               ))}
             </div>
 
-            <div className="flex gap-1.5">
+            <div className="flex gap-2">
               <input
                 type="text"
-                placeholder="Agregar opción..."
+                placeholder="Agregar nueva opción..."
                 value={nuevoItem}
                 onChange={(e) => setNuevoItem(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && agregarCustomItem()}
-                className="flex-1 bg-white/[0.05] border border-white/[0.1] rounded-xl px-3 py-1.5 text-xs text-white focus:border-violet-500"
+                className="flex-1 bg-[#0b0f19] border-2 border-slate-700 focus:border-violet-400 rounded-xl px-3.5 py-2 text-xs font-bold text-white placeholder-slate-500"
               />
               <button
                 onClick={agregarCustomItem}
-                className="px-3 py-1.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold flex items-center gap-1"
+                className="px-3.5 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-black flex items-center gap-1 shadow-md shadow-violet-600/30"
               >
-                <Plus size={14} />
+                <Plus size={15} />
                 Añadir
               </button>
             </div>

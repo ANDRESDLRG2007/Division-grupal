@@ -80,11 +80,11 @@ export const BackupModal: React.FC<BackupModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-      <div className="w-full max-w-[420px] glass-card p-5 space-y-4">
+    <div className="fixed inset-0 z-50 bg-[#0b0f19]/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
+      <div className="w-full max-w-[420px] bg-[#12192b] border-2 border-slate-700/80 rounded-3xl p-5 space-y-4 shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-          <h3 className="text-sm font-extrabold text-white flex items-center gap-2">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-700/80">
+          <h3 className="text-sm font-black text-white flex items-center gap-2">
             ⚙️ Ajustes y Respaldo de Datos
           </h3>
           <button
@@ -92,7 +92,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
               playClickSound();
               onCerrar();
             }}
-            className="w-8 h-8 rounded-full bg-white/[0.06] hover:bg-white/[0.12] flex items-center justify-center text-zinc-400 hover:text-white"
+            className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition-all active:scale-90"
           >
             <X size={16} />
           </button>
@@ -100,37 +100,37 @@ export const BackupModal: React.FC<BackupModalProps> = ({
 
         {/* Message Alert */}
         {mensaje && (
-          <div className="p-2.5 rounded-xl bg-violet-500/20 border border-violet-500/30 text-xs text-violet-200 animate-pop-in">
+          <div className="p-3 rounded-2xl bg-violet-500/20 border-2 border-violet-500/40 text-xs font-bold text-violet-200 animate-pop-in">
             {mensaje}
           </div>
         )}
 
         {/* Export JSON */}
-        <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-2">
-          <p className="text-xs font-bold text-white flex items-center gap-1.5">
-            <Download size={14} className="text-violet-400" />
+        <div className="p-4 rounded-2xl bg-[#161f33] border border-slate-700/80 space-y-2.5 shadow-sm">
+          <p className="text-xs font-black text-white flex items-center gap-2">
+            <Download size={15} className="text-violet-400" />
             Descargar Respaldo JSON
           </p>
-          <p className="text-[11px] text-zinc-400">
-            Guarda todos tus roomies, amigos, gastos mensuales y salidas en un archivo para no perder nada.
+          <p className="text-xs text-slate-300 font-medium leading-relaxed">
+            Guarda todos tus roomies, amigos, gastos del apartamento y salidas en un archivo seguro en tu teléfono.
           </p>
           <button
             onClick={handleExportar}
-            className="w-full py-2 px-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95"
+            className="w-full py-2.5 px-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md shadow-violet-600/30"
           >
-            <Download size={13} />
+            <Download size={14} />
             Exportar datos (.json)
           </button>
         </div>
 
         {/* Import JSON */}
-        <div className="p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.06] space-y-2">
-          <p className="text-xs font-bold text-white flex items-center gap-1.5">
-            <Upload size={14} className="text-cyan-400" />
+        <div className="p-4 rounded-2xl bg-[#161f33] border border-slate-700/80 space-y-2.5 shadow-sm">
+          <p className="text-xs font-black text-white flex items-center gap-2">
+            <Upload size={15} className="text-cyan-400" />
             Restaurar Respaldo
           </p>
-          <p className="text-[11px] text-zinc-400">
-            Carga un archivo de respaldo que hayas descargado previamente.
+          <p className="text-xs text-slate-300 font-medium leading-relaxed">
+            Carga un archivo de respaldo que hayas guardado antes para recuperar toda tu información.
           </p>
           <input
             type="file"
@@ -141,9 +141,9 @@ export const BackupModal: React.FC<BackupModalProps> = ({
           />
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full py-2 px-3 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/30 border border-cyan-500/40 text-cyan-300 font-bold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95"
+            className="w-full py-2.5 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md shadow-cyan-600/30"
           >
-            <Upload size={13} />
+            <Upload size={14} />
             Cargar archivo (.json)
           </button>
         </div>
@@ -152,9 +152,9 @@ export const BackupModal: React.FC<BackupModalProps> = ({
         <div className="pt-2">
           <button
             onClick={handleReset}
-            className="w-full py-2.5 px-3 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 font-bold text-xs flex items-center justify-center gap-1.5 transition-all"
+            className="w-full py-2.5 px-3 rounded-xl bg-rose-500/15 hover:bg-rose-500/25 text-rose-300 border border-rose-500/30 font-bold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
           >
-            <RotateCcw size={13} />
+            <RotateCcw size={14} />
             Restablecer a valores iniciales
           </button>
         </div>

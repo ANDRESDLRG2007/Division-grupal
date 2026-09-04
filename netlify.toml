@@ -6,6 +6,13 @@
   NODE_VERSION = "20"
   NPM_FLAGS = "--legacy-peer-deps"
 
+[build.processing]
+  skip_processing = true
+
+[context.deploy-preview]
+  # Disable collaborative deploy previews / Netlify drawer badge
+  command = "npm run build"
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -16,3 +23,4 @@
   [headers.values]
     X-Frame-Options = "ALLOWALL"
     Access-Control-Allow-Origin = "*"
+
