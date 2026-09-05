@@ -25,8 +25,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="max-w-[500px] mx-auto flex items-center justify-between gap-2">
         {/* Logo & App Name */}
         <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-cyan-400 p-[1.5px] shadow-md shadow-violet-500/25">
-            <div className="w-full h-full bg-[#111728] rounded-[14px] flex items-center justify-center text-lg">
+          <div className="w-10 h-10 rounded-xl bg-[#8b5cf6] p-[1.5px]">
+            <div className="w-full h-full bg-[#171e27] rounded-[9px] flex items-center justify-center text-lg">
               💸
             </div>
           </div>

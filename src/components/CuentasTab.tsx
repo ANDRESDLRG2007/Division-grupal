@@ -93,7 +93,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
   };
 
   return (
-    <div className="px-4 py-3 animate-fade-in space-y-4">
+    <div className="px-5 py-6 animate-fade-in space-y-6">
       {/* ── SUBTABS MENSUAL / SALIDAS ───────────────────────── */}
       <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#12192b] border-2 border-slate-700/80 rounded-2xl shadow-md">
         <button

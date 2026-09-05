@@ -160,9 +160,9 @@ export const MensualTab: React.FC<MensualTabProps> = ({
   const totalMensual = gastosMensuales.reduce((s, g) => s + g.monto, 0);
 
   return (
-    <div className="px-4 py-3 animate-fade-in space-y-4">
+    <div className="px-5 py-6 animate-fade-in space-y-6 layout-stack">
       {/* ── SECCIÓN ROOMIES ───────────────────────── */}
-      <section className="glass-card p-4">
+      <section className="glass-card p-5 people-card">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-lg bg-violet-500/20 flex items-center justify-center text-sm border border-violet-500/30">
@@ -290,7 +290,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
       </section>
 
       {/* ── FORMULARIO DE GASTO ───────────────────────── */}
-      <section className="glass-card-glow p-4 space-y-4">
+      <section className="glass-card-glow p-5 space-y-5 expense-form">
         <div className="flex items-center justify-between pb-1 border-b border-white/[0.08]">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_10px_#a78bfa]"></span>
@@ -302,7 +302,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
         </div>
 
         {/* Quick Presets */}
-        <div>
+        <div className="quick-presets">
           <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-2 flex items-center gap-1">
             <span>⚡</span> Atajos rápidos del mes:
           </label>
@@ -325,7 +325,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
         </div>
 
         {/* Description & Amount */}
-        <div className="space-y-3">
+        <div className="space-y-3 expense-fields">
           <div>
             <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-1.5">
               ¿Qué se pagó?
@@ -372,7 +372,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
         </div>
 
         {/* Who Paid & Participants */}
-        <div className="space-y-3.5 pt-1">
+        <div className="space-y-3.5 pt-2 people-fields">
           <div>
             <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-2">
               ¿Quién puso la plata? 💳
@@ -483,7 +483,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
       </section>
 
       {/* ── HISTORIAL DE GASTOS ───────────────────────── */}
-      <section className="space-y-3">
+      <section className="space-y-3 history-section">
         <div className="flex items-center justify-between px-1">
           <h3 className="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
             <span>📋</span> Historial de Gastos ({gastosMensuales.length})

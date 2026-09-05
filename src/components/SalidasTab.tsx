@@ -152,9 +152,9 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
   const totalSalidas = gastosSalida.reduce((s, g) => s + g.monto, 0);
 
   return (
-    <div className="px-4 py-3 animate-fade-in space-y-4">
+    <div className="px-5 py-6 animate-fade-in space-y-6 layout-stack salida-layout">
       {/* ── SECCIÓN AMIGOS / CONTACTOS ───────────────────────── */}
-      <section className="glass-card p-4">
+      <section className="glass-card p-5 people-card">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <div className="w-6 h-6 rounded-lg bg-cyan-500/20 flex items-center justify-center text-sm border border-cyan-500/30">
@@ -287,7 +287,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
           playClickSound();
           onAbrirRuleta();
         }}
-        className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-purple-600/20 to-violet-600/25 border-2 border-amber-500/40 shadow-xl shadow-amber-500/10 flex items-center justify-between gap-3 cursor-pointer hover:border-amber-400 transition-all active:scale-[0.98]"
+        className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-purple-600/20 to-violet-600/25 border-2 border-amber-500/40 shadow-xl shadow-amber-500/10 flex items-center justify-between gap-3 cursor-pointer hover:border-amber-400 transition-all active:scale-[0.98] roulette-banner"
       >
         <div className="flex items-center gap-3">
           <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-400 to-rose-500 flex items-center justify-center text-2xl shadow-lg shadow-amber-500/30">
@@ -313,7 +313,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       </div>
 
       {/* ── FORMULARIO SALIDA ───────────────────────── */}
-      <section className="glass-card-glow p-4 space-y-4">
+      <section className="glass-card-glow p-5 space-y-5 expense-form">
         <div className="flex items-center justify-between pb-1 border-b border-white/[0.08]">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#38bdf8]"></span>
@@ -325,7 +325,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
         </div>
 
         {/* Quick Presets */}
-        <div>
+        <div className="quick-presets">
           <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-2 flex items-center gap-1">
             <span>⚡</span> Atajos rápidos del parche:
           </label>
@@ -348,7 +348,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
         </div>
 
         {/* Description & Amount */}
-        <div className="space-y-3">
+        <div className="space-y-3 expense-fields">
           <div>
             <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-1.5">
               ¿Qué compraron?
@@ -394,7 +394,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
         </div>
 
         {/* Participants Selection */}
-        <div className="space-y-2 pt-1">
+        <div className="space-y-2 pt-1 people-fields">
           <div className="flex items-center justify-between">
             <label className="text-[10px] font-black uppercase tracking-wider text-slate-300">
               ¿Quiénes van en esta cuenta? ({seleccionados.length}/{contactos.length})
@@ -479,7 +479,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       </section>
 
       {/* ── HISTORIAL DE SALIDAS ───────────────────────── */}
-      <section className="space-y-3">
+      <section className="space-y-3 history-section">
         <div className="flex items-center justify-between px-1">
           <h3 className="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
             <span>🍕</span> Salidas Registradas ({gastosSalida.length})

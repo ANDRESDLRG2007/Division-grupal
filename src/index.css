@@ -2,32 +2,28 @@
 @import "tailwindcss";
 
 :root {
-  /* Ultra-sleek fintech dark background */
-  --bg: #0b0f19;
-  --bg-subtle: #111728;
-  --bg-elevated: #151d32;
-  
-  /* Cards with clear visual hierarchy & contrast */
-  --card: #151d30;
-  --card-hover: #1c263e;
-  --card-glass: rgba(21, 29, 48, 0.92);
-  --card-elevated: #1d2740;
-  
-  /* High contrast borders */
-  --border: rgba(255, 255, 255, 0.12);
-  --border-strong: rgba(255, 255, 255, 0.22);
-  --border-glow: rgba(139, 92, 246, 0.5);
+  --bg: #0d1117;
+  --bg-subtle: #141a22;
+  --bg-elevated: #1b232d;
 
-  /* Vibrant Accent Palette */
-  --purple: #8b5cf6;
-  --purple-glow: rgba(139, 92, 246, 0.35);
-  --teal: #10b981;
-  --teal-glow: rgba(16, 185, 129, 0.3);
-  --cyan: #06b6d4;
-  --coral: #f43f5e;
-  --coral-glow: rgba(244, 63, 94, 0.3);
-  --amber: #f59e0b;
-  --blue: #3b82f6;
+  --card: #171e27;
+  --card-hover: #1d2631;
+  --card-glass: #171e27;
+  --card-elevated: #202a36;
+
+  --border: #2a3542;
+  --border-strong: #3a4858;
+  --border-glow: #3a4858;
+
+  --purple: #a78bfa;
+  --purple-glow: rgba(167, 139, 250, 0.16);
+  --teal: #34d399;
+  --teal-glow: rgba(52, 211, 153, 0.14);
+  --cyan: #67e8f9;
+  --coral: #fb7185;
+  --coral-glow: rgba(251, 113, 133, 0.14);
+  --amber: #fbbf24;
+  --blue: #60a5fa;
 
   /* High legibility text */
   --text: #f8fafc;
@@ -61,12 +57,8 @@ html, body {
 }
 
 body {
-  background-color: #0b0f19;
-  background-image: 
-    radial-gradient(circle at 10% 8%, rgba(99, 102, 241, 0.18) 0%, transparent 40%),
-    radial-gradient(circle at 90% 40%, rgba(6, 182, 212, 0.14) 0%, transparent 45%),
-    radial-gradient(circle at 50% 90%, rgba(139, 92, 246, 0.15) 0%, transparent 40%);
-  background-attachment: fixed;
+  background-color: var(--bg);
+  background-image: linear-gradient(180deg, #111720 0%, var(--bg) 30rem);
 }
 
 /* Typography & Inputs */
@@ -91,21 +83,17 @@ input, select {
   min-height: 100vh;
   max-width: 500px;
   margin: 0 auto;
-  padding-bottom: calc(96px + var(--safe-bottom));
+  padding-bottom: calc(104px + var(--safe-bottom));
   position: relative;
 }
 
-/* Glassmorphic & Elevated Cards */
+/* Quiet surfaces create hierarchy through spacing, not glow. */
 .glass-card {
-  background: var(--card-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 20px;
-  box-shadow: 
-    0 10px 30px -10px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.16);
+  transition: border-color 0.2s ease, background-color 0.2s ease;
 }
 
 .glass-card:hover {
@@ -113,36 +101,28 @@ input, select {
 }
 
 .glass-card-glow {
-  background: linear-gradient(180deg, rgba(25, 34, 56, 0.95) 0%, rgba(17, 24, 40, 0.95) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid var(--border-glow);
-  border-radius: 22px;
-  box-shadow: 
-    0 12px 36px -8px rgba(139, 92, 246, 0.22),
-    0 0 0 1px rgba(139, 92, 246, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: var(--card-elevated);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
 }
 
 /* Modern Input Controls */
 .input-control {
   width: 100%;
-  background: #111726;
-  border: 1.5px solid rgba(255, 255, 255, 0.14);
-  border-radius: 14px;
-  padding: 0.75rem 1rem;
+  background: #10161e;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  padding: 0.85rem 1rem;
   font-size: 0.92rem;
   color: #f8fafc;
-  transition: all 0.2s ease;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .input-control:focus {
-  border-color: #8b5cf6;
-  box-shadow: 
-    0 0 0 3px rgba(139, 92, 246, 0.25),
-    inset 0 2px 4px rgba(0, 0, 0, 0.2);
-  background: #151d30;
+  border-color: var(--purple);
+  box-shadow: 0 0 0 3px var(--purple-glow);
+  background: #151c25;
 }
 
 .input-control::placeholder {
@@ -195,15 +175,13 @@ input, select {
 
 /* Buttons */
 .btn-neon {
-  background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+  background: #8b5cf6;
   color: #ffffff;
   font-weight: 700;
-  border-radius: 16px;
-  padding: 0.9rem 1.25rem;
+  border-radius: 9px;
+  padding: 0.95rem 1.25rem;
   font-size: 0.95rem;
-  box-shadow: 
-    0 6px 24px var(--purple-glow),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 16px var(--purple-glow);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
@@ -222,13 +200,13 @@ input, select {
 }
 
 .btn-mint {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  background: #34d399;
   color: #04130d;
   font-weight: 800;
-  border-radius: 16px;
+  border-radius: 9px;
   padding: 0.9rem 1.25rem;
   font-size: 0.95rem;
-  box-shadow: 0 6px 24px var(--teal-glow);
+  box-shadow: 0 6px 16px var(--teal-glow);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   display: flex;
   align-items: center;
@@ -241,10 +219,10 @@ input, select {
 }
 
 .btn-ghost {
-  background: #172138;
+  background: #202a36;
   color: var(--text);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 9px;
   padding: 0.65rem 1rem;
   font-size: 0.85rem;
   font-weight: 600;
@@ -256,7 +234,7 @@ input, select {
 }
 
 .btn-ghost:hover {
-  background: #1f2c4c;
+  background: #273341;
   border-color: var(--border-strong);
 }
 
@@ -266,6 +244,114 @@ input, select {
 
 .font-mono {
   font-family: var(--mono);
+}
+
+/* Remove decorative gradients from secondary controls. */
+.app-container [class*="bg-gradient"] {
+  background-image: none !important;
+}
+
+.app-container [class*="shadow-"] {
+  box-shadow: none !important;
+}
+
+.app-container [class*="rounded-2xl"],
+.app-container [class*="rounded-3xl"] {
+  border-radius: 10px;
+}
+
+.expense-form {
+  gap: 1.5rem !important;
+}
+
+.expense-form > div {
+  min-width: 0;
+}
+
+.quick-presets {
+  padding: 1rem;
+  background: #121820;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+
+.quick-presets > label {
+  color: var(--text-muted) !important;
+  margin-bottom: 0.85rem !important;
+}
+
+.quick-presets > div {
+  gap: 0.65rem !important;
+}
+
+.quick-presets button {
+  min-height: 3.25rem;
+  background: #1b242e !important;
+  border: 1px solid #344150 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.quick-presets button:hover,
+.quick-presets button[class*="bg-violet"],
+.quick-presets button[class*="bg-cyan"] {
+  background: #293746 !important;
+  border-color: var(--purple) !important;
+}
+
+.people-fields {
+  border-top: 1px solid var(--border);
+  padding-top: 1.25rem !important;
+}
+
+.layout-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.layout-stack > * {
+  margin-top: 0 !important;
+}
+
+.layout-stack .expense-form {
+  order: 1;
+}
+
+.layout-stack .people-card {
+  order: 2;
+}
+
+.layout-stack .history-section {
+  order: 3;
+}
+
+.salida-layout .roulette-banner {
+  order: 2;
+}
+
+.salida-layout .people-card {
+  order: 3;
+}
+
+.salida-layout .history-section {
+  order: 4;
+}
+
+.expense-fields > * {
+  min-width: 0;
+}
+
+@media (min-width: 420px) {
+  .expense-fields {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+    gap: 1rem !important;
+  }
+
+  .expense-fields > * {
+    margin-top: 0 !important;
+  }
 }
 
 /* Ocultar badge y chatbot de Netlify en CSS por si acaso */
