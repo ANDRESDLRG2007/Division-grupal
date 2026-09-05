@@ -168,7 +168,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
         <div className="flex items-center justify-between pb-1 border-b border-white/[0.08]">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#38bdf8]"></span>
-            <h2 className="text-sm font-black text-white tracking-tight">Registrar Gasto de Salida</h2>
+            <h2 className="text-base font-semibold text-white tracking-tight">Registrar Gasto de Salida</h2>
           </div>
           <span className="text-[11px] font-bold text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 px-2 py-0.5 rounded-full">
             En Grupo
@@ -188,7 +188,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                 className={`p-2.5 rounded-2xl text-left border flex items-center gap-2 transition-all active:scale-95 shadow-sm ${
                   categoriaSel === preset.id
                     ? 'bg-cyan-600/30 border-cyan-400 text-white font-black shadow-md shadow-cyan-500/25 scale-[1.02]'
-                    : 'bg-[#141b2d] hover:bg-[#1b253d] border-slate-700/80 text-slate-300'
+                    : 'bg-[#1b2530] hover:bg-[#263442] border-[#3a4858] text-slate-300'
                 }`}
               >
                 <span className="text-base shrink-0 p-1 bg-slate-800/80 rounded-lg">{preset.icono}</span>
@@ -209,7 +209,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
               placeholder="Ej: Pizza en la 45, Polas en la tienda, Taxi..."
               value={desc}
               onChange={e => setDesc(e.target.value)}
-              className="w-full bg-[#101626] border-2 border-slate-700/90 focus:border-cyan-500 rounded-2xl px-4 py-3 text-sm font-semibold text-white placeholder-slate-500 transition-all shadow-inner"
+              className="w-full bg-[#263442] border border-[#3a4858] focus:border-violet-400 rounded-2xl px-4 py-3 text-base font-medium text-white placeholder-slate-400 transition-all"
             />
           </div>
 
@@ -230,7 +230,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                 ))}
               </div>
             </div>
-            <div className="flex items-center bg-[#101626] border-2 border-slate-700/90 focus-within:border-cyan-400 rounded-2xl px-4 py-2.5 transition-all shadow-inner">
+            <div className="flex items-center bg-[#263442] border border-[#3a4858] focus-within:border-violet-400 rounded-2xl px-4 py-3 transition-all">
               <span className="text-cyan-400 font-mono font-black text-xl mr-2">$</span>
               <input
                 type="number"
@@ -238,7 +238,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                 placeholder="0"
                 value={monto}
                 onChange={e => setMonto(e.target.value)}
-                className="w-full bg-transparent text-xl font-mono font-black text-cyan-400 placeholder-slate-600 outline-none"
+                className="w-full bg-transparent text-2xl font-mono font-semibold text-emerald-400 placeholder-slate-400 outline-none"
               />
             </div>
           </div>
@@ -247,7 +247,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
         {/* Participants Selection */}
         <Accordion
           className="people-fields"
-          title={<span className="text-sm font-semibold tracking-wide text-slate-300">Detalles</span>}
+          title={<span className="text-base font-semibold tracking-wide text-slate-300">Detalles</span>}
           trailing={
             <span className="text-xs font-medium text-slate-400">
               {seleccionados.length}/{contactos.length} participantes
@@ -276,7 +276,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                     className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium transition-colors cursor-pointer ${
                       isSelected
                         ? 'bg-cyan-500/15 text-cyan-100 border-cyan-400/70'
-                        : 'bg-[#141b2d] text-slate-400 border-slate-700/80 hover:text-slate-200'
+                        : 'bg-[#1b2530] text-slate-400 border-[#3a4858] hover:text-slate-200'
                     }`}
                   >
                     <input
@@ -393,7 +393,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       {/* ── HISTORIAL DE SALIDAS ───────────────────────── */}
       <section className="space-y-5 history-section">
         <div className="flex items-center justify-between px-1">
-          <h3 className="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+          <h3 className="text-base font-semibold tracking-wide text-slate-300 flex items-center gap-1.5">
             <span>🍕</span> Salidas Registradas ({gastosSalida.length})
           </h3>
           <span className="text-xs font-mono font-black text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-0.5 rounded-full">
@@ -413,15 +413,15 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
               const porPersona = g.monto / g.personas.length;
 
               return (
-                <div key={g.id} className="glass-card bg-[#111728] p-4 rounded-2xl space-y-4 border border-slate-700/80 shadow-md hover:border-slate-600 transition-all">
+                <div key={g.id} className="glass-card !bg-[#1b2530] p-4 rounded-2xl space-y-4 border border-[#3a4858] shadow-md hover:border-slate-500 transition-all">
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <h4 className="text-sm font-black text-white tracking-tight">{g.descripcion}</h4>
-                      <p className="text-xs text-slate-300 font-medium mt-0.5">
+                      <h4 className="text-base font-semibold text-white tracking-tight">{g.descripcion}</h4>
+                      <p className="text-sm text-slate-300 font-medium mt-0.5">
                         {g.personas.length} amigos · <strong className="text-cyan-300 font-bold">{fmt(porPersona)}</strong> cada uno
                       </p>
                     </div>
-                    <span className="text-base font-mono font-black text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2.5 py-1 rounded-xl shrink-0">
+                    <span className="text-xl font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-xl shrink-0">
                       {fmt(g.monto)}
                     </span>
                   </div>
@@ -431,7 +431,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                     {g.personas.map(pid => (
                       <span
                         key={pid}
-                        className="min-w-0 inline-flex items-center gap-1 rounded-lg bg-[#182331] px-2.5 py-1 text-xs font-bold text-slate-200"
+                        className="min-w-0 inline-flex items-center gap-1 rounded-lg bg-[#263442] border border-[#3a4858] px-2.5 py-1 text-sm font-medium text-slate-200"
                       >
                         <span className="truncate">{getNombre(pid, contactos)}</span>
                         <span className="shrink-0 text-cyan-400 font-mono font-black">

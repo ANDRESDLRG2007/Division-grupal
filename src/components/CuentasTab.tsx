@@ -96,15 +96,15 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
   return (
     <div className="px-5 py-6 animate-fade-in space-y-6 page-content">
       {/* ── SUBTABS MENSUAL / SALIDAS ───────────────────────── */}
-      <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#12192b] border-2 border-slate-700/80 rounded-2xl shadow-md">
+      <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#1b2530] border border-[#3a4858] rounded-2xl shadow-md">
         <button
           onClick={() => {
             playClickSound();
             setSubTab('mensual');
           }}
-          className={`py-2.5 px-3 text-xs font-black rounded-xl transition-all active:scale-95 ${
+          className={`py-2.5 px-3 text-sm font-semibold rounded-xl transition-all active:scale-95 ${
             subTab === 'mensual'
-              ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-600/30'
+              ? 'bg-violet-600 text-white'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -115,9 +115,9 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
             playClickSound();
             setSubTab('salida');
           }}
-          className={`py-2.5 px-3 text-xs font-black rounded-xl transition-all active:scale-95 ${
+          className={`py-2.5 px-3 text-sm font-semibold rounded-xl transition-all active:scale-95 ${
             subTab === 'salida'
-              ? 'bg-gradient-to-r from-cyan-600 to-teal-600 text-slate-950 font-black shadow-md shadow-cyan-600/30'
+              ? 'bg-violet-600 text-white'
               : 'text-slate-400 hover:text-white'
           }`}
         >
@@ -129,14 +129,16 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
           VISTA MENSUAL (APARTAMENTO)
       ══════════════════════════════════════════════════════════ */}
       {subTab === 'mensual' && (
-        <>
+        <div className="space-y-5">
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 gap-3 balance-stats">
-            <div className="glass-card p-4 balance-stat">
+          <section className="space-y-3" aria-label="Resumen del apartamento">
+            <h2 className="text-sm font-semibold tracking-wide text-slate-400">Resumen del apartamento</h2>
+            <div className="grid grid-cols-2 gap-3 balance-stats">
+            <div className="glass-card !bg-[#1b2530] p-4 balance-stat">
               <span className="text-sm font-semibold tracking-wide text-slate-400">
                 Total del Mes
               </span>
-              <p className="text-base font-medium text-emerald-400 font-mono mt-2">
+              <p className="text-xl font-semibold text-emerald-400 font-mono mt-2">
                 {fmt(totalMensual)}
               </p>
               <p className="text-xs text-slate-300 font-medium mt-1">
@@ -144,11 +146,11 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               </p>
             </div>
 
-            <div className="glass-card p-4 balance-stat">
+            <div className="glass-card !bg-[#1b2530] p-4 balance-stat">
               <span className="text-sm font-semibold tracking-wide text-slate-400">
                 Promedio por Roomie
               </span>
-              <p className="text-base font-medium text-violet-400 font-mono mt-2">
+              <p className="text-xl font-semibold text-violet-400 font-mono mt-2">
                 {fmt(promedioMensual)}
               </p>
               <p className="text-xs text-slate-300 font-medium mt-1">
@@ -156,10 +158,13 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               </p>
             </div>
           </div>
+          </section>
 
           {/* Quick Action: Share Full Month Summary to WhatsApp */}
           {gastosMensuales.length > 0 && (
-            <div className="flex items-center gap-3 p-4">
+            <section className="space-y-2" aria-label="Acciones del balance">
+              <h2 className="text-sm font-semibold tracking-wide text-slate-400">Acciones del balance</h2>
+              <div className="flex items-center gap-3 p-4">
               <button
                 onClick={compartirResumenGrupo}
                 className="flex-1 py-3 px-3 rounded-2xl bg-emerald-600/25 hover:bg-emerald-600/35 border-2 border-emerald-500/50 text-emerald-300 font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md"
@@ -178,13 +183,14 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                 <ReceiptText size={16} />
                 Ticket
               </button>
-            </div>
+              </div>
+            </section>
           )}
 
           {/* ── TRANSFERENCIAS PENDIENTES (DEUDAS SIMPLIFICADAS) ── */}
           <section className="glass-card-glow p-4 transferencias-panel">
             <Accordion
-              title={<span className="text-sm font-semibold tracking-wide text-slate-200">Transferencias pendientes</span>}
+              title={<span className="text-base font-semibold tracking-wide text-slate-200">Transferencias pendientes</span>}
               leading={<Scale size={18} className="text-amber-400" />}
               trailing={
                 <span className="text-xs font-medium text-slate-400">
@@ -216,11 +222,11 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                   return (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-2xl bg-[#101626] border-2 border-slate-700/80 shadow-md flex flex-col gap-3"
+                      className="p-3.5 rounded-2xl bg-[#263442] border border-[#3a4858] shadow-md flex flex-col gap-3"
                     >
                       <div className="flex items-center justify-between">
                         {/* Direction row */}
-                        <div className="flex items-center gap-2 text-xs font-extrabold text-white">
+                        <div className="flex items-center gap-2 text-sm font-semibold text-white">
                           <span className="px-2.5 py-1 rounded-xl bg-rose-500/20 text-rose-300 border border-rose-500/40 shadow-sm">
                             {deudorNombre}
                           </span>
@@ -231,7 +237,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                         </div>
 
                         {/* Amount */}
-                        <span className="text-base font-mono font-black text-rose-400 bg-rose-500/10 border border-rose-500/30 px-2.5 py-1 rounded-xl">
+                        <span className="text-xl font-mono font-semibold text-rose-400 bg-rose-500/10 border border-rose-500/30 px-2.5 py-1 rounded-xl">
                           {fmt(d.monto)}
                         </span>
                       </div>
@@ -265,7 +271,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
 
           {/* ── BALANCES POR PERSONA ───────────────────────── */}
           <section className="glass-card p-4 space-y-4 border border-slate-700/80 shadow-md">
-            <h3 className="text-sm font-semibold tracking-wide text-slate-400">
+            <h3 className="text-base font-semibold tracking-wide text-slate-300">
               Balance Detallado por Roomie
             </h3>
 
@@ -282,7 +288,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                 return (
                   <Accordion
                     key={p.id}
-                    className="balance-person-row p-3 rounded-2xl bg-[#111728] border border-slate-700/80"
+                    className="balance-person-row p-3 rounded-2xl bg-[#1b2530] border border-[#3a4858]"
                     title={
                       <span className="text-base font-medium text-white flex items-center gap-2">
                         <span className="text-lg">{p.avatar || '😎'}</span>
@@ -291,7 +297,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                     }
                     trailing={
                       <span
-                        className={`text-xs font-mono font-semibold px-2.5 py-1 rounded-xl border ${
+                        className={`text-sm font-mono font-semibold px-2.5 py-1 rounded-xl border ${
                           isPositive
                             ? 'text-emerald-300 bg-emerald-500/15 border-emerald-500/30'
                             : isNegative
@@ -375,21 +381,23 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               )}
             </div>
           )}
-        </>
+        </div>
       )}
 
       {/* ══════════════════════════════════════════════════════════
           VISTA SALIDAS
       ══════════════════════════════════════════════════════════ */}
       {subTab === 'salida' && (
-        <>
+        <div className="space-y-5">
           {/* Stats Salidas */}
-          <div className="grid grid-cols-2 gap-3">
-            <div className="glass-card p-4 space-y-1.5 border border-slate-700/80 shadow-md">
+          <section className="space-y-3" aria-label="Resumen de salidas">
+            <h2 className="text-sm font-semibold tracking-wide text-slate-400">Resumen de salidas</h2>
+            <div className="grid grid-cols-2 gap-3">
+            <div className="glass-card !bg-[#1b2530] p-4 space-y-1.5 border border-[#3a4858] shadow-md">
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                 Total en Salidas
               </span>
-              <p className="text-xl font-mono font-black text-cyan-400 tracking-tight">
+              <p className="text-xl font-semibold font-mono text-emerald-400 tracking-tight">
                 {fmt(totalSalidas)}
               </p>
               <p className="text-xs text-slate-300 font-medium">
@@ -397,24 +405,23 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               </p>
             </div>
 
-            <div className="glass-card p-4 space-y-1.5 border border-slate-700/80 shadow-md">
+            <div className="glass-card !bg-[#1b2530] p-4 space-y-1.5 border border-[#3a4858] shadow-md">
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                 El Más Rumbero 👑
               </span>
-              <p className="text-lg font-black text-amber-400 tracking-tight truncate">
+              <p className="text-xl font-semibold text-violet-300 tracking-tight truncate">
                 {resumenSalidas.length > 0
                   ? resumenSalidas.sort((a, b) => b.total - a.total)[0]?.nombre
                   : 'N/A'}
               </p>
               <p className="text-xs text-slate-300 font-medium">Mayor gasto acumulado</p>
             </div>
-          </div>
+            </div>
+          </section>
 
           {/* Ranking de Consumo en Salidas */}
-          <section className="glass-card p-4 space-y-4 border border-slate-700/80 shadow-md">
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-300">
-              Gasto Acumulado por Amigo ({resumenSalidas.length})
-            </h3>
+          <section className="space-y-3" aria-label="Ranking de salidas">
+            <h2 className="text-sm font-semibold tracking-wide text-slate-400">Ranking de consumo</h2>
 
             {resumenSalidas.length === 0 ? (
               <div className="py-8 text-center text-slate-400">
@@ -428,15 +435,15 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                   .map((c, idx) => (
                     <div
                       key={c.id}
-                      className="p-3 rounded-2xl bg-[#111728] border border-slate-700/80 flex items-center justify-between shadow-sm"
+                      className="p-3 rounded-2xl bg-[#1b2530] border border-[#3a4858] flex items-center justify-between shadow-sm"
                     >
                       <div className="flex items-center gap-2.5">
                         <span className="w-6 text-center text-xs font-black text-amber-400 bg-amber-400/10 border border-amber-400/30 rounded-lg py-0.5">
                           #{idx + 1}
                         </span>
                         <span className="text-lg bg-slate-800 p-1 rounded-xl">{c.avatar || '😎'}</span>
-                        <div>
-                          <p className="text-xs font-black text-white">{c.nombre}</p>
+                          <div>
+                            <p className="text-sm font-semibold text-white">{c.nombre}</p>
                           <p className="text-[11px] text-slate-400 font-semibold">
                             {c.participaciones} salida{c.participaciones !== 1 ? 's' : ''}
                           </p>
@@ -486,7 +493,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               )}
             </div>
           )}
-        </>
+        </div>
       )}
     </div>
   );

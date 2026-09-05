@@ -143,7 +143,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
         <div className="flex items-center justify-between pb-1 border-b border-white/[0.08]">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_10px_#a78bfa]"></span>
-            <h2 className="text-sm font-black text-white tracking-tight">Registrar Gasto de Apartamento</h2>
+            <h2 className="text-base font-semibold text-white tracking-tight">Registrar Gasto de Apartamento</h2>
           </div>
           <span className="text-[11px] font-bold text-violet-300 bg-violet-500/15 border border-violet-500/30 px-2 py-0.5 rounded-full">
             Equitativo
@@ -163,7 +163,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                 className={`p-2.5 rounded-2xl text-left border flex items-center gap-2 transition-all active:scale-95 shadow-sm ${
                   categoriaSel === preset.id
                     ? 'bg-violet-600/35 border-violet-400 text-white font-black shadow-md shadow-violet-500/25 scale-[1.02]'
-                    : 'bg-[#141b2d] hover:bg-[#1b253d] border-slate-700/80 text-slate-300'
+                    : 'bg-[#1b2530] hover:bg-[#263442] border-[#3a4858] text-slate-300'
                 }`}
               >
                 <span className="text-base shrink-0 p-1 bg-slate-800/80 rounded-lg">{preset.icono}</span>
@@ -184,7 +184,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
               placeholder="Ej: Factura de gas, Mercado Éxito, Arriendo..."
               value={desc}
               onChange={e => setDesc(e.target.value)}
-              className="w-full bg-[#101626] border-2 border-slate-700/90 focus:border-violet-500 rounded-2xl px-4 py-3 text-sm font-semibold text-white placeholder-slate-500 transition-all shadow-inner"
+              className="w-full bg-[#263442] border border-[#3a4858] focus:border-violet-400 rounded-2xl px-4 py-3 text-base font-medium text-white placeholder-slate-400 transition-all"
             />
           </div>
 
@@ -206,7 +206,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                 ))}
               </div>
             </div>
-            <div className="flex items-center bg-[#101626] border-2 border-slate-700/90 focus-within:border-emerald-400 rounded-2xl px-4 py-2.5 transition-all shadow-inner">
+            <div className="flex items-center bg-[#263442] border border-[#3a4858] focus-within:border-violet-400 rounded-2xl px-4 py-3 transition-all">
               <span className="text-emerald-400 font-mono font-black text-xl mr-2">$</span>
               <input
                 type="number"
@@ -214,7 +214,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                 placeholder="0"
                 value={monto}
                 onChange={e => setMonto(e.target.value)}
-                className="w-full bg-transparent text-xl font-mono font-black text-emerald-400 placeholder-slate-600 outline-none"
+                className="w-full bg-transparent text-2xl font-mono font-semibold text-emerald-400 placeholder-slate-400 outline-none"
               />
             </div>
           </div>
@@ -223,7 +223,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
         {/* Who Paid & Participants */}
         <Accordion
           className="people-fields"
-          title={<span className="text-sm font-semibold tracking-wide text-slate-300">Detalles</span>}
+          title={<span className="text-base font-semibold tracking-wide text-slate-300">Detalles</span>}
           trailing={
             <span className="text-xs font-medium text-slate-400">
               {participantes.length}/{roomies.length} participantes
@@ -247,7 +247,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                     className={`py-2 px-3.5 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all active:scale-95 ${
                       pagadoPor === r.id
                         ? 'bg-violet-600/30 text-violet-100 border-2 border-violet-300'
-                        : 'bg-[#141b2d] hover:bg-[#1b253d] text-slate-300 border border-slate-700/80'
+                        : 'bg-[#1b2530] hover:bg-[#263442] text-slate-300 border border-[#3a4858]'
                     }`}
                   >
                     <span className="text-sm">{r.avatar || '😎'}</span>
@@ -279,7 +279,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                       className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium transition-colors cursor-pointer ${
                         isSelected
                           ? 'bg-emerald-500/15 text-emerald-100 border-emerald-400/70'
-                          : 'bg-[#141b2d] text-slate-400 border-slate-700/80 hover:text-slate-200'
+                          : 'bg-[#1b2530] text-slate-400 border-[#3a4858] hover:text-slate-200'
                       }`}
                     >
                       <input
@@ -329,7 +329,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                     value={nuevoNombre}
                     onChange={e => setNuevoNombre(e.target.value)}
                     onKeyDown={e => e.key === 'Enter' && agregarNuevoRoomie()}
-                    className="flex-1 bg-[#111726] border border-slate-700 focus:border-violet-500 rounded-xl px-3 py-2 text-sm font-medium text-white placeholder-slate-500"
+                    className="flex-1 bg-[#263442] border border-[#3a4858] focus:border-violet-400 rounded-xl px-4 py-3 text-base font-medium text-white placeholder-slate-400"
                     autoFocus
                   />
                   <button
@@ -397,7 +397,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
       {/* ── HISTORIAL DE GASTOS ───────────────────────── */}
       <section className="space-y-5 history-section">
         <div className="flex items-center justify-between px-1">
-          <h3 className="text-xs font-black uppercase tracking-wider text-slate-300 flex items-center gap-1.5">
+          <h3 className="text-base font-semibold tracking-wide text-slate-300 flex items-center gap-1.5">
             <span>📋</span> Historial de Gastos ({gastosMensuales.length})
           </h3>
           <span className="text-xs font-mono font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-0.5 rounded-full">
@@ -420,10 +420,10 @@ export const MensualTab: React.FC<MensualTabProps> = ({
               return (
                 <Accordion
                   key={g.id}
-                  className="glass-card p-4 border border-slate-700/80 shadow-md hover:border-slate-600 transition-all"
+                  className="glass-card !bg-[#1b2530] p-4 border border-[#3a4858] shadow-md hover:border-slate-500 transition-all"
                   title={<span className="text-base font-medium text-white">{g.descripcion}</span>}
                   trailing={
-                    <span className="text-base font-mono font-semibold text-emerald-400">
+                    <span className="text-xl font-mono font-semibold text-emerald-400">
                       {fmt(g.monto)}
                     </span>
                   }
@@ -435,7 +435,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
 
                   {/* Debts breakdown within this expense */}
                   {deudores.length > 0 && (
-                    <div className="p-2.5 rounded-xl bg-[#111728] border border-slate-700/70 text-xs space-y-1.5">
+                    <div className="p-2.5 rounded-xl bg-[#263442] border border-[#3a4858] text-xs space-y-1.5">
                       <p className="text-sm font-medium text-slate-400">
                         Deben pagarle a {getNombre(g.pagadoPor, roomies)}:
                       </p>
