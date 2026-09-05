@@ -292,7 +292,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
       className={`${
         isModal
           ? 'fixed inset-0 z-50 bg-[#0b0f19]/96 backdrop-blur-2xl flex flex-col items-center justify-center p-4 overflow-y-auto'
-          : 'px-4 py-3 animate-fade-in'
+          : 'py-3 animate-fade-in'
       }`}
     >
       <div className="w-full max-w-[480px] mx-auto flex flex-col items-center">
@@ -324,13 +324,13 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         </div>
 
         {/* Mode Selector Tabs */}
-        <div className="w-full grid grid-cols-3 gap-1.5 p-1.5 bg-[#12192b] border-2 border-slate-700/80 rounded-2xl mb-4 shadow-md">
+        <div className="w-full grid grid-cols-3 gap-2 p-1.5 bg-[#12192b] border-2 border-slate-700/80 rounded-2xl mb-4 shadow-md">
           <button
             onClick={() => {
               playClickSound();
               setModo('pagador');
             }}
-            className={`py-2 px-1 text-xs font-black rounded-xl transition-all active:scale-95 ${
+            className={`py-2 px-4 text-xs font-black rounded-xl transition-all active:scale-95 ${
               modo === 'pagador'
                 ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-md shadow-violet-600/30'
                 : 'text-slate-400 hover:text-white'
@@ -343,7 +343,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               playClickSound();
               setModo('castigo');
             }}
-            className={`py-2 px-1 text-xs font-black rounded-xl transition-all active:scale-95 ${
+            className={`py-2 px-4 text-xs font-black rounded-xl transition-all active:scale-95 ${
               modo === 'castigo'
                 ? 'bg-gradient-to-r from-rose-600 to-amber-600 text-white shadow-md shadow-rose-600/30'
                 : 'text-slate-400 hover:text-white'
@@ -356,7 +356,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               playClickSound();
               setModo('personalizado');
             }}
-            className={`py-2 px-1 text-xs font-black rounded-xl transition-all active:scale-95 ${
+            className={`py-2 px-4 text-xs font-black rounded-xl transition-all active:scale-95 ${
               modo === 'personalizado'
                 ? 'bg-gradient-to-r from-emerald-600 to-cyan-600 text-slate-950 shadow-md shadow-emerald-600/30'
                 : 'text-slate-400 hover:text-white'
@@ -368,14 +368,14 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
         {/* Source selector for "Quién Paga" */}
         {modo === 'pagador' && (
-          <div className="flex items-center gap-2 mb-3 text-xs">
+          <div className="flex flex-wrap items-center gap-2 mb-3 text-xs">
             <span className="text-slate-400 font-bold">Usar lista de:</span>
             <button
               onClick={() => {
                 playClickSound();
                 setFuentePersonas('contactos');
               }}
-              className={`px-3 py-1.5 rounded-xl font-black transition-all active:scale-95 ${
+              className={`px-4 py-2 rounded-xl font-black transition-all active:scale-95 ${
                 fuentePersonas === 'contactos'
                   ? 'bg-cyan-500/25 text-cyan-200 border-2 border-cyan-400 shadow-sm'
                   : 'bg-[#141b2d] border border-slate-700 text-slate-400 hover:text-white'
@@ -388,7 +388,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
                 playClickSound();
                 setFuentePersonas('roomies');
               }}
-              className={`px-3 py-1.5 rounded-xl font-black transition-all active:scale-95 ${
+              className={`px-4 py-2 rounded-xl font-black transition-all active:scale-95 ${
                 fuentePersonas === 'roomies'
                   ? 'bg-violet-500/25 text-violet-200 border-2 border-violet-400 shadow-sm'
                   : 'bg-[#141b2d] border border-slate-700 text-slate-400 hover:text-white'

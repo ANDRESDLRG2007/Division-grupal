@@ -138,7 +138,7 @@ export default function App() {
   const deudasMensuales = calcularDeudas(gastosMensuales, roomies);
 
   return (
-    <div className="app-container">
+    <div className="app-container px-4">
       {/* Top Bar / Header */}
       <Navbar
         totalMensual={totalMensual}

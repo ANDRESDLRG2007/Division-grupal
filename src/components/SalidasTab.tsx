@@ -131,7 +131,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
   const totalSalidas = gastosSalida.reduce((s, g) => s + g.monto, 0);
 
   return (
-    <div className="px-5 py-6 animate-fade-in space-y-6 layout-stack salida-layout page-content">
+    <div className="py-6 animate-fade-in space-y-6 layout-stack salida-layout page-content">
       {/* ── BANNER RULETA ───────────────────────── */}
       <div
         onClick={() => {
@@ -427,7 +427,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   </div>
 
                   {/* Individual shares */}
-                  <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div className="flex flex-wrap gap-2 pt-1">
                     {g.personas.map(pid => (
                       <span
                         key={pid}

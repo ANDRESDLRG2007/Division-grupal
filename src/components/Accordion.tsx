@@ -32,7 +32,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           {leading}
           <span className="min-w-0">{title}</span>
         </span>
-        <span className="flex shrink-0 items-center gap-2">
+        <span className="flex shrink-0 items-center gap-3">
           {trailing}
           <ChevronDown
             size={17}

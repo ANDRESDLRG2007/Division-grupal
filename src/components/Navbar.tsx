@@ -25,7 +25,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header
       style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))' }}
-      className="sticky top-0 z-40 px-4 pb-3 backdrop-blur-2xl bg-[#0d1322]/92 border-b border-white/[0.1] shadow-lg shadow-black/20"
+      className="sticky top-0 z-40 pb-3 backdrop-blur-2xl bg-[#0d1322]/92 border-b border-white/[0.1] shadow-lg shadow-black/20"
     >
       <div className="max-w-[500px] mx-auto flex items-center justify-between gap-2">
         {/* Logo & App Name */}

@@ -137,7 +137,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
   const totalMensual = gastosMensuales.reduce((s, g) => s + g.monto, 0);
 
   return (
-    <div className="px-5 py-6 animate-fade-in space-y-6 layout-stack page-content">
+    <div className="py-6 animate-fade-in space-y-6 layout-stack page-content">
       {/* ── FORMULARIO DE GASTO ───────────────────────── */}
       <section className="glass-card-glow p-5 space-y-6 expense-form">
         <div className="flex items-center justify-between pb-1 border-b border-white/[0.08]">
@@ -439,7 +439,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                       <p className="text-sm font-medium text-slate-400">
                         Deben pagarle a {getNombre(g.pagadoPor, roomies)}:
                       </p>
-                      <div className="flex flex-wrap gap-1.5">
+                      <div className="flex flex-wrap gap-2">
                         {deudores.map(pid => (
                           <span
                             key={pid}

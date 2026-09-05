@@ -94,7 +94,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
   };
 
   return (
-    <div className="px-5 py-6 animate-fade-in space-y-6 page-content">
+    <div className="py-6 animate-fade-in space-y-6 page-content">
       {/* ── SUBTABS MENSUAL / SALIDAS ───────────────────────── */}
       <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#1b2530] border border-[#3a4858] rounded-2xl shadow-md">
         <button
@@ -290,7 +290,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                     key={p.id}
                     className="balance-person-row p-3 rounded-2xl bg-[#1b2530] border border-[#3a4858]"
                     title={
-                      <span className="text-base font-medium text-white flex items-center gap-2">
+                      <span className="text-base font-medium text-white flex items-center gap-3">
                         <span className="text-lg">{p.avatar || '😎'}</span>
                         {p.nombre}
                       </span>
