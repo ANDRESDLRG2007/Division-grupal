@@ -11,6 +11,7 @@ import {
   Copy,
   AlertTriangle,
 } from 'lucide-react';
+import { Accordion } from './Accordion';
 import { Persona, GastoMensual, GastoSalida, Deuda } from '../types';
 import {
   fmt,
@@ -93,7 +94,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
   };
 
   return (
-    <div className="px-5 py-6 animate-fade-in space-y-6">
+    <div className="px-5 py-6 animate-fade-in space-y-6 page-content">
       {/* ── SUBTABS MENSUAL / SALIDAS ───────────────────────── */}
       <div className="grid grid-cols-2 gap-2 p-1.5 bg-[#12192b] border-2 border-slate-700/80 rounded-2xl shadow-md">
         <button
@@ -130,27 +131,27 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
       {subTab === 'mensual' && (
         <>
           {/* Stats Cards */}
-          <div className="grid grid-cols-2 gap-2.5">
-            <div className="glass-card p-4 space-y-1.5 border border-slate-700/80 shadow-md">
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+          <div className="grid grid-cols-2 gap-3 balance-stats">
+            <div className="glass-card p-4 balance-stat">
+              <span className="text-sm font-semibold tracking-wide text-slate-400">
                 Total del Mes
               </span>
-              <p className="text-xl font-mono font-black text-emerald-400 tracking-tight">
+              <p className="text-base font-medium text-emerald-400 font-mono mt-2">
                 {fmt(totalMensual)}
               </p>
-              <p className="text-xs text-slate-300 font-medium">
+              <p className="text-xs text-slate-300 font-medium mt-1">
                 {gastosMensuales.length} gasto{gastosMensuales.length !== 1 ? 's' : ''} registrado{gastosMensuales.length !== 1 ? 's' : ''}
               </p>
             </div>
 
-            <div className="glass-card p-4 space-y-1.5 border border-slate-700/80 shadow-md">
-              <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
+            <div className="glass-card p-4 balance-stat">
+              <span className="text-sm font-semibold tracking-wide text-slate-400">
                 Promedio por Roomie
               </span>
-              <p className="text-xl font-mono font-black text-violet-400 tracking-tight">
+              <p className="text-base font-medium text-violet-400 font-mono mt-2">
                 {fmt(promedioMensual)}
               </p>
-              <p className="text-xs text-slate-300 font-medium">
+              <p className="text-xs text-slate-300 font-medium mt-1">
                 Entre {roomies.length} integrantes
               </p>
             </div>
@@ -158,7 +159,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
 
           {/* Quick Action: Share Full Month Summary to WhatsApp */}
           {gastosMensuales.length > 0 && (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3 p-4">
               <button
                 onClick={compartirResumenGrupo}
                 className="flex-1 py-3 px-3 rounded-2xl bg-emerald-600/25 hover:bg-emerald-600/35 border-2 border-emerald-500/50 text-emerald-300 font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md"
@@ -181,18 +182,18 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
           )}
 
           {/* ── TRANSFERENCIAS PENDIENTES (DEUDAS SIMPLIFICADAS) ── */}
-          <section className="glass-card-glow p-4 space-y-3.5">
-            <div className="flex items-center justify-between pb-1 border-b border-white/[0.08]">
-              <div className="flex items-center gap-2">
-                <Scale size={18} className="text-amber-400" />
-                <h3 className="text-xs font-black uppercase tracking-wider text-white">
-                  Transferencias Pendientes ({deudasMensuales.length})
-                </h3>
-              </div>
-              <span className="text-[10px] px-2.5 py-0.5 rounded-full bg-violet-500/25 text-violet-300 font-black border border-violet-500/40">
-                Algoritmo Óptimo ⚡
-              </span>
-            </div>
+          <section className="glass-card-glow p-4 transferencias-panel">
+            <Accordion
+              title={<span className="text-sm font-semibold tracking-wide text-slate-200">Transferencias pendientes</span>}
+              leading={<Scale size={18} className="text-amber-400" />}
+              trailing={
+                <span className="text-xs font-medium text-slate-400">
+                  {deudasMensuales.length}
+                </span>
+              }
+            >
+              <div className="border-t border-white/[0.08] pt-3.5 space-y-3.5">
+                <p className="text-xs text-slate-400">Algoritmo óptimo para saldar el grupo.</p>
 
             {gastosMensuales.length === 0 ? (
               <div className="py-8 text-center text-slate-400">
@@ -258,15 +259,17 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                 })}
               </div>
             )}
+              </div>
+            </Accordion>
           </section>
 
           {/* ── BALANCES POR PERSONA ───────────────────────── */}
-          <section className="glass-card p-4 space-y-3 border border-slate-700/80 shadow-md">
-            <h3 className="text-xs font-black uppercase tracking-wider text-slate-300">
+          <section className="glass-card p-4 space-y-4 border border-slate-700/80 shadow-md">
+            <h3 className="text-sm font-semibold tracking-wide text-slate-400">
               Balance Detallado por Roomie
             </h3>
 
-            <div className="space-y-3">
+            <div className="space-y-2">
               {resumenMensual.map(p => {
                 const maxVal = Math.max(
                   ...resumenMensual.map(x => Math.max(x.pago, x.debia)),
@@ -277,14 +280,18 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                 const isNegative = p.balance < -0.5;
 
                 return (
-                  <div key={p.id} className="p-3.5 rounded-2xl bg-[#111728] border border-slate-700/80 space-y-2.5 shadow-sm">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <span className="text-lg bg-slate-800 p-1 rounded-xl">{p.avatar || '😎'}</span>
-                        <span className="text-xs font-black text-white">{p.nombre}</span>
-                      </div>
+                  <Accordion
+                    key={p.id}
+                    className="balance-person-row p-3 rounded-2xl bg-[#111728] border border-slate-700/80"
+                    title={
+                      <span className="text-base font-medium text-white flex items-center gap-2">
+                        <span className="text-lg">{p.avatar || '😎'}</span>
+                        {p.nombre}
+                      </span>
+                    }
+                    trailing={
                       <span
-                        className={`text-xs font-mono font-black px-2.5 py-1 rounded-xl border ${
+                        className={`text-xs font-mono font-semibold px-2.5 py-1 rounded-xl border ${
                           isPositive
                             ? 'text-emerald-300 bg-emerald-500/15 border-emerald-500/30'
                             : isNegative
@@ -294,10 +301,10 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                       >
                         {isPositive ? `+${fmt(p.balance)}` : isNegative ? fmt(p.balance) : '$0'}
                       </span>
-                    </div>
-
+                    }
+                  >
                     {/* Bars */}
-                    <div className="grid grid-cols-2 gap-2.5 text-xs">
+                    <div className="grid grid-cols-2 gap-2.5 text-xs border-t border-slate-700/80 pt-3">
                       <div>
                         <div className="flex justify-between text-slate-400 mb-1 text-[11px] font-bold">
                           <span>Pagó:</span>
@@ -324,7 +331,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Accordion>
                 );
               })}
             </div>
@@ -377,7 +384,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
       {subTab === 'salida' && (
         <>
           {/* Stats Salidas */}
-          <div className="grid grid-cols-2 gap-2.5">
+          <div className="grid grid-cols-2 gap-3">
             <div className="glass-card p-4 space-y-1.5 border border-slate-700/80 shadow-md">
               <span className="text-[10px] font-black uppercase tracking-wider text-slate-400">
                 Total en Salidas
@@ -404,7 +411,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
           </div>
 
           {/* Ranking de Consumo en Salidas */}
-          <section className="glass-card p-4 space-y-3 border border-slate-700/80 shadow-md">
+          <section className="glass-card p-4 space-y-4 border border-slate-700/80 shadow-md">
             <h3 className="text-xs font-black uppercase tracking-wider text-slate-300">
               Gasto Acumulado por Amigo ({resumenSalidas.length})
             </h3>
@@ -415,7 +422,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                 <p className="text-xs font-bold text-white">No hay gastos de salidas registrados</p>
               </div>
             ) : (
-              <div className="space-y-2.5">
+              <div className="space-y-2">
                 {resumenSalidas
                   .sort((a, b) => b.total - a.total)
                   .map((c, idx) => (

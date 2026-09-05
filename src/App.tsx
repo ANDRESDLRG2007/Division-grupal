@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Persona, GastoMensual, GastoSalida, TabType } from './types';
 import { DEFAULT_ROOMIES, DEFAULT_CONTACTOS } from './utils/storage';
-import { calcularDeudas } from './utils/calculations';
+import { calcularDeudas, uid } from './utils/calculations';
 import { Navbar } from './components/Navbar';
 import { BottomNav } from './components/BottomNav';
 import { MensualTab } from './components/MensualTab';
@@ -10,6 +10,7 @@ import { RuletaModal } from './components/RuletaModal';
 import { CuentasTab } from './components/CuentasTab';
 import { TicketModal } from './components/TicketModal';
 import { BackupModal } from './components/BackupModal';
+import { GroupManagementModal } from './components/GroupManagementModal';
 
 export default function App() {
   const [tab, setTab] = useState<TabType>('mensual');
@@ -24,6 +25,7 @@ export default function App() {
   const [mostrarRuletaOverlay, setMostrarRuletaOverlay] = useState(false);
   const [mostrarTicket, setMostrarTicket] = useState(false);
   const [mostrarBackup, setMostrarBackup] = useState(false);
+  const [mostrarGestionGrupo, setMostrarGestionGrupo] = useState(false);
 
   // Load from localStorage on mount (preserving user's previous data structure)
   useEffect(() => {
@@ -61,6 +63,44 @@ export default function App() {
   const handleSaveGastosSalida = (updated: GastoSalida[]) => {
     setGastosSalida(updated);
     localStorage.setItem('rm-gastos-salida', JSON.stringify(updated));
+  };
+
+  const agregarRoomie = (nombre: string, avatar: string): Persona | null => {
+    if (!nombre.trim()) return null;
+    const nuevo = { id: uid(), nombre: nombre.trim(), avatar };
+    handleSaveRoomies([...roomies, nuevo]);
+    return nuevo;
+  };
+
+  const editarRoomie = (id: string, nombre: string, avatar: string) => {
+    if (!nombre.trim()) return;
+    handleSaveRoomies(roomies.map(roomie =>
+      roomie.id === id ? { ...roomie, nombre: nombre.trim(), avatar } : roomie
+    ));
+  };
+
+  const eliminarRoomie = (id: string) => {
+    if (roomies.length <= 2) return;
+    handleSaveRoomies(roomies.filter(roomie => roomie.id !== id));
+  };
+
+  const agregarContacto = (nombre: string, avatar: string): Persona | null => {
+    if (!nombre.trim()) return null;
+    const nuevo = { id: uid(), nombre: nombre.trim(), avatar };
+    handleSaveContactos([...contactos, nuevo]);
+    return nuevo;
+  };
+
+  const editarContacto = (id: string, nombre: string, avatar: string) => {
+    if (!nombre.trim()) return;
+    handleSaveContactos(contactos.map(contacto =>
+      contacto.id === id ? { ...contacto, nombre: nombre.trim(), avatar } : contacto
+    ));
+  };
+
+  const eliminarContacto = (id: string) => {
+    if (contactos.length <= 1) return;
+    handleSaveContactos(contactos.filter(contacto => contacto.id !== id));
   };
 
   const handleLimpiarMensual = () => {
@@ -106,6 +146,7 @@ export default function App() {
         activeTab={tab}
         onOpenBackup={() => setMostrarBackup(true)}
         onOpenTicket={() => setMostrarTicket(true)}
+        onOpenGroup={() => setMostrarGestionGrupo(true)}
       />
 
       {/* Main Content Area */}
@@ -116,6 +157,7 @@ export default function App() {
             gastosMensuales={gastosMensuales}
             onSaveRoomies={handleSaveRoomies}
             onSaveGastos={handleSaveGastosMensuales}
+            onAddRoomie={agregarRoomie}
           />
         )}
 
@@ -126,6 +168,7 @@ export default function App() {
             onSaveContactos={handleSaveContactos}
             onSaveGastos={handleSaveGastosSalida}
             onAbrirRuleta={() => setTab('ruleta')}
+            onAddContacto={agregarContacto}
           />
         )}
 
@@ -188,6 +231,26 @@ export default function App() {
           onImportData={handleImportData}
           onResetData={handleResetData}
           onCerrar={() => setMostrarBackup(false)}
+        />
+      )}
+
+      {mostrarGestionGrupo && (
+        <GroupManagementModal
+          roomies={roomies}
+          contactos={contactos}
+          gastosMensuales={gastosMensuales}
+          gastosSalida={gastosSalida}
+          onAddRoomie={agregarRoomie}
+          onEditRoomie={editarRoomie}
+          onDeleteRoomie={eliminarRoomie}
+          onAddContacto={agregarContacto}
+          onEditContacto={editarContacto}
+          onDeleteContacto={eliminarContacto}
+          onOpenBackup={() => {
+            setMostrarGestionGrupo(false);
+            setMostrarBackup(true);
+          }}
+          onCerrar={() => setMostrarGestionGrupo(false)}
         />
       )}
     </div>

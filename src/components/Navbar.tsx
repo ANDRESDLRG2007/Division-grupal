@@ -9,6 +9,7 @@ interface NavbarProps {
   activeTab: string;
   onOpenBackup: () => void;
   onOpenTicket: () => void;
+  onOpenGroup: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
@@ -17,6 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   onOpenBackup,
   onOpenTicket,
+  onOpenGroup,
 }) => {
   const totalActual = activeTab === 'salida' ? totalSalidas : totalMensual;
 
@@ -66,9 +68,9 @@ export const Navbar: React.FC<NavbarProps> = ({
           <button
             onClick={() => {
               playClickSound();
-              onOpenBackup();
+              onOpenGroup();
             }}
-            title="Ajustes y Backup"
+            title="Gestionar grupo"
             className="w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/70 flex items-center justify-center text-slate-200 hover:text-white transition-all active:scale-95 shadow-sm"
           >
             <Settings2 size={17} />
