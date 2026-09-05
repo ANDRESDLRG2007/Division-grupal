@@ -39,7 +39,7 @@ export const generarResumenCompleto = (
 
 export const compartirPorWhatsApp = (texto: string) => {
   const encoded = encodeURIComponent(texto);
-  const url = `https://api.whatsapp.com/send?text=${encoded}`;
+  const url = `https://wa.me/?text=${encoded}`;
   if (typeof window !== 'undefined') {
     window.open(url, '_blank');
   }
