@@ -102,8 +102,57 @@ export const calcularResumenMensual = (gastos: GastoMensual[], personas: Persona
   });
 };
 
+// ── Algoritmo de Simplificación de Deudas (Salidas del Parche) ─────────────
+export const calcularDeudasSalida = (gastos: GastoSalida[], personas: Persona[]): Deuda[] => {
+  const balance: Record<string, number> = {};
+  personas.forEach(p => (balance[p.id] = 0));
+
+  gastos.forEach(g => {
+    if (!g.personas || g.personas.length === 0) return;
+    const pagador = g.pagadoPor || g.personas[0] || personas[0]?.id || 'c1';
+    const parte = g.monto / g.personas.length;
+
+    g.personas.forEach(pid => {
+      if (balance[pid] === undefined) balance[pid] = 0;
+      balance[pid] -= parte;
+    });
+
+    if (balance[pagador] === undefined) balance[pagador] = 0;
+    balance[pagador] += g.monto;
+  });
+
+  const deudas: Deuda[] = [];
+  const acreedores = Object.entries(balance)
+    .filter(([, v]) => v > 0.5)
+    .map(([id, v]) => ({ id, v }));
+  const deudores = Object.entries(balance)
+    .filter(([, v]) => v < -0.5)
+    .map(([id, v]) => ({ id, v: -v }));
+
+  let i = 0;
+  let j = 0;
+  while (i < acreedores.length && j < deudores.length) {
+    const ac = acreedores[i];
+    const de = deudores[j];
+    const pago = Math.min(ac.v, de.v);
+
+    if (pago > 0.5) {
+      deudas.push({ de: de.id, para: ac.id, monto: Math.round(pago) });
+    }
+
+    ac.v -= pago;
+    de.v -= pago;
+    if (ac.v < 0.5) i++;
+    if (de.v < 0.5) j++;
+  }
+  return deudas;
+};
+
 // ── Resumen de Salidas Grupales ─────────────────────────
 export interface ResumenPersonaSalida extends Persona {
+  pago: number;
+  debia: number;
+  balance: number;
   total: number;
   participaciones: number;
 }
@@ -113,11 +162,21 @@ export const calcularResumenSalidas = (gastos: GastoSalida[], personas: Persona[
     .map(c => {
       const salidasDeEstaPersona = gastos.filter(g => g.personas.includes(c.id) && g.personas.length > 0);
       const total = salidasDeEstaPersona.reduce((s, g) => s + g.monto / g.personas.length, 0);
+      
+      const pago = gastos
+        .filter(g => (g.pagadoPor || g.personas[0]) === c.id)
+        .reduce((s, g) => s + g.monto, 0);
+
+      const debia = total;
+
       return {
         ...c,
+        pago,
+        debia,
+        balance: pago - debia,
         total,
         participaciones: salidasDeEstaPersona.length,
       };
     })
-    .filter(c => c.total > 0 || c.participaciones > 0);
+    .filter(c => c.total > 0 || c.pago > 0 || c.participaciones > 0);
 };

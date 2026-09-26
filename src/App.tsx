@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Persona, GastoMensual, GastoSalida, TabType } from './types';
 import { DEFAULT_ROOMIES, DEFAULT_CONTACTOS } from './utils/storage';
-import { calcularDeudas } from './utils/calculations';
+import { calcularDeudas, calcularDeudasSalida } from './utils/calculations';
 import { Navbar } from './components/Navbar';
 import { BottomNav } from './components/BottomNav';
 import { MensualTab } from './components/MensualTab';
@@ -12,7 +12,8 @@ import { TicketModal } from './components/TicketModal';
 import { BackupModal } from './components/BackupModal';
 
 export default function App() {
-  const [tab, setTab] = useState<TabType>('mensual');
+  // Primary feature is now 'salida'!
+  const [tab, setTab] = useState<TabType>('salida');
 
   // Core Data States
   const [roomies, setRoomies] = useState<Persona[]>(DEFAULT_ROOMIES);
@@ -25,7 +26,7 @@ export default function App() {
   const [mostrarTicket, setMostrarTicket] = useState(false);
   const [mostrarBackup, setMostrarBackup] = useState(false);
 
-  // Load from localStorage on mount (preserving user's previous data structure)
+  // Load from localStorage on mount
   useEffect(() => {
     try {
       const r = localStorage.getItem('rm-roomies');
@@ -95,7 +96,11 @@ export default function App() {
   // Calculations for Badges & Header
   const totalMensual = gastosMensuales.reduce((s, g) => s + g.monto, 0);
   const totalSalidas = gastosSalida.reduce((s, g) => s + g.monto, 0);
+  const deudasSalida = calcularDeudasSalida(gastosSalida, contactos);
   const deudasMensuales = calcularDeudas(gastosMensuales, roomies);
+
+  // Active debts count to display in BottomNav
+  const deudasCount = deudasSalida.length > 0 ? deudasSalida.length : deudasMensuales.length;
 
   return (
     <div className="app-container">
@@ -110,15 +115,6 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="pb-4">
-        {tab === 'mensual' && (
-          <MensualTab
-            roomies={roomies}
-            gastosMensuales={gastosMensuales}
-            onSaveRoomies={handleSaveRoomies}
-            onSaveGastos={handleSaveGastosMensuales}
-          />
-        )}
-
         {tab === 'salida' && (
           <SalidasTab
             contactos={contactos}
@@ -126,14 +122,6 @@ export default function App() {
             onSaveContactos={handleSaveContactos}
             onSaveGastos={handleSaveGastosSalida}
             onAbrirRuleta={() => setTab('ruleta')}
-          />
-        )}
-
-        {tab === 'ruleta' && (
-          <RuletaModal
-            roomies={roomies}
-            contactos={contactos}
-            isModal={false}
           />
         )}
 
@@ -148,13 +136,30 @@ export default function App() {
             onOpenTicket={() => setMostrarTicket(true)}
           />
         )}
+
+        {tab === 'ruleta' && (
+          <RuletaModal
+            roomies={roomies}
+            contactos={contactos}
+            isModal={false}
+          />
+        )}
+
+        {tab === 'mensual' && (
+          <MensualTab
+            roomies={roomies}
+            gastosMensuales={gastosMensuales}
+            onSaveRoomies={handleSaveRoomies}
+            onSaveGastos={handleSaveGastosMensuales}
+          />
+        )}
       </main>
 
       {/* Persistent Bottom Mobile Navigation */}
       <BottomNav
         activeTab={tab}
         onChangeTab={setTab}
-        deudasCount={deudasMensuales.length}
+        deudasCount={deudasCount}
       />
 
       {/* Modal Ruleta (when opened as overlay) */}
@@ -170,10 +175,11 @@ export default function App() {
       {/* Modal Thermal Ticket / Receipt */}
       {mostrarTicket && (
         <TicketModal
-          roomies={roomies}
-          gastos={gastosMensuales}
-          deudas={deudasMensuales}
-          total={totalMensual}
+          tipo={tab === 'mensual' ? 'mensual' : 'salida'}
+          personas={tab === 'mensual' ? roomies : contactos}
+          gastos={tab === 'mensual' ? gastosMensuales : gastosSalida}
+          deudas={tab === 'mensual' ? deudasMensuales : deudasSalida}
+          total={tab === 'mensual' ? totalMensual : totalSalidas}
           onCerrar={() => setMostrarTicket(false)}
         />
       )}

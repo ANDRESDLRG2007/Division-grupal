@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Settings2, ReceiptText } from 'lucide-react';
+import { Settings2, ReceiptText, Sparkles } from 'lucide-react';
 import { fmt } from '../utils/calculations';
 import { playClickSound } from '../utils/audio';
 
@@ -18,65 +18,66 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenBackup,
   onOpenTicket,
 }) => {
-  const totalActual = activeTab === 'salida' ? totalSalidas : totalMensual;
+  const totalActual = activeTab === 'mensual' ? totalMensual : totalSalidas;
+  const isApto = activeTab === 'mensual';
 
   return (
-    <header className="sticky top-0 z-40 px-4 pt-[max(env(safe-area-inset-top,0px),12px)] pb-3 backdrop-blur-2xl bg-[#0d1322]/92 border-b border-white/[0.1] shadow-lg shadow-black/20">
-      <div className="max-w-[500px] mx-auto flex items-center justify-between gap-2">
-        {/* Logo & App Name */}
+    <header className="sticky top-0 z-40 px-4 pt-[max(env(safe-area-inset-top,0px),12px)] pb-3 bg-[#090c15]/90 backdrop-blur-xl border-b border-white/[0.07]">
+      <div className="max-w-[500px] mx-auto flex items-center justify-between gap-3">
+        {/* Brand & Context */}
         <div className="flex items-center gap-2.5">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-600 via-indigo-600 to-cyan-400 p-[1.5px] shadow-md shadow-violet-500/25">
-            <div className="w-full h-full bg-[#111728] rounded-[14px] flex items-center justify-center text-lg">
-              💸
+          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-indigo-500 via-indigo-600 to-violet-700 p-[1px] shadow-lg shadow-indigo-500/20 shrink-0 flex items-center justify-center">
+            <div className="w-full h-full rounded-[15px] bg-[#0c101c] flex items-center justify-center text-lg">
+              {isApto ? '🏠' : '🍕'}
             </div>
           </div>
           <div>
             <div className="flex items-center gap-1.5">
-              <h1 className="text-base font-extrabold tracking-tight text-white flex items-center gap-0.5">
-                Uni<span className="text-gradient-purple font-black">Split</span>
+              <h1 className="text-base font-extrabold tracking-tight text-white leading-none">
+                UniSplit
               </h1>
-              <span className="text-[10px] font-black tracking-wider px-1.5 py-0.5 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/40 shadow-sm">
-                PRO
+              <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-md bg-indigo-500/15 text-indigo-400 border border-indigo-500/25">
+                {isApto ? 'Apto' : 'Parche'}
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 flex items-center gap-1 font-medium">
-              <Sparkles size={11} className="text-amber-400 inline shrink-0" />
-              <span className="truncate">
-                {activeTab === 'salida' ? 'Gastos del parche' : activeTab === 'ruleta' ? 'Ruleta de la suerte' : activeTab === 'cuentas' ? 'Balance y deudas' : 'Cuentas del apartamento'}
-              </span>
+            <p className="text-[11px] text-zinc-400 font-medium leading-none mt-1">
+              {activeTab === 'salida' && 'División de salidas y amigos'}
+              {activeTab === 'cuentas' && 'Liquidación y cobro por Nequi'}
+              {activeTab === 'ruleta' && '¿Quién paga hoy? · Ruleta'}
+              {activeTab === 'mensual' && 'Gastos fijos de roomies'}
             </p>
           </div>
         </div>
 
-        {/* Action Controls & Total */}
-        <div className="flex items-center gap-1.5 shrink-0">
-          {/* Quick Ticket Generator Button */}
+        {/* Action Controls */}
+        <div className="flex items-center gap-2 shrink-0">
+          {/* Quick Ticket Generator */}
           <button
             onClick={() => {
               playClickSound();
               onOpenTicket();
             }}
-            title="Generar Recibo"
-            className="w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/70 flex items-center justify-center text-slate-200 hover:text-white transition-all active:scale-95 shadow-sm"
+            title="Generar Recibo / Ticket"
+            className="w-9 h-9 rounded-xl bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.08] flex items-center justify-center text-zinc-300 hover:text-white transition-all active:scale-95"
           >
-            <ReceiptText size={17} />
+            <ReceiptText size={16} />
           </button>
 
-          {/* Backup / Config Button */}
+          {/* Settings */}
           <button
             onClick={() => {
               playClickSound();
               onOpenBackup();
             }}
-            title="Ajustes y Backup"
-            className="w-9 h-9 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/70 flex items-center justify-center text-slate-200 hover:text-white transition-all active:scale-95 shadow-sm"
+            title="Ajustes y Respaldo"
+            className="w-9 h-9 rounded-xl bg-white/[0.05] hover:bg-white/[0.09] border border-white/[0.08] flex items-center justify-center text-zinc-300 hover:text-white transition-all active:scale-95"
           >
-            <Settings2 size={17} />
+            <Settings2 size={16} />
           </button>
 
           {/* Total Badge */}
-          <div className="py-1 px-2.5 rounded-xl bg-gradient-to-r from-violet-600/30 to-emerald-500/20 border border-violet-500/40 text-emerald-300 font-mono text-xs font-black shadow-inner flex items-center gap-1">
-            <span className="text-[10px] text-slate-400 font-sans font-bold">Total</span>
+          <div className="py-1.5 px-3 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 font-mono text-xs font-bold flex items-center gap-1 shadow-sm">
+            <span className="text-[10px] text-emerald-500/80 font-sans font-semibold">Total</span>
             <span>{fmt(totalActual)}</span>
           </div>
         </div>
