@@ -1,14 +1,21 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Plus, Trash2, Edit2, Check, X, AlertCircle, Users } from 'lucide-react';
+=======
+import React, { useEffect, useState } from 'react';
+import { Plus, Trash2, Check, Building2, Zap, Wifi, ShoppingCart, Sparkles, AlertCircle } from 'lucide-react';
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
 import { Persona, GastoMensual, PresetCategoria } from '../types';
 import { fmt, uid, getNombre, AVATARES } from '../utils/calculations';
 import { playCoinSound, playClickSound } from '../utils/audio';
+import { Accordion } from './Accordion';
 
 interface MensualTabProps {
   roomies: Persona[];
   gastosMensuales: GastoMensual[];
   onSaveRoomies: (roomies: Persona[]) => void;
   onSaveGastos: (gastos: GastoMensual[]) => void;
+  onAddRoomie: (nombre: string, avatar: string) => Persona | null;
 }
 
 const PRESETS_APTO: PresetCategoria[] = [
@@ -24,6 +31,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
   gastosMensuales,
   onSaveRoomies,
   onSaveGastos,
+  onAddRoomie,
 }) => {
   const [mostrarModalGasto, setMostrarModalGasto] = useState(false);
   const [mostrarModalRoomies, setMostrarModalRoomies] = useState(false);
@@ -33,6 +41,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
   const [pagadoPor, setPagadoPor] = useState(roomies[0]?.id || 'r1');
   const [participantes, setParticipantes] = useState<string[]>(roomies.map((r) => r.id));
   const [categoriaSel, setCategoriaSel] = useState<string>('');
+<<<<<<< HEAD
   const [errorMsg, setErrorMsg] = useState('');
   const [exito, setExito] = useState(false);
 
@@ -42,6 +51,22 @@ export const MensualTab: React.FC<MensualTabProps> = ({
   const [nuevoNombre, setNuevoNombre] = useState('');
   const [nuevoAvatar, setNuevoAvatar] = useState('🦊');
 
+=======
+  
+  const [mostrarNuevoRoomie, setMostrarNuevoRoomie] = useState(false);
+  const [nuevoNombre, setNuevoNombre] = useState('');
+  const [nuevoAvatar, setNuevoAvatar] = useState('🦊');
+
+  const [errorMsg, setErrorMsg] = useState('');
+  const [exito, setExito] = useState(false);
+
+  useEffect(() => {
+    setParticipantes(prev => prev.filter(id => roomies.some(roomie => roomie.id === id)));
+    setPagadoPor(prev => roomies.some(roomie => roomie.id === prev) ? prev : roomies[0]?.id || 'r1');
+  }, [roomies]);
+
+  // Toggle participant
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
   const toggleParticipante = (id: string) => {
     playClickSound();
     setParticipantes((prev) =>
@@ -128,6 +153,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
   };
 
   const agregarNuevoRoomie = () => {
+<<<<<<< HEAD
     if (!nuevoNombre.trim()) return;
     const nuevo: Persona = {
       id: uid(),
@@ -137,10 +163,16 @@ export const MensualTab: React.FC<MensualTabProps> = ({
     const updated = [...roomies, nuevo];
     onSaveRoomies(updated);
     setParticipantes(updated.map((r) => r.id));
+=======
+    const nuevo = onAddRoomie(nuevoNombre, nuevoAvatar);
+    if (!nuevo) return;
+    setParticipantes(prev => [...prev, nuevo.id]);
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
     setNuevoNombre('');
     playClickSound();
   };
 
+<<<<<<< HEAD
   const guardarEdicionRoomie = (id: string) => {
     if (!nombreTemp.trim()) return;
     const updated = roomies.map((r) =>
@@ -192,6 +224,235 @@ export const MensualTab: React.FC<MensualTabProps> = ({
           <div>
             <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
               Total del Mes
+=======
+  const totalMensual = gastosMensuales.reduce((s, g) => s + g.monto, 0);
+
+  return (
+    <div className="py-6 animate-fade-in space-y-6 layout-stack page-content">
+      {/* ── FORMULARIO DE GASTO ───────────────────────── */}
+      <section className="glass-card-glow p-5 space-y-6 expense-form">
+        <div className="flex items-center justify-between pb-1 border-b border-white/[0.08]">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-violet-400 shadow-[0_0_10px_#a78bfa]"></span>
+            <h2 className="text-base font-semibold text-white tracking-tight">Registrar Gasto de Apartamento</h2>
+          </div>
+          <span className="text-[11px] font-bold text-violet-300 bg-violet-500/15 border border-violet-500/30 px-2 py-0.5 rounded-full">
+            Equitativo
+          </span>
+        </div>
+
+        {/* Quick Presets */}
+        <div className="quick-presets">
+          <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-2 flex items-center gap-1">
+            <span>⚡</span> Atajos rápidos del mes:
+          </label>
+          <div className="grid grid-cols-3 gap-2">
+            {PRESETS_APTO.map(preset => (
+              <button
+                key={preset.id}
+                onClick={() => aplicarPreset(preset)}
+                className={`p-2.5 rounded-2xl text-left border flex items-center gap-2 transition-all active:scale-95 shadow-sm ${
+                  categoriaSel === preset.id
+                    ? 'bg-violet-600/35 border-violet-400 text-white font-black shadow-md shadow-violet-500/25 scale-[1.02]'
+                    : 'bg-[#1b2530] hover:bg-[#263442] border-[#3a4858] text-slate-300'
+                }`}
+              >
+                <span className="text-base shrink-0 p-1 bg-slate-800/80 rounded-lg">{preset.icono}</span>
+                <span className="text-xs font-bold truncate">{preset.nombre}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Description & Amount */}
+        <div className="space-y-3 expense-fields">
+          <div>
+            <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-1.5">
+              ¿Qué se pagó?
+            </label>
+            <input
+              type="text"
+              placeholder="Ej: Factura de gas, Mercado Éxito, Arriendo..."
+              value={desc}
+              onChange={e => setDesc(e.target.value)}
+              className="w-full bg-[#263442] border border-[#3a4858] focus:border-violet-400 rounded-2xl px-4 py-3 text-base font-medium text-white placeholder-slate-400 transition-all"
+            />
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-[10px] font-black uppercase tracking-wider text-slate-300">
+                Monto total ($)
+              </label>
+              {/* Quick addition buttons */}
+              <div className="flex gap-1.5">
+                {[50000, 100000, 500000].map(val => (
+                  <button
+                    key={val}
+                    onClick={() => sumarMonto(val)}
+                    className="text-xs py-1 px-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-emerald-300 font-mono font-bold transition-all active:scale-95 shadow-sm"
+                  >
+                    +{val >= 1000 ? `${val / 1000}k` : val}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center bg-[#263442] border border-[#3a4858] focus-within:border-violet-400 rounded-2xl px-4 py-3 transition-all">
+              <span className="text-emerald-400 font-mono font-black text-xl mr-2">$</span>
+              <input
+                type="number"
+                inputMode="numeric"
+                placeholder="0"
+                value={monto}
+                onChange={e => setMonto(e.target.value)}
+                className="w-full bg-transparent text-2xl font-mono font-semibold text-emerald-400 placeholder-slate-400 outline-none"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Who Paid & Participants */}
+        <Accordion
+          className="people-fields"
+          title={<span className="text-base font-semibold tracking-wide text-slate-300">Detalles</span>}
+          trailing={
+            <span className="text-xs font-medium text-slate-400">
+              {participantes.length}/{roomies.length} participantes
+            </span>
+          }
+        >
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-semibold tracking-wide text-slate-400 block mb-2">
+                ¿Quién puso la plata?
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {roomies.map(r => (
+                  <button
+                    key={r.id}
+                    type="button"
+                    onClick={() => {
+                      playClickSound();
+                      setPagadoPor(r.id);
+                    }}
+                    className={`py-2 px-3.5 rounded-2xl text-sm font-medium flex items-center gap-2 transition-all active:scale-95 ${
+                      pagadoPor === r.id
+                        ? 'bg-violet-600/30 text-violet-100 border-2 border-violet-300'
+                        : 'bg-[#1b2530] hover:bg-[#263442] text-slate-300 border border-[#3a4858]'
+                    }`}
+                  >
+                    <span className="text-sm">{r.avatar || '😎'}</span>
+                    <span>{r.nombre}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="flex items-center justify-between mb-2">
+                <label className="text-sm font-semibold tracking-wide text-slate-400">
+                  ¿Quiénes dividen?
+                </label>
+                <button
+                  type="button"
+                  onClick={seleccionarTodos}
+                  className="text-xs font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded-xl"
+                >
+                  {participantes.length === roomies.length ? 'Deseleccionar' : 'Todos'}
+                </button>
+              </div>
+              <div className="grid gap-2">
+                {roomies.map(r => {
+                  const isSelected = participantes.includes(r.id);
+                  return (
+                    <label
+                      key={r.id}
+                      className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                        isSelected
+                          ? 'bg-emerald-500/15 text-emerald-100 border-emerald-400/70'
+                          : 'bg-[#1b2530] text-slate-400 border-[#3a4858] hover:text-slate-200'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isSelected}
+                        onChange={() => toggleParticipante(r.id)}
+                        className="h-4 w-4 accent-emerald-400"
+                      />
+                      <span className="text-base">{r.avatar || '😎'}</span>
+                      <span>{r.nombre}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="pt-1">
+              {!mostrarNuevoRoomie ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    playClickSound();
+                    setMostrarNuevoRoomie(true);
+                  }}
+                  className="text-sm font-semibold text-violet-300 hover:text-violet-200 flex items-center gap-1.5"
+                >
+                  <Plus size={15} />
+                  Agregar roomie
+                </button>
+              ) : (
+                <div className="flex items-center gap-2 border-t border-slate-700/80 pt-3 animate-fade-in">
+                  <select
+                    value={nuevoAvatar}
+                    onChange={e => setNuevoAvatar(e.target.value)}
+                    aria-label="Avatar del nuevo roomie"
+                    className="bg-[#111726] text-lg p-2 rounded-xl border border-slate-700 text-white"
+                  >
+                    {AVATARES.map(a => (
+                      <option key={a} value={a}>
+                        {a}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="Nombre"
+                    value={nuevoNombre}
+                    onChange={e => setNuevoNombre(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && agregarNuevoRoomie()}
+                    className="flex-1 bg-[#263442] border border-[#3a4858] focus:border-violet-400 rounded-xl px-4 py-3 text-base font-medium text-white placeholder-slate-400"
+                    autoFocus
+                  />
+                  <button
+                    type="button"
+                    onClick={agregarNuevoRoomie}
+                    className="py-2 px-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-bold text-xs"
+                  >
+                    Agregar
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </Accordion>
+
+        {/* Real-time Division Preview */}
+        {participantes.length >= 2 && Number(monto) > 0 && (
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-violet-950/80 to-slate-900 border-2 border-violet-500/40 flex items-center justify-between animate-pop-in shadow-md">
+            <div className="flex items-center gap-2.5">
+              <Sparkles size={18} className="text-amber-400 shrink-0" />
+              <div>
+                <p className="text-xs text-white font-extrabold">
+                  {fmt(Number(monto) / participantes.length)} <span className="font-medium text-slate-300">por cabeza</span>
+                </p>
+                <p className="text-[11px] text-violet-300 font-semibold">
+                  Le deben a <strong className="text-white underline decoration-violet-400">{getNombre(pagadoPor, roomies)}</strong>
+                </p>
+              </div>
+            </div>
+            <span className="text-xs font-mono font-black text-emerald-400 bg-emerald-950/60 border border-emerald-500/40 px-2.5 py-1 rounded-xl">
+              {participantes.length} roomies
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
             </span>
             <p className="text-2xl font-mono font-black text-emerald-400">
               {fmt(totalMensual)}
@@ -208,11 +469,19 @@ export const MensualTab: React.FC<MensualTabProps> = ({
         </div>
       </section>
 
+<<<<<<< HEAD
       {/* ── ROOMIES STRIP ─────────────────────────────────── */}
       <section className="card-glass p-4 flex flex-col gap-2.5">
         <div className="flex items-center justify-between">
           <h3 className="text-xs font-bold uppercase tracking-wider text-zinc-400">
             Roomies ({roomies.length})
+=======
+      {/* ── HISTORIAL DE GASTOS ───────────────────────── */}
+      <section className="space-y-5 history-section">
+        <div className="flex items-center justify-between px-1">
+          <h3 className="text-base font-semibold tracking-wide text-slate-300 flex items-center gap-1.5">
+            <span>📋</span> Historial de Gastos ({gastosMensuales.length})
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
           </h3>
           <button
             onClick={() => setMostrarModalRoomies(true)}
@@ -252,6 +521,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
             <p className="text-[11px] text-zinc-400">Registra el arriendo, servicios o mercado arriba.</p>
           </div>
         ) : (
+<<<<<<< HEAD
           <div className="flex flex-col gap-2.5">
             {gastosMensuales.map((g) => {
               const parte = g.monto / Math.max(g.participantes.length, 1);
@@ -268,12 +538,59 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                       </p>
                     </div>
                     <span className="text-sm font-mono font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-xl shrink-0">
+=======
+          <div className="space-y-2">
+            {gastosMensuales.map(g => {
+              const parte = g.monto / g.participantes.length;
+              const deudores = g.participantes.filter(p => p !== g.pagadoPor);
+
+              return (
+                <Accordion
+                  key={g.id}
+                  className="glass-card !bg-[#1b2530] p-4 border border-[#3a4858] shadow-md hover:border-slate-500 transition-all"
+                  title={<span className="text-base font-medium text-white">{g.descripcion}</span>}
+                  trailing={
+                    <span className="text-xl font-mono font-semibold text-emerald-400">
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
                       {fmt(g.monto)}
                     </span>
-                  </div>
+                  }
+                >
+                  <div className="space-y-3 border-t border-slate-700/80 pt-3">
+                    <p className="text-sm font-medium text-slate-300">
+                      Pagó <strong className="text-violet-300 font-semibold">{getNombre(g.pagadoPor, roomies)}</strong> · {g.participantes.length} personas ({fmt(parte)} c/u)
+                    </p>
 
+<<<<<<< HEAD
                   <div className="flex items-center justify-between pt-2 border-t border-white/[0.05] text-xs text-zinc-500">
                     <span className="text-[11px] font-mono text-zinc-400">{g.fecha}</span>
+=======
+                  {/* Debts breakdown within this expense */}
+                  {deudores.length > 0 && (
+                    <div className="p-2.5 rounded-xl bg-[#263442] border border-[#3a4858] text-xs space-y-1.5">
+                      <p className="text-sm font-medium text-slate-400">
+                        Deben pagarle a {getNombre(g.pagadoPor, roomies)}:
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {deudores.map(pid => (
+                          <span
+                            key={pid}
+                            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-rose-500/15 border border-rose-500/30 text-slate-100 font-bold text-xs"
+                          >
+                            <span>{getNombre(pid, roomies)}</span>
+                            <span className="text-rose-400 font-mono font-black">-{fmt(parte)}</span>
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Card Footer */}
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-800 text-xs text-slate-400">
+                    <span className="px-2.5 py-1 rounded-lg bg-slate-800 text-[11px] font-mono font-bold text-slate-300 border border-slate-700">
+                      {g.fecha}
+                    </span>
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
                     <button
                       onClick={() => eliminarGasto(g.id)}
                       className="text-zinc-500 hover:text-rose-400 flex items-center gap-1 text-xs font-semibold py-1 px-2 rounded-lg hover:bg-rose-500/10 transition-colors"
@@ -282,7 +599,8 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                       Eliminar
                     </button>
                   </div>
-                </div>
+                  </div>
+                </Accordion>
               );
             })}
           </div>

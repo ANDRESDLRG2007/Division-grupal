@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import {
   Plus,
@@ -13,6 +14,10 @@ import {
   Zap,
   Sparkles,
 } from 'lucide-react';
+=======
+import React, { useEffect, useState } from 'react';
+import { Plus, Trash2, Check, Dices, Users, AlertCircle, Sparkles } from 'lucide-react';
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
 import { Persona, GastoSalida, PresetCategoria } from '../types';
 import {
   fmt,
@@ -22,8 +27,12 @@ import {
   calcularDeudasSalida,
 } from '../utils/calculations';
 import { playCoinSound, playClickSound } from '../utils/audio';
+<<<<<<< HEAD
 import { launchConfetti } from '../utils/confetti';
 import { generarMensajeCobroSalida, compartirPorWhatsApp } from '../utils/whatsapp';
+=======
+import { Accordion } from './Accordion';
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
 
 interface SalidasTabProps {
   contactos: Persona[];
@@ -31,6 +40,7 @@ interface SalidasTabProps {
   onSaveContactos: (contactos: Persona[]) => void;
   onSaveGastos: (gastos: GastoSalida[]) => void;
   onAbrirRuleta: () => void;
+  onAddContacto: (nombre: string, avatar: string) => Persona | null;
 }
 
 const PRESETS_SALIDA: PresetCategoria[] = [
@@ -48,6 +58,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
   onSaveContactos,
   onSaveGastos,
   onAbrirRuleta,
+  onAddContacto,
 }) => {
   // Modals state
   const [mostrarModalGasto, setMostrarModalGasto] = useState(false);
@@ -60,6 +71,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
   const [pagadoPor, setPagadoPor] = useState<string>(contactos[0]?.id || 'c1');
   const [seleccionados, setSeleccionados] = useState<string[]>(contactos.map((c) => c.id));
   const [categoriaSel, setCategoriaSel] = useState<string>('');
+<<<<<<< HEAD
   const [errorMsg, setErrorMsg] = useState('');
   const [exito, setExito] = useState(false);
 
@@ -80,6 +92,20 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
   const deudasSalida = calcularDeudasSalida(gastosSalida, contactos);
 
   // Handlers
+=======
+
+  const [nuevoContacto, setNuevoContacto] = useState('');
+  const [nuevoAvatar, setNuevoAvatar] = useState('🐼');
+  const [mostrarNuevo, setMostrarNuevo] = useState(false);
+
+  const [errorMsg, setErrorMsg] = useState('');
+  const [exito, setExito] = useState(false);
+
+  useEffect(() => {
+    setSeleccionados(prev => prev.filter(id => contactos.some(contacto => contacto.id === id)));
+  }, [contactos]);
+
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
   const toggleSeleccionado = (id: string) => {
     playClickSound();
     setSeleccionados((prev) =>
@@ -168,6 +194,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
 
   // Friends management
   const agregarContacto = () => {
+<<<<<<< HEAD
     if (!nuevoNombre.trim()) return;
     const nuevo: Persona = {
       id: uid(),
@@ -375,12 +402,31 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       )}
 
       {/* ── 4. BANNER RULETA (FIESTERO Y DIVERTIDO) ────────── */}
+=======
+    const nuevo = onAddContacto(nuevoContacto, nuevoAvatar);
+    if (!nuevo) return;
+    setSeleccionados(prev => [...prev, nuevo.id]);
+    setNuevoContacto('');
+    setMostrarNuevo(false);
+    playClickSound();
+  };
+
+  const totalSalidas = gastosSalida.reduce((s, g) => s + g.monto, 0);
+
+  return (
+    <div className="py-6 animate-fade-in space-y-6 layout-stack salida-layout page-content">
+      {/* ── BANNER RULETA ───────────────────────── */}
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
       <div
         onClick={() => {
           playClickSound();
           onAbrirRuleta();
         }}
+<<<<<<< HEAD
         className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 via-indigo-950/30 to-[#121826] border border-violet-500/25 flex items-center justify-between cursor-pointer hover:border-violet-500/45 transition-all group shadow-md"
+=======
+        className="p-4 rounded-2xl bg-gradient-to-r from-amber-500/20 via-purple-600/20 to-violet-600/25 border-2 border-amber-500/40 shadow-xl shadow-amber-500/10 flex items-center justify-between gap-3 cursor-pointer hover:border-amber-400 transition-all active:scale-[0.98] roulette-banner"
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
       >
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-2xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
@@ -402,11 +448,246 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
         </button>
       </div>
 
+<<<<<<< HEAD
       {/* ── 5. CONSUMOS DEL PARCHE (FEED LIMPIO) ───────────── */}
       <section className="flex flex-col gap-3">
         <div className="flex items-center justify-between px-1">
           <h3 className="text-xs font-black uppercase tracking-wider text-zinc-400">
             Consumos Registrados ({gastosSalida.length})
+=======
+      {/* ── FORMULARIO SALIDA ───────────────────────── */}
+      <section className="glass-card-glow p-5 space-y-6 expense-form">
+        <div className="flex items-center justify-between pb-1 border-b border-white/[0.08]">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_10px_#38bdf8]"></span>
+            <h2 className="text-base font-semibold text-white tracking-tight">Registrar Gasto de Salida</h2>
+          </div>
+          <span className="text-[11px] font-bold text-cyan-300 bg-cyan-500/15 border border-cyan-500/30 px-2 py-0.5 rounded-full">
+            En Grupo
+          </span>
+        </div>
+
+        {/* Quick Presets */}
+        <div className="quick-presets">
+          <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-2 flex items-center gap-1">
+            <span>⚡</span> Atajos rápidos del parche:
+          </label>
+          <div className="grid grid-cols-3 gap-2">
+            {PRESETS_SALIDA.map(preset => (
+              <button
+                key={preset.id}
+                onClick={() => aplicarPreset(preset)}
+                className={`p-2.5 rounded-2xl text-left border flex items-center gap-2 transition-all active:scale-95 shadow-sm ${
+                  categoriaSel === preset.id
+                    ? 'bg-cyan-600/30 border-cyan-400 text-white font-black shadow-md shadow-cyan-500/25 scale-[1.02]'
+                    : 'bg-[#1b2530] hover:bg-[#263442] border-[#3a4858] text-slate-300'
+                }`}
+              >
+                <span className="text-base shrink-0 p-1 bg-slate-800/80 rounded-lg">{preset.icono}</span>
+                <span className="text-xs font-bold truncate">{preset.nombre}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Description & Amount */}
+        <div className="space-y-3 expense-fields">
+          <div>
+            <label className="text-[10px] font-black uppercase tracking-wider text-slate-300 block mb-1.5">
+              ¿Qué compraron?
+            </label>
+            <input
+              type="text"
+              placeholder="Ej: Pizza en la 45, Polas en la tienda, Taxi..."
+              value={desc}
+              onChange={e => setDesc(e.target.value)}
+              className="w-full bg-[#263442] border border-[#3a4858] focus:border-violet-400 rounded-2xl px-4 py-3 text-base font-medium text-white placeholder-slate-400 transition-all"
+            />
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-[10px] font-black uppercase tracking-wider text-slate-300">
+                Monto total ($)
+              </label>
+              <div className="flex gap-1.5">
+                {[20000, 50000, 100000].map(val => (
+                  <button
+                    key={val}
+                    onClick={() => sumarMonto(val)}
+                    className="text-xs py-1 px-2.5 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-cyan-300 font-mono font-bold transition-all active:scale-95 shadow-sm"
+                  >
+                    +{val >= 1000 ? `${val / 1000}k` : val}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="flex items-center bg-[#263442] border border-[#3a4858] focus-within:border-violet-400 rounded-2xl px-4 py-3 transition-all">
+              <span className="text-cyan-400 font-mono font-black text-xl mr-2">$</span>
+              <input
+                type="number"
+                inputMode="numeric"
+                placeholder="0"
+                value={monto}
+                onChange={e => setMonto(e.target.value)}
+                className="w-full bg-transparent text-2xl font-mono font-semibold text-emerald-400 placeholder-slate-400 outline-none"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Participants Selection */}
+        <Accordion
+          className="people-fields"
+          title={<span className="text-base font-semibold tracking-wide text-slate-300">Detalles</span>}
+          trailing={
+            <span className="text-xs font-medium text-slate-400">
+              {seleccionados.length}/{contactos.length} participantes
+            </span>
+          }
+        >
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-semibold tracking-wide text-slate-400">
+                ¿Quiénes van en esta cuenta?
+              </label>
+              <button
+                onClick={seleccionarTodos}
+                className="text-xs font-bold text-cyan-400 hover:text-cyan-300 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded-xl"
+              >
+                {seleccionados.length === contactos.length ? 'Deseleccionar' : 'Todos'}
+              </button>
+            </div>
+
+            <div className="grid gap-2">
+              {contactos.map(c => {
+                const isSelected = seleccionados.includes(c.id);
+                return (
+                  <label
+                    key={c.id}
+                    className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-sm font-medium transition-colors cursor-pointer ${
+                      isSelected
+                        ? 'bg-cyan-500/15 text-cyan-100 border-cyan-400/70'
+                        : 'bg-[#1b2530] text-slate-400 border-[#3a4858] hover:text-slate-200'
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => toggleSeleccionado(c.id)}
+                      className="h-4 w-4 accent-cyan-400"
+                    />
+                    <span className="text-base">{c.avatar || '😎'}</span>
+                    <span>{c.nombre}</span>
+                  </label>
+                );
+              })}
+            </div>
+
+            <div className="pt-2">
+              {!mostrarNuevo ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    playClickSound();
+                    setMostrarNuevo(true);
+                  }}
+                  className="text-sm font-semibold text-cyan-300 hover:text-cyan-200 flex items-center gap-1.5"
+                >
+                  <Plus size={15} />
+                  Agregar persona
+                </button>
+              ) : (
+                <div className="flex items-center gap-2 border-t border-slate-700/80 pt-3 animate-fade-in">
+                  <select
+                    value={nuevoAvatar}
+                    onChange={e => setNuevoAvatar(e.target.value)}
+                    aria-label="Avatar de la nueva persona"
+                    className="bg-[#111726] text-lg p-2 rounded-xl border border-slate-700 text-white"
+                  >
+                    {AVATARES.map(a => (
+                      <option key={a} value={a}>
+                        {a}
+                      </option>
+                    ))}
+                  </select>
+                  <input
+                    type="text"
+                    placeholder="Nombre"
+                    value={nuevoContacto}
+                    onChange={e => setNuevoContacto(e.target.value)}
+                    onKeyDown={e => e.key === 'Enter' && agregarContacto()}
+                    className="flex-1 bg-[#111726] border border-slate-700 focus:border-cyan-500 rounded-xl px-3 py-2 text-sm font-medium text-white placeholder-slate-500"
+                    autoFocus
+                  />
+                  <button
+                    type="button"
+                    onClick={agregarContacto}
+                    className="py-2 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-xs"
+                  >
+                    Agregar
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        </Accordion>
+
+        {/* Real-time Division Preview */}
+        {seleccionados.length >= 2 && Number(monto) > 0 && (
+          <div className="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-950/80 to-slate-900 border-2 border-cyan-500/40 flex items-center justify-between animate-pop-in shadow-md">
+            <div className="flex items-center gap-2.5">
+              <Sparkles size={18} className="text-cyan-400 shrink-0" />
+              <div>
+                <p className="text-xs text-white font-extrabold">
+                  {fmt(Number(monto) / seleccionados.length)} <span className="font-medium text-slate-300">cada uno</span>
+                </p>
+                <p className="text-[11px] text-cyan-300 font-semibold">
+                  Dividido en partes iguales entre {seleccionados.length} amigos
+                </p>
+              </div>
+            </div>
+            <span className="text-xs font-mono font-black text-cyan-400 bg-cyan-950/60 border border-cyan-500/40 px-2.5 py-1 rounded-xl">
+              Total {fmt(Number(monto))}
+            </span>
+          </div>
+        )}
+
+        {/* Error Message */}
+        {errorMsg && (
+          <div className="flex items-center gap-2 p-3 rounded-2xl bg-rose-500/15 border border-rose-500/40 text-rose-300 text-xs font-bold">
+            <AlertCircle size={16} className="shrink-0" />
+            <span>{errorMsg}</span>
+          </div>
+        )}
+
+        {/* Submit Button */}
+        <button
+          onClick={agregarGasto}
+          className={`w-full btn-neon !bg-gradient-to-r !from-cyan-600 !to-teal-600 py-3.5 text-sm font-black shadow-lg shadow-cyan-600/35 active:scale-[0.98] ${
+            exito ? '!bg-emerald-600 text-white' : ''
+          }`}
+        >
+          {exito ? (
+            <>
+              <Check size={20} className="stroke-[3]" />
+              ¡Salida Registrada!
+            </>
+          ) : (
+            <>
+              <Plus size={20} className="stroke-[3]" />
+              Guardar Gasto de Salida
+            </>
+          )}
+        </button>
+      </section>
+
+      {/* ── HISTORIAL DE SALIDAS ───────────────────────── */}
+      <section className="space-y-5 history-section">
+        <div className="flex items-center justify-between px-1">
+          <h3 className="text-base font-semibold tracking-wide text-slate-300 flex items-center gap-1.5">
+            <span>🍕</span> Salidas Registradas ({gastosSalida.length})
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
           </h3>
           {gastosSalida.length > 0 && (
             <span className="text-xs font-mono font-bold text-emerald-400">
@@ -426,6 +707,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </p>
           </div>
         ) : (
+<<<<<<< HEAD
           <div className="flex flex-col gap-2.5">
             {gastosSalida.map((g) => {
               const porPersona = g.monto / Math.max(g.personas.length, 1);
@@ -448,10 +730,27 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                     </div>
 
                     <span className="text-sm font-mono font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-xl shrink-0">
+=======
+          <div className="space-y-2">
+            {gastosSalida.map(g => {
+              const porPersona = g.monto / g.personas.length;
+
+              return (
+                <div key={g.id} className="glass-card !bg-[#1b2530] p-4 rounded-2xl space-y-4 border border-[#3a4858] shadow-md hover:border-slate-500 transition-all">
+                  <div className="flex items-start justify-between gap-3">
+                    <div>
+                      <h4 className="text-base font-semibold text-white tracking-tight">{g.descripcion}</h4>
+                      <p className="text-sm text-slate-300 font-medium mt-0.5">
+                        {g.personas.length} amigos · <strong className="text-cyan-300 font-bold">{fmt(porPersona)}</strong> cada uno
+                      </p>
+                    </div>
+                    <span className="text-xl font-mono font-semibold text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2.5 py-1 rounded-xl shrink-0">
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
                       {fmt(g.monto)}
                     </span>
                   </div>
 
+<<<<<<< HEAD
                   {/* Badges of participants */}
                   <div className="flex flex-wrap gap-1.5">
                     {g.personas.map((pid) => (
@@ -461,6 +760,17 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                       >
                         <span>{getNombre(pid, contactos)}</span>
                         <span className="text-zinc-500 font-mono">
+=======
+                  {/* Individual shares */}
+                  <div className="flex flex-wrap gap-2 pt-1">
+                    {g.personas.map(pid => (
+                      <span
+                        key={pid}
+                        className="min-w-0 inline-flex items-center gap-1 rounded-lg bg-[#263442] border border-[#3a4858] px-2.5 py-1 text-sm font-medium text-slate-200"
+                      >
+                        <span className="truncate">{getNombre(pid, contactos)}</span>
+                        <span className="shrink-0 text-cyan-400 font-mono font-black">
+>>>>>>> ae824147ff56f4e377b864695131bb809be1795c
                           {fmt(porPersona)}
                         </span>
                       </span>
