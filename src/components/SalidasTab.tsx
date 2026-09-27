@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Plus,
   Trash2,
@@ -867,7 +868,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       {/* ══════════════════════════════════════════════════════════
           MODAL: GESTIÓN DE AMIGOS
       ══════════════════════════════════════════════════════════ */}
-      {mostrarModalAmigos && (
+      {mostrarModalAmigos && createPortal(
         <div
           className="fixed inset-0 z-[60] flex items-center justify-center overflow-hidden overscroll-none backdrop-blur-md animate-fade-in"
           style={{ background: 'var(--azul-overlay)' }}
@@ -1005,7 +1006,8 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </div>
   );
