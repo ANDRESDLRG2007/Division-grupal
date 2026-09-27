@@ -1,11 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Persona, GastoMensual, GastoSalida, TabType } from './types';
 import { DEFAULT_ROOMIES, DEFAULT_CONTACTOS } from './utils/storage';
-<<<<<<< HEAD
-import { calcularDeudas, calcularDeudasSalida } from './utils/calculations';
-=======
-import { calcularDeudas, uid } from './utils/calculations';
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
+import { calcularDeudas, calcularDeudasSalida, uid } from './utils/calculations';
 import { Navbar } from './components/Navbar';
 import { BottomNav } from './components/BottomNav';
 import { MensualTab } from './components/MensualTab';
@@ -160,19 +156,6 @@ export default function App() {
 
       {/* Main Content Area */}
       <main className="pb-4">
-<<<<<<< HEAD
-=======
-        {tab === 'mensual' && (
-          <MensualTab
-            roomies={roomies}
-            gastosMensuales={gastosMensuales}
-            onSaveRoomies={handleSaveRoomies}
-            onSaveGastos={handleSaveGastosMensuales}
-            onAddRoomie={agregarRoomie}
-          />
-        )}
-
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
         {tab === 'salida' && (
           <SalidasTab
             contactos={contactos}
@@ -210,6 +193,7 @@ export default function App() {
             gastosMensuales={gastosMensuales}
             onSaveRoomies={handleSaveRoomies}
             onSaveGastos={handleSaveGastosMensuales}
+            onAddRoomie={agregarRoomie}
           />
         )}
       </main>

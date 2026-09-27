@@ -289,13 +289,8 @@ export const RuletaModal: React.FC<RuletaProps> = ({
     <div
       className={`${
         isModal
-<<<<<<< HEAD
           ? 'fixed inset-0 z-50 bg-[#090a0f]/96 backdrop-blur-xl flex flex-col items-center justify-center p-4 overflow-y-auto'
           : 'px-5 py-5 animate-fade-in'
-=======
-          ? 'fixed inset-0 z-50 bg-[#0b0f19]/96 backdrop-blur-2xl flex flex-col items-center justify-center p-4 overflow-y-auto'
-          : 'py-3 animate-fade-in'
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
       }`}
     >
       <div className="w-full max-w-[480px] mx-auto flex flex-col items-center">
@@ -326,21 +321,13 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         </div>
 
         {/* Mode Selector Tabs */}
-<<<<<<< HEAD
         <div className="w-full grid grid-cols-3 gap-1 p-1 bg-white/[0.03] border border-white/[0.07] rounded-xl mb-5">
-=======
-        <div className="w-full grid grid-cols-3 gap-2 p-1.5 bg-[#12192b] border-2 border-slate-700/80 rounded-2xl mb-4 shadow-md">
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
           <button
             onClick={() => {
               playClickSound();
               setModo('pagador');
             }}
-<<<<<<< HEAD
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
-=======
-            className={`py-2 px-4 text-xs font-black rounded-xl transition-all active:scale-95 ${
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
               modo === 'pagador'
                 ? 'bg-indigo-600 text-white'
                 : 'text-zinc-400 hover:text-white'
@@ -353,11 +340,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               playClickSound();
               setModo('castigo');
             }}
-<<<<<<< HEAD
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
-=======
-            className={`py-2 px-4 text-xs font-black rounded-xl transition-all active:scale-95 ${
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
               modo === 'castigo'
                 ? 'bg-indigo-600 text-white'
                 : 'text-zinc-400 hover:text-white'
@@ -370,11 +353,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               playClickSound();
               setModo('personalizado');
             }}
-<<<<<<< HEAD
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
-=======
-            className={`py-2 px-4 text-xs font-black rounded-xl transition-all active:scale-95 ${
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
               modo === 'personalizado'
                 ? 'bg-indigo-600 text-white'
                 : 'text-zinc-400 hover:text-white'
@@ -386,23 +365,14 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
         {/* Source selector for "Quién Paga" */}
         {modo === 'pagador' && (
-<<<<<<< HEAD
           <div className="flex items-center gap-2 mb-4 text-xs">
             <span className="text-zinc-400 font-medium">Usar lista de:</span>
-=======
-          <div className="flex flex-wrap items-center gap-2 mb-3 text-xs">
-            <span className="text-slate-400 font-bold">Usar lista de:</span>
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
             <button
               onClick={() => {
                 playClickSound();
                 setFuentePersonas('contactos');
               }}
-<<<<<<< HEAD
               className={`px-3 py-1.5 rounded-lg font-semibold transition-all active:scale-95 ${
-=======
-              className={`px-4 py-2 rounded-xl font-black transition-all active:scale-95 ${
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
                 fuentePersonas === 'contactos'
                   ? 'bg-indigo-600 text-white'
                   : 'bg-white/[0.04] border border-white/[0.07] text-zinc-400 hover:text-white'
@@ -415,11 +385,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
                 playClickSound();
                 setFuentePersonas('roomies');
               }}
-<<<<<<< HEAD
               className={`px-3 py-1.5 rounded-lg font-semibold transition-all active:scale-95 ${
-=======
-              className={`px-4 py-2 rounded-xl font-black transition-all active:scale-95 ${
->>>>>>> ae824147ff56f4e377b864695131bb809be1795c
                 fuentePersonas === 'roomies'
                   ? 'bg-indigo-600 text-white'
                   : 'bg-white/[0.04] border border-white/[0.07] text-zinc-400 hover:text-white'
