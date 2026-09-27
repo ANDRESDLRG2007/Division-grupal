@@ -143,7 +143,7 @@ export default function App() {
   const deudasCount = deudasSalida.length > 0 ? deudasSalida.length : deudasMensuales.length;
 
   return (
-    <div className="app-container px-4">
+    <div className="app-container">
       {/* Top Bar / Header */}
       <Navbar
         totalMensual={totalMensual}

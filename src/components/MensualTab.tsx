@@ -178,11 +178,9 @@ export const MensualTab: React.FC<MensualTabProps> = ({
             </div>
           </div>
           <button
-            onClick={() => {
-              playClickSound();
-              setMostrarModalRoomies(true);
-            }}
-            className="text-xs font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition-colors"
+            onClick={() => { playClickSound(); setMostrarModalRoomies(true); }}
+            className="text-xs font-bold flex items-center gap-1 transition-colors"
+            style={{ color: '#4EC26E' }}
           >
             <Users size={14} /> {roomies.length} Roomies
           </button>
@@ -194,14 +192,14 @@ export const MensualTab: React.FC<MensualTabProps> = ({
             <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
               Total del Mes
             </span>
-            <p className="text-2xl font-mono font-black text-emerald-400">
+            <p className="text-2xl font-mono font-black" style={{ color: '#4EC26E' }}>
               {fmt(totalMensual)}
             </p>
           </div>
 
           <button
             onClick={abrirModalGasto}
-            className="py-2.5 px-4 rounded-xl btn-primary text-xs font-extrabold flex items-center gap-1.5 shadow-md shadow-indigo-600/30"
+            className="btn-primary py-2.5 px-4 !rounded-xl text-xs flex items-center gap-1.5"
           >
             <Plus size={15} strokeWidth={2.5} />
             Registrar Gasto
@@ -217,7 +215,8 @@ export const MensualTab: React.FC<MensualTabProps> = ({
           </h3>
           <button
             onClick={() => setMostrarModalRoomies(true)}
-            className="text-xs font-bold text-indigo-400 hover:text-indigo-300"
+            className="text-xs font-bold"
+            style={{ color: '#4EC26E' }}
           >
             Editar o Agregar
           </button>
@@ -268,7 +267,10 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                         {g.participantes.length} personas ({fmt(parte)} c/u)
                       </p>
                     </div>
-                    <span className="text-sm font-mono font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-xl shrink-0">
+                    <span
+                      className="text-sm font-mono font-black px-2.5 py-1 rounded-xl shrink-0"
+                      style={{ color: '#4EC26E', background: 'rgba(78,194,110,0.10)', border: '1px solid rgba(78,194,110,0.22)' }}
+                    >
                       {fmt(g.monto)}
                     </span>
                   </div>
@@ -322,11 +324,12 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                   <button
                     key={preset.id}
                     onClick={() => aplicarPreset(preset)}
-                    className={`py-1.5 px-3 rounded-xl text-xs font-semibold border shrink-0 flex items-center gap-1.5 transition-all ${
+                    className={`py-1.5 px-3 rounded-xl text-xs font-semibold border shrink-0 flex items-center gap-1.5 transition-all`}
+                    style={
                       categoriaSel === preset.id
-                        ? 'bg-indigo-600 text-white border-indigo-400'
-                        : 'bg-white/[0.04] border-white/[0.08] text-zinc-300'
-                    }`}
+                        ? { background: '#D2F25E', color: '#100E40', borderColor: '#D2F25E' }
+                        : { background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.09)', color: '#94a3b8' }
+                    }
                   >
                     <span>{preset.icono}</span>
                     <span>{preset.nombre}</span>
@@ -394,11 +397,12 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                         playClickSound();
                         setPagadoPor(r.id);
                       }}
-                      className={`py-1.5 px-3 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+                      className="py-1.5 px-3 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all"
+                      style={
                         isPayer
-                          ? 'bg-indigo-600 text-white shadow-md shadow-indigo-600/30'
-                          : 'bg-white/[0.04] border border-white/[0.08] text-zinc-300'
-                      }`}
+                          ? { background: '#4EC26E', color: '#0a1f11' }
+                          : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', color: '#94a3b8' }
+                      }
                     >
                       <span>{r.avatar || '😎'}</span>
                       <span>{r.nombre}</span>
@@ -430,11 +434,12 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                     <button
                       key={r.id}
                       onClick={() => toggleParticipante(r.id)}
-                      className={`py-1.5 px-3 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                      className="py-1.5 px-3 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all"
+                      style={
                         isSelected
-                          ? 'bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 font-bold'
-                          : 'bg-white/[0.03] border border-white/[0.07] text-zinc-400'
-                      }`}
+                          ? { background: 'rgba(78,194,110,0.12)', border: '1px solid rgba(78,194,110,0.30)', color: '#4EC26E', fontWeight: 700 }
+                          : { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: '#64748b' }
+                      }
                     >
                       <span>{r.avatar || '😎'}</span>
                       <span>{r.nombre}</span>
@@ -454,9 +459,11 @@ export const MensualTab: React.FC<MensualTabProps> = ({
 
             <button
               onClick={agregarGasto}
-              className={`w-full py-3.5 rounded-2xl btn-primary text-sm font-extrabold ${
-                exito ? '!bg-emerald-600' : ''
-              }`}
+              className="w-full py-3.5 rounded-2xl text-sm font-extrabold flex items-center justify-center transition-all"
+              style={exito
+                ? { background: '#4EC26E', color: '#0a1f11', borderRadius: 16 }
+                : { background: '#D2F25E', color: '#100E40', borderRadius: 16, boxShadow: '0 6px 18px rgba(210,242,94,0.28)' }
+              }
             >
               {exito ? '¡Gasto Guardado!' : 'Guardar Gasto del Mes'}
             </button>
@@ -484,7 +491,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
             </div>
 
             {/* Add roomie */}
-            <div className="flex items-center gap-2 p-2 bg-[#151c30] rounded-2xl border border-white/[0.08]">
+            <div className="flex items-center gap-2 p-2 rounded-2xl" style={{ background: 'rgba(16,14,64,0.6)', border: '1px solid rgba(255,255,255,0.08)' }}>
               <select
                 value={nuevoAvatar}
                 onChange={(e) => setNuevoAvatar(e.target.value)}

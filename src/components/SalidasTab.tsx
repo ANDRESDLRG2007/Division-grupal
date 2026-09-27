@@ -222,40 +222,46 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
   return (
     <div className="px-4 pt-3 pb-8 flex flex-col gap-5 animate-fade-in max-w-[480px] mx-auto">
       {/* ── 1. HERO FINTECH CARD: SALIDA ACTUAL ──────────────── */}
-      <section className="relative overflow-hidden rounded-3xl p-5 bg-gradient-to-b from-[#182136] via-[#121929] to-[#0e1322] border border-indigo-500/20 shadow-xl flex flex-col gap-4">
-        {/* Subtle glow decorative shapes */}
-        <div className="absolute top-0 right-0 w-36 h-36 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-2xl pointer-events-none" />
+      <section
+        className="relative overflow-hidden rounded-3xl p-5 flex flex-col gap-4"
+        style={{
+          background: 'linear-gradient(160deg, #1a1860 0%, #100E40 60%, #0c0b34 100%)',
+          border: '1px solid rgba(210,242,94,0.15)',
+          boxShadow: '0 12px 40px -10px rgba(16,14,64,0.8)',
+        }}
+      >
+        {/* Decorative glows */}
+        <div className="absolute top-0 right-0 w-36 h-36 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(210,242,94,0.10) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(78,194,110,0.10) 0%, transparent 70%)' }} />
 
-        {/* Top Header of the card */}
+        {/* Top Header */}
         <div className="flex items-center justify-between">
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-indigo-500/15 border border-indigo-500/30 text-indigo-300">
-            <Sparkles size={12} className="text-indigo-400" />
+          <div
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold"
+            style={{ background: 'rgba(210,242,94,0.12)', border: '1px solid rgba(210,242,94,0.28)', color: '#D2F25E' }}
+          >
+            <Sparkles size={12} />
             <span>Salida de Hoy</span>
           </div>
 
           <button
-            onClick={() => {
-              playClickSound();
-              setMostrarCalculadora(true);
-            }}
-            className="text-xs font-semibold text-zinc-400 hover:text-cyan-300 flex items-center gap-1.5 py-1 px-2.5 rounded-lg bg-white/[0.04] border border-white/[0.06] transition-colors"
+            onClick={() => { playClickSound(); setMostrarCalculadora(true); }}
+            className="text-xs font-semibold text-zinc-400 hover:text-white flex items-center gap-1.5 py-1 px-2.5 rounded-lg transition-colors"
+            style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}
           >
-            <Calculator size={13} className="text-cyan-400" />
+            <Calculator size={13} style={{ color: '#D2F25E' }} />
             <span>Calculadora Mesa</span>
           </button>
         </div>
 
-        {/* Amount in Big Display */}
+        {/* Amount display */}
         <div className="flex flex-col gap-1">
           <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest">
             Total del Parche
           </span>
-          <div className="flex items-baseline gap-2">
-            <h2 className="text-4xl font-extrabold font-mono text-white tracking-tight">
-              {fmt(totalSalidas)}
-            </h2>
-          </div>
+          <h2 className="text-4xl font-extrabold font-mono text-white tracking-tight">
+            {fmt(totalSalidas)}
+          </h2>
           <p className="text-xs text-zinc-400 mt-0.5">
             {gastosSalida.length === 0
               ? 'Aún no hay consumos registrados en este parche'
@@ -263,10 +269,10 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
           </p>
         </div>
 
-        {/* Single Primary Action Button */}
+        {/* Primary CTA */}
         <button
           onClick={abrirModalNuevoGasto}
-          className="w-full py-3.5 px-5 rounded-2xl btn-primary text-sm font-extrabold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/35 transition-all"
+          className="w-full py-3.5 px-5 rounded-2xl btn-primary text-sm flex items-center justify-center gap-2 transition-all"
         >
           <Plus size={18} strokeWidth={3} />
           <span>Dividir una Cuenta</span>
@@ -280,35 +286,36 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             <span className="text-xs font-black uppercase tracking-wider text-zinc-300">
               El Parche
             </span>
-            <span className="text-[10px] font-bold px-1.5 py-0.2 rounded-md bg-white/[0.08] text-zinc-300">
+            <span
+              className="text-[10px] font-bold px-1.5 py-0.5 rounded-md"
+              style={{ background: 'rgba(210,242,94,0.10)', color: '#D2F25E' }}
+            >
               {contactos.length}
             </span>
           </div>
 
           <button
-            onClick={() => {
-              playClickSound();
-              setMostrarModalAmigos(true);
-            }}
-            className="text-xs font-bold text-indigo-400 hover:text-indigo-300 flex items-center gap-1 transition-colors"
+            onClick={() => { playClickSound(); setMostrarModalAmigos(true); }}
+            className="text-xs font-bold flex items-center gap-1 transition-colors"
+            style={{ color: '#4EC26E' }}
           >
             <Users size={13} />
             <span>Gestionar</span>
           </button>
         </div>
 
-        {/* Stories-like horizontal row */}
+        {/* Horizontal avatar row */}
         <div className="flex items-center gap-3 overflow-x-auto pb-1 -mx-1 px-1">
           {contactos.map((c) => (
             <div
               key={c.id}
-              onClick={() => {
-                playClickSound();
-                setMostrarModalAmigos(true);
-              }}
+              onClick={() => { playClickSound(); setMostrarModalAmigos(true); }}
               className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer group"
             >
-              <div className="w-13 h-13 rounded-2xl bg-[#141b2d] border border-white/[0.1] group-hover:border-indigo-500/60 flex items-center justify-center text-2xl shadow-sm transition-all group-hover:scale-105">
+              <div
+                className="w-13 h-13 rounded-2xl flex items-center justify-center text-2xl shadow-sm transition-all group-hover:scale-105"
+                style={{ background: 'rgba(22,20,72,0.8)', border: '1px solid rgba(255,255,255,0.09)' }}
+              >
                 {c.avatar || '😎'}
               </div>
               <span className="text-[11px] font-bold text-zinc-300 group-hover:text-white max-w-[56px] truncate text-center leading-none">
@@ -317,35 +324,41 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </div>
           ))}
 
-          {/* Add Friend Bubble */}
+          {/* Add Friend */}
           <button
-            onClick={() => {
-              playClickSound();
-              setMostrarModalAmigos(true);
-            }}
+            onClick={() => { playClickSound(); setMostrarModalAmigos(true); }}
             className="flex flex-col items-center gap-1.5 shrink-0 cursor-pointer group"
           >
-            <div className="w-13 h-13 rounded-2xl border-2 border-dashed border-indigo-500/40 hover:border-indigo-400 group-hover:bg-indigo-500/10 flex items-center justify-center text-indigo-400 transition-all group-hover:scale-105">
+            <div
+              className="w-13 h-13 rounded-2xl border-2 border-dashed flex items-center justify-center transition-all group-hover:scale-105"
+              style={{ borderColor: 'rgba(210,242,94,0.35)', color: '#D2F25E' }}
+            >
               <Plus size={20} strokeWidth={2.5} />
             </div>
-            <span className="text-[11px] font-bold text-indigo-400 text-center leading-none">
+            <span className="text-[11px] font-bold text-center leading-none" style={{ color: '#D2F25E' }}>
               Añadir
             </span>
           </button>
         </div>
       </section>
 
-      {/* ── 3. TRANSFERENCIAS PENDIENTES (SOLO SI HAY DEUDAS) ── */}
+      {/* ── 3. PAGOS PENDIENTES ── */}
       {deudasSalida.length > 0 && (
-        <section className="card-glass p-4 border-rose-500/25 bg-gradient-to-br from-rose-950/20 via-[#121826] to-[#121826] flex flex-col gap-3">
+        <section
+          className="card-glass p-4 flex flex-col gap-3"
+          style={{ borderColor: 'rgba(242,168,29,0.20)' }}
+        >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Zap size={15} className="text-rose-400" />
+              <Zap size={15} style={{ color: '#F2A81D' }} />
               <h3 className="text-xs font-black uppercase tracking-wider text-white">
                 Pagos Pendientes ({deudasSalida.length})
               </h3>
             </div>
-            <span className="text-[10px] font-bold text-rose-300 bg-rose-500/15 border border-rose-500/30 px-2 py-0.5 rounded-full">
+            <span
+              className="text-[10px] font-bold px-2 py-0.5 rounded-full"
+              style={{ color: '#F2A81D', background: 'rgba(242,168,29,0.12)', border: '1px solid rgba(242,168,29,0.28)' }}
+            >
               Cobrar por Nequi
             </span>
           </div>
@@ -354,21 +367,23 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             {deudasSalida.map((d, i) => (
               <div
                 key={i}
-                className="p-3 rounded-2xl bg-black/40 border border-white/[0.06] flex items-center justify-between gap-2"
+                className="p-3 rounded-2xl flex items-center justify-between gap-2"
+                style={{ background: 'rgba(0,0,0,0.25)', border: '1px solid rgba(255,255,255,0.06)' }}
               >
                 <div className="text-xs text-zinc-300">
-                  <span className="font-bold text-white">{getNombre(d.de, contactos)}</span>
+                  <span className="font-bold" style={{ color: '#F2A81D' }}>{getNombre(d.de, contactos)}</span>
                   <span className="text-zinc-500 mx-1.5">le debe</span>
-                  <span className="font-bold text-emerald-400">{getNombre(d.para, contactos)}</span>
+                  <span className="font-bold" style={{ color: '#4EC26E' }}>{getNombre(d.para, contactos)}</span>
                 </div>
 
                 <div className="flex items-center gap-2 shrink-0">
-                  <span className="text-xs font-mono font-bold text-rose-400">
+                  <span className="text-xs font-mono font-bold" style={{ color: '#F2A81D' }}>
                     {fmt(d.monto)}
                   </span>
                   <button
                     onClick={() => cobrarDeudaWhatsApp(d)}
-                    className="py-1 px-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-[11px] flex items-center gap-1 transition-all active:scale-95"
+                    className="py-1 px-2.5 rounded-xl font-bold text-[11px] flex items-center gap-1 transition-all active:scale-95"
+                    style={{ background: '#4EC26E', color: '#0a1f11' }}
                   >
                     <Send size={11} />
                     Cobrar
@@ -380,20 +395,24 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
         </section>
       )}
 
-      {/* ── 4. BANNER RULETA (FIESTERO Y DIVERTIDO) ────────── */}
+      {/* ── 4. BANNER RULETA ────────── */}
       <div
-        onClick={() => {
-          playClickSound();
-          onAbrirRuleta();
+        onClick={() => { playClickSound(); onAbrirRuleta(); }}
+        className="p-4 rounded-2xl flex items-center justify-between cursor-pointer transition-all group"
+        style={{
+          background: 'linear-gradient(120deg, rgba(210,242,94,0.08) 0%, rgba(22,20,72,0.6) 100%)',
+          border: '1px solid rgba(210,242,94,0.20)',
         }}
-        className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/40 via-indigo-950/30 to-[#121826] border border-violet-500/25 flex items-center justify-between cursor-pointer hover:border-violet-500/45 transition-all group shadow-md"
       >
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-2xl bg-violet-600/20 border border-violet-500/30 flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform">
+          <div
+            className="w-10 h-10 rounded-2xl flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform"
+            style={{ background: 'rgba(210,242,94,0.12)', border: '1px solid rgba(210,242,94,0.25)' }}
+          >
             🎰
           </div>
           <div className="flex flex-col">
-            <h4 className="text-xs font-black text-white flex items-center gap-1.5">
+            <h4 className="text-xs font-black text-white">
               ¿A quién le toca pagar hoy?
             </h4>
             <p className="text-[11px] text-zinc-400 mt-0.5">
@@ -402,20 +421,23 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
           </div>
         </div>
 
-        <button className="py-1.5 px-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-md shadow-violet-600/25">
+        <button
+          className="py-1.5 px-3 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all"
+          style={{ background: '#D2F25E', color: '#100E40' }}
+        >
           <Dices size={14} />
           Girar
         </button>
       </div>
 
-      {/* ── 5. CONSUMOS DEL PARCHE (FEED LIMPIO) ───────────── */}
+      {/* ── 5. CONSUMOS DEL PARCHE ───────────── */}
       <section className="flex flex-col gap-3">
         <div className="flex items-center justify-between px-1">
           <h3 className="text-xs font-black uppercase tracking-wider text-zinc-400">
             Consumos Registrados ({gastosSalida.length})
           </h3>
           {gastosSalida.length > 0 && (
-            <span className="text-xs font-mono font-bold text-emerald-400">
+            <span className="text-xs font-mono font-bold" style={{ color: '#4EC26E' }}>
               Total {fmt(totalSalidas)}
             </span>
           )}
@@ -423,7 +445,10 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
 
         {gastosSalida.length === 0 ? (
           <div className="card-glass p-8 text-center flex flex-col items-center gap-2">
-            <div className="w-12 h-12 rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center text-2xl">
+            <div
+              className="w-12 h-12 rounded-2xl flex items-center justify-center text-2xl"
+              style={{ background: 'rgba(210,242,94,0.08)', border: '1px solid rgba(210,242,94,0.18)' }}
+            >
               🍕
             </div>
             <h4 className="text-sm font-bold text-white mt-1">Sin consumos en esta salida</h4>
@@ -440,7 +465,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
               return (
                 <div
                   key={g.id}
-                  className="card-glass p-4 flex flex-col gap-3 hover:border-zinc-700/80 transition-all"
+                  className="card-glass p-4 flex flex-col gap-3 transition-all"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex flex-col gap-0.5">
@@ -448,37 +473,42 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                         {g.descripcion}
                       </h4>
                       <p className="text-xs text-zinc-400">
-                        Pagó <strong className="text-indigo-300">{pagadorNombre}</strong> ·{' '}
+                        Pagó <strong style={{ color: '#D2F25E' }}>{pagadorNombre}</strong> ·{' '}
                         {g.personas.length} personas ({fmt(porPersona)} c/u)
                       </p>
                     </div>
 
-                    <span className="text-sm font-mono font-black text-emerald-400 bg-emerald-500/10 border border-emerald-500/25 px-2.5 py-1 rounded-xl shrink-0">
+                    <span
+                      className="text-sm font-mono font-black px-2.5 py-1 rounded-xl shrink-0"
+                      style={{ color: '#4EC26E', background: 'rgba(78,194,110,0.10)', border: '1px solid rgba(78,194,110,0.22)' }}
+                    >
                       {fmt(g.monto)}
                     </span>
                   </div>
 
-                  {/* Badges of participants */}
+                  {/* Participant badges */}
                   <div className="flex flex-wrap gap-1.5">
                     {g.personas.map((pid) => (
                       <span
                         key={pid}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.06] text-[11px] text-zinc-300"
+                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-[11px] text-zinc-300"
+                        style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)' }}
                       >
                         <span>{getNombre(pid, contactos)}</span>
-                        <span className="text-zinc-500 font-mono">
-                          {fmt(porPersona)}
-                        </span>
+                        <span className="text-zinc-500 font-mono">{fmt(porPersona)}</span>
                       </span>
                     ))}
                   </div>
 
-                  {/* Card bottom actions */}
-                  <div className="flex items-center justify-between pt-2 border-t border-white/[0.05] text-xs text-zinc-500">
+                  {/* Bottom actions */}
+                  <div
+                    className="flex items-center justify-between pt-2 text-xs text-zinc-500"
+                    style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}
+                  >
                     <span className="text-[11px] font-mono text-zinc-400">{g.fecha}</span>
                     <button
                       onClick={() => eliminarGasto(g.id)}
-                      className="text-zinc-500 hover:text-rose-400 flex items-center gap-1 text-xs font-semibold py-1 px-2 rounded-lg hover:bg-rose-500/10 transition-colors"
+                      className="flex items-center gap-1 text-xs font-semibold py-1 px-2 rounded-lg transition-colors hover:text-red-400"
                     >
                       <Trash2 size={13} />
                       Eliminar
@@ -500,7 +530,10 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-indigo-500/20 border border-indigo-500/30 flex items-center justify-center text-sm">
+                <div
+                  className="w-8 h-8 rounded-xl flex items-center justify-center text-sm"
+                  style={{ background: 'rgba(210,242,94,0.12)', border: '1px solid rgba(210,242,94,0.25)' }}
+                >
                   ⚡
                 </div>
                 <div>
@@ -526,11 +559,12 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   <button
                     key={preset.id}
                     onClick={() => aplicarPreset(preset)}
-                    className={`py-1.5 px-3 rounded-xl text-xs font-semibold border shrink-0 flex items-center gap-1.5 transition-all ${
+                    className="py-1.5 px-3 rounded-xl text-xs font-semibold border shrink-0 flex items-center gap-1.5 transition-all"
+                    style={
                       categoriaSel === preset.id
-                        ? 'bg-indigo-600 text-white border-indigo-400'
-                        : 'bg-white/[0.04] border-white/[0.08] text-zinc-300 hover:border-white/[0.15]'
-                    }`}
+                        ? { background: '#D2F25E', color: '#100E40', borderColor: '#D2F25E' }
+                        : { background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.09)', color: '#94a3b8' }
+                    }
                   >
                     <span>{preset.icono}</span>
                     <span>{preset.nombre}</span>
@@ -600,11 +634,12 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                         playClickSound();
                         setPagadoPor(c.id);
                       }}
-                      className={`py-1.5 px-3 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all ${
+                      className="py-1.5 px-3 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all"
+                      style={
                         isPayer
-                          ? 'bg-emerald-600 text-white shadow-md shadow-emerald-600/30'
-                          : 'bg-white/[0.04] border border-white/[0.08] text-zinc-300'
-                      }`}
+                          ? { background: '#4EC26E', color: '#0a1f11' }
+                          : { background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', color: '#94a3b8' }
+                      }
                     >
                       <span>{c.avatar || '😎'}</span>
                       <span>{c.nombre}</span>
@@ -623,7 +658,8 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                 </label>
                 <button
                   onClick={seleccionarTodos}
-                  className="text-xs font-bold text-indigo-400 hover:text-indigo-300"
+                  className="text-xs font-bold"
+                  style={{ color: '#D2F25E' }}
                 >
                   {seleccionados.length === contactos.length ? 'Solo yo' : 'Todos'}
                 </button>
@@ -636,15 +672,16 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                     <button
                       key={c.id}
                       onClick={() => toggleSeleccionado(c.id)}
-                      className={`py-1.5 px-3 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all ${
+                      className="py-1.5 px-3 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all"
+                      style={
                         isSelected
-                          ? 'bg-indigo-600/25 border border-indigo-500/50 text-indigo-200 font-bold'
-                          : 'bg-white/[0.03] border border-white/[0.07] text-zinc-400'
-                      }`}
+                          ? { background: 'rgba(210,242,94,0.12)', border: '1px solid rgba(210,242,94,0.30)', color: '#D2F25E', fontWeight: 700 }
+                          : { background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', color: '#64748b' }
+                      }
                     >
                       <span>{c.avatar || '😎'}</span>
                       <span>{c.nombre}</span>
-                      {isSelected && <Check size={13} className="text-indigo-400 ml-0.5" />}
+                      {isSelected && <Check size={13} style={{ color: '#D2F25E' }} className="ml-0.5" />}
                     </button>
                   );
                 })}
@@ -653,7 +690,10 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
 
             {/* Preview */}
             {seleccionados.length > 0 && Number(monto) > 0 && (
-              <div className="p-3.5 rounded-2xl bg-indigo-500/10 border border-indigo-500/25 flex items-center justify-between">
+              <div
+                className="p-3.5 rounded-2xl flex items-center justify-between"
+                style={{ background: 'rgba(210,242,94,0.08)', border: '1px solid rgba(210,242,94,0.22)' }}
+              >
                 <div>
                   <p className="text-xs font-extrabold text-white">
                     {fmt(Number(monto) / seleccionados.length)}{' '}
@@ -661,10 +701,13 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   </p>
                   <p className="text-[11px] text-zinc-400">
                     Le transfieren a{' '}
-                    <strong className="text-emerald-400">{getNombre(pagadoPor, contactos)}</strong>
+                    <strong style={{ color: '#4EC26E' }}>{getNombre(pagadoPor, contactos)}</strong>
                   </p>
                 </div>
-                <span className="text-xs font-mono font-bold text-indigo-300 bg-indigo-500/15 border border-indigo-500/25 px-2.5 py-1 rounded-xl">
+                <span
+                  className="text-xs font-mono font-bold px-2.5 py-1 rounded-xl"
+                  style={{ color: '#D2F25E', background: 'rgba(210,242,94,0.10)', border: '1px solid rgba(210,242,94,0.22)' }}
+                >
                   {seleccionados.length} amigos
                 </span>
               </div>
@@ -680,9 +723,11 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
 
             <button
               onClick={agregarGasto}
-              className={`w-full py-3.5 rounded-2xl btn-primary text-sm font-extrabold mt-1 ${
-                exito ? '!bg-emerald-600' : ''
-              }`}
+              className="w-full py-3.5 rounded-2xl text-sm font-extrabold mt-1 flex items-center justify-center gap-2 transition-all active:scale-97"
+              style={exito
+                ? { background: '#4EC26E', color: '#0a1f11', borderRadius: 16 }
+                : { background: '#D2F25E', color: '#100E40', borderRadius: 16, boxShadow: '0 6px 18px rgba(210,242,94,0.28)' }
+              }
             >
               {exito ? (
                 <>
@@ -827,7 +872,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
           <div className="w-full max-w-[420px] bg-[#121829] border border-white/[0.1] rounded-3xl p-5 flex flex-col gap-4 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
               <div className="flex items-center gap-2">
-                <Users size={16} className="text-indigo-400" />
+                <Users size={16} style={{ color: '#4EC26E' }} />
                 <h3 className="text-sm font-extrabold text-white">Amigos del Parche</h3>
               </div>
               <button
@@ -926,7 +971,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                           setNombreTemp(c.nombre);
                           setAvatarTemp(c.avatar || '😎');
                         }}
-                        className="p-1.5 rounded-lg text-zinc-400 hover:text-indigo-300 hover:bg-white/[0.05]"
+                        className="p-1.5 rounded-lg text-zinc-400 hover:bg-white/[0.05]" style={{ '--hover-color': '#4EC26E' } as React.CSSProperties}
                       >
                         <Edit2 size={13} />
                       </button>

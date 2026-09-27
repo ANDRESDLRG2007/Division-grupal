@@ -129,17 +129,21 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
   return (
     <div className="px-4 pt-3 pb-8 flex flex-col gap-5 animate-fade-in max-w-[480px] mx-auto">
       {/* ── SELECTOR: SALIDAS VS APARTAMENTO ───────────────── */}
-      <div className="grid grid-cols-2 gap-1.5 p-1.5 bg-[#121826] border border-white/[0.08] rounded-2xl">
+      <div
+        className="grid grid-cols-2 gap-1.5 p-1.5 rounded-2xl"
+        style={{ background: 'rgba(16,14,64,0.7)', border: '1px solid rgba(255,255,255,0.08)' }}
+      >
         <button
           onClick={() => {
             playClickSound();
             setSubTab('salida');
           }}
-          className={`py-2 px-3 text-xs font-extrabold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5 ${
+          className="py-2 px-3 text-xs font-extrabold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5"
+          style={
             subTab === 'salida'
-              ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-600/30'
-              : 'text-zinc-400 hover:text-white'
-          }`}
+              ? { background: '#D2F25E', color: '#100E40', boxShadow: '0 4px 12px rgba(210,242,94,0.28)' }
+              : { color: '#64748b' }
+          }
         >
           <span>🍕</span> Salidas del Parche
         </button>
@@ -149,11 +153,12 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
             playClickSound();
             setSubTab('mensual');
           }}
-          className={`py-2 px-3 text-xs font-extrabold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5 ${
+          className="py-2 px-3 text-xs font-extrabold rounded-xl transition-all active:scale-95 flex items-center justify-center gap-1.5"
+          style={
             subTab === 'mensual'
-              ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-md shadow-indigo-600/30'
-              : 'text-zinc-400 hover:text-white'
-          }`}
+              ? { background: '#D2F25E', color: '#100E40', boxShadow: '0 4px 12px rgba(210,242,94,0.28)' }
+              : { color: '#64748b' }
+          }
         >
           <span>🏠</span> Apartamento
         </button>
@@ -170,7 +175,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
                 Total Salidas
               </span>
-              <p className="text-2xl font-mono font-black text-emerald-400 tracking-tight">
+              <p className="text-2xl font-mono font-black tracking-tight" style={{ color: '#4EC26E' }}>
                 {fmt(totalSalidas)}
               </p>
               <p className="text-[11px] text-zinc-400">
@@ -182,7 +187,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
                 Por Liquidar
               </span>
-              <p className="text-2xl font-mono font-black text-indigo-400 tracking-tight">
+              <p className="text-2xl font-mono font-black tracking-tight" style={{ color: deudasSalida.length > 0 ? '#F2A81D' : '#4EC26E' }}>
                 {deudasSalida.length}
               </p>
               <p className="text-[11px] text-zinc-400">
@@ -196,18 +201,16 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={compartirResumenSalidasGrupo}
-                className="flex-1 py-3 px-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/15 border border-emerald-500/25 text-emerald-300 font-extrabold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+                className="flex-1 py-3 px-3 rounded-2xl font-extrabold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+                style={{ background: 'rgba(78,194,110,0.12)', border: '1px solid rgba(78,194,110,0.28)', color: '#4EC26E' }}
               >
                 <Share2 size={15} />
                 Enviar Resumen al WhatsApp
               </button>
 
               <button
-                onClick={() => {
-                  playClickSound();
-                  onOpenTicket();
-                }}
-                className="btn-secondary !rounded-2xl !py-3"
+                onClick={() => { playClickSound(); onOpenTicket(); }}
+                className="btn-ghost !rounded-2xl !py-3"
               >
                 <ReceiptText size={15} />
                 Ticket
@@ -219,12 +222,15 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
           <section className="card-glass p-5 flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Zap size={16} className="text-indigo-400" />
+                <Zap size={16} style={{ color: '#D2F25E' }} />
                 <h3 className="text-xs font-black uppercase tracking-wider text-white">
                   Transferencias Pendientes ({deudasSalida.length})
                 </h3>
               </div>
-              <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-300 font-bold border border-emerald-500/25">
+              <span
+                className="text-[10px] px-2 py-0.5 rounded-full font-bold"
+                style={{ background: 'rgba(78,194,110,0.12)', color: '#4EC26E', border: '1px solid rgba(78,194,110,0.28)' }}
+              >
                 Cuentas Claras ⚡
               </span>
             </div>
@@ -239,7 +245,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               </div>
             ) : deudasSalida.length === 0 ? (
               <div className="py-8 text-center flex flex-col items-center gap-2">
-                <CheckCircle2 size={32} className="text-emerald-400" />
+                <CheckCircle2 size={32} style={{ color: '#4EC26E' }} />
                 <p className="text-sm font-bold text-white">¡Nadie le debe a nadie! 🎉</p>
                 <p className="text-xs text-zinc-400">Todo el parche está a paz y salvo.</p>
               </div>
@@ -252,28 +258,39 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                   return (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex flex-col gap-3"
+                      className="p-3.5 rounded-2xl flex flex-col gap-3"
+                      style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)' }}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 text-xs font-extrabold text-white">
-                          <span className="px-2.5 py-1 rounded-xl bg-rose-500/10 text-rose-300 border border-rose-500/20">
+                          <span
+                            className="px-2.5 py-1 rounded-xl"
+                            style={{ background: 'rgba(242,168,29,0.12)', color: '#F2A81D', border: '1px solid rgba(242,168,29,0.25)' }}
+                          >
                             {deudorNombre}
                           </span>
                           <ArrowRight size={13} className="text-zinc-500 stroke-[3]" />
-                          <span className="px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                          <span
+                            className="px-2.5 py-1 rounded-xl"
+                            style={{ background: 'rgba(78,194,110,0.12)', color: '#4EC26E', border: '1px solid rgba(78,194,110,0.25)' }}
+                          >
                             {acreedorNombre}
                           </span>
                         </div>
 
-                        <span className="text-sm font-mono font-black text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1 rounded-xl">
+                        <span
+                          className="text-sm font-mono font-black px-2.5 py-1 rounded-xl"
+                          style={{ color: '#F2A81D', background: 'rgba(242,168,29,0.10)', border: '1px solid rgba(242,168,29,0.22)' }}
+                        >
                           {fmt(d.monto)}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 pt-2 border-t border-white/[0.05]">
+                      <div className="flex items-center gap-2 pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
                         <button
                           onClick={() => enviarCobroSalida(d)}
-                          className="flex-1 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                          className="flex-1 py-2 px-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                          style={{ background: '#4EC26E', color: '#0a1f11' }}
                         >
                           <Send size={13} />
                           Cobrar por WhatsApp
@@ -281,7 +298,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
 
                         <button
                           onClick={() => copiarCobroSalida(d, idx)}
-                          className="btn-secondary !py-2 !px-3 !text-xs !rounded-xl"
+                          className="btn-ghost !py-2 !px-3 !text-xs !rounded-xl"
                         >
                           <Copy size={13} />
                           {copiadoIdx === idx ? '¡Copiado!' : 'Copiar'}
@@ -309,10 +326,11 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                   .map((c, idx) => (
                     <div
                       key={c.id}
-                      className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between"
+                      className="p-3 rounded-xl flex items-center justify-between"
+                      style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
                     >
                       <div className="flex items-center gap-2.5">
-                        <span className="w-5 text-center text-xs font-mono font-bold text-indigo-400">
+                        <span className="w-5 text-center text-xs font-mono font-bold" style={{ color: '#D2F25E' }}>
                           #{idx + 1}
                         </span>
                         <span className="text-lg">{c.avatar || '😎'}</span>
@@ -324,7 +342,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                         </div>
                       </div>
 
-                      <span className="text-xs font-mono font-bold text-emerald-400">
+                      <span className="text-xs font-mono font-bold" style={{ color: '#4EC26E' }}>
                         {fmt(c.total)}
                       </span>
                     </div>
@@ -339,14 +357,18 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               {!confirmLimpiar ? (
                 <button
                   onClick={() => setConfirmLimpiar(true)}
-                  className="w-full py-3.5 px-4 rounded-2xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 text-rose-300 font-extrabold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+                  className="w-full py-3.5 px-4 rounded-2xl font-extrabold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+                  style={{ background: 'rgba(242,168,29,0.08)', border: '1px solid rgba(242,168,29,0.22)', color: '#F2A81D' }}
                 >
                   <Trash2 size={15} />
                   Reiniciar Gastos de esta Salida (Paz y Salvo)
                 </button>
               ) : (
-                <div className="p-4 rounded-2xl bg-rose-950/40 border border-rose-500/30 text-center flex flex-col gap-3 animate-fade-in">
-                  <AlertTriangle className="mx-auto text-rose-400" size={24} />
+                <div
+                  className="p-4 rounded-2xl text-center flex flex-col gap-3 animate-fade-in"
+                  style={{ background: 'rgba(242,168,29,0.06)', border: '1px solid rgba(242,168,29,0.25)' }}
+                >
+                  <AlertTriangle className="mx-auto" size={24} style={{ color: '#F2A81D' }} />
                   <p className="text-xs font-bold text-white">
                     ¿Estás seguro de reiniciar esta salida?
                   </p>
@@ -356,13 +378,15 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                   <div className="flex gap-2 pt-1">
                     <button
                       onClick={handleSaldar}
-                      className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs"
+                      className="flex-1 py-2.5 rounded-xl font-extrabold text-xs"
+                      style={{ background: '#F2A81D', color: '#100E40' }}
                     >
                       Sí, reiniciar
                     </button>
                     <button
                       onClick={() => setConfirmLimpiar(false)}
-                      className="flex-1 py-2.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] text-zinc-200 font-semibold text-xs"
+                      className="flex-1 py-2.5 rounded-xl font-semibold text-xs"
+                      style={{ background: 'rgba(255,255,255,0.07)', color: '#cbd5e1' }}
                     >
                       Cancelar
                     </button>
@@ -384,7 +408,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
                 Total Mes Apto
               </span>
-              <p className="text-2xl font-mono font-black text-emerald-400 tracking-tight">
+              <p className="text-2xl font-mono font-black tracking-tight" style={{ color: '#4EC26E' }}>
                 {fmt(totalMensual)}
               </p>
               <p className="text-[11px] text-zinc-400">
@@ -396,7 +420,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-400">
                 Promedio Roomie
               </span>
-              <p className="text-2xl font-mono font-black text-indigo-400 tracking-tight">
+              <p className="text-2xl font-mono font-black tracking-tight" style={{ color: '#D2F25E' }}>
                 {fmt(promedioMensual)}
               </p>
               <p className="text-[11px] text-zinc-400">
@@ -409,18 +433,16 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
             <div className="flex items-center gap-2">
               <button
                 onClick={compartirResumenMensualGrupo}
-                className="flex-1 py-3 px-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/15 border border-emerald-500/25 text-emerald-300 font-extrabold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+                className="flex-1 py-3 px-3 rounded-2xl font-extrabold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+                style={{ background: 'rgba(78,194,110,0.12)', border: '1px solid rgba(78,194,110,0.28)', color: '#4EC26E' }}
               >
                 <Share2 size={15} />
                 Enviar Balance al WhatsApp del Apto
               </button>
 
               <button
-                onClick={() => {
-                  playClickSound();
-                  onOpenTicket();
-                }}
-                className="btn-secondary !rounded-2xl !py-3"
+                onClick={() => { playClickSound(); onOpenTicket(); }}
+                className="btn-ghost !rounded-2xl !py-3"
               >
                 <ReceiptText size={15} />
                 Ticket
@@ -432,7 +454,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
           <section className="card-glass p-5 flex flex-col gap-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Scale size={16} className="text-indigo-400" />
+                <Scale size={16} style={{ color: '#D2F25E' }} />
                 <h3 className="text-xs font-black uppercase tracking-wider text-white">
                   Transferencias Apto ({deudasMensuales.length})
                 </h3>
@@ -449,7 +471,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               </div>
             ) : deudasMensuales.length === 0 ? (
               <div className="py-8 text-center flex flex-col items-center gap-2">
-                <CheckCircle2 size={32} className="text-emerald-400" />
+                <CheckCircle2 size={32} style={{ color: '#4EC26E' }} />
                 <p className="text-sm font-bold text-white">¡Apto a Paz y Salvo! 🎉</p>
               </div>
             ) : (
@@ -461,28 +483,39 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                   return (
                     <div
                       key={idx}
-                      className="p-3.5 rounded-2xl bg-white/[0.02] border border-white/[0.06] flex flex-col gap-3"
+                      className="p-3.5 rounded-2xl flex flex-col gap-3"
+                      style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)' }}
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-2 text-xs font-extrabold text-white">
-                          <span className="px-2.5 py-1 rounded-xl bg-rose-500/10 text-rose-300 border border-rose-500/20">
+                          <span
+                            className="px-2.5 py-1 rounded-xl"
+                            style={{ background: 'rgba(242,168,29,0.12)', color: '#F2A81D', border: '1px solid rgba(242,168,29,0.25)' }}
+                          >
                             {deudorNombre}
                           </span>
                           <ArrowRight size={13} className="text-zinc-500 stroke-[3]" />
-                          <span className="px-2.5 py-1 rounded-xl bg-emerald-500/10 text-emerald-300 border border-emerald-500/20">
+                          <span
+                            className="px-2.5 py-1 rounded-xl"
+                            style={{ background: 'rgba(78,194,110,0.12)', color: '#4EC26E', border: '1px solid rgba(78,194,110,0.25)' }}
+                          >
                             {acreedorNombre}
                           </span>
                         </div>
 
-                        <span className="text-sm font-mono font-black text-rose-400 bg-rose-500/10 border border-rose-500/20 px-2.5 py-1 rounded-xl">
+                        <span
+                          className="text-sm font-mono font-black px-2.5 py-1 rounded-xl"
+                          style={{ color: '#F2A81D', background: 'rgba(242,168,29,0.10)', border: '1px solid rgba(242,168,29,0.22)' }}
+                        >
                           {fmt(d.monto)}
                         </span>
                       </div>
 
-                      <div className="flex items-center gap-2 pt-2 border-t border-white/[0.05]">
+                      <div className="flex items-center gap-2 pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.05)' }}>
                         <button
                           onClick={() => enviarCobroMensual(d)}
-                          className="flex-1 py-2 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                          className="flex-1 py-2 px-3 rounded-xl font-extrabold text-xs flex items-center justify-center gap-1.5 transition-all active:scale-95"
+                          style={{ background: '#4EC26E', color: '#0a1f11' }}
                         >
                           <Send size={13} />
                           Cobrar WhatsApp
@@ -490,7 +523,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
 
                         <button
                           onClick={() => copiarCobroMensual(d, idx)}
-                          className="btn-secondary !py-2 !px-3 !text-xs !rounded-xl"
+                          className="btn-ghost !py-2 !px-3 !text-xs !rounded-xl"
                         >
                           <Copy size={13} />
                           {copiadoIdx === idx ? '¡Copiado!' : 'Copiar'}
@@ -517,7 +550,8 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                 return (
                   <div
                     key={p.id}
-                    className="p-3 rounded-xl bg-white/[0.02] border border-white/[0.06] flex items-center justify-between"
+                    className="p-3 rounded-xl flex items-center justify-between"
+                    style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)' }}
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-lg">{p.avatar || '😎'}</span>
@@ -530,13 +564,14 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
                     </div>
 
                     <span
-                      className={`text-xs font-mono font-extrabold px-2.5 py-1 rounded-xl border ${
+                      className="text-xs font-mono font-extrabold px-2.5 py-1 rounded-xl"
+                      style={
                         isPositive
-                          ? 'text-emerald-300 bg-emerald-500/10 border-emerald-500/25'
+                          ? { color: '#4EC26E', background: 'rgba(78,194,110,0.10)', border: '1px solid rgba(78,194,110,0.22)' }
                           : isNegative
-                          ? 'text-rose-300 bg-rose-500/10 border-rose-500/25'
-                          : 'text-zinc-400 bg-white/[0.03] border-white/[0.07]'
-                      }`}
+                          ? { color: '#F2A81D', background: 'rgba(242,168,29,0.10)', border: '1px solid rgba(242,168,29,0.22)' }
+                          : { color: '#64748b', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)' }
+                      }
                     >
                       {isPositive ? `+${fmt(p.balance)}` : isNegative ? fmt(p.balance) : '$0'}
                     </span>
@@ -552,27 +587,33 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
               {!confirmLimpiar ? (
                 <button
                   onClick={() => setConfirmLimpiar(true)}
-                  className="w-full py-3.5 px-4 rounded-2xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/25 text-rose-300 font-extrabold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+                  className="w-full py-3.5 px-4 rounded-2xl font-extrabold text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
+                  style={{ background: 'rgba(242,168,29,0.08)', border: '1px solid rgba(242,168,29,0.22)', color: '#F2A81D' }}
                 >
                   <Trash2 size={15} />
                   Saldar Mes del Apto (Paz y Salvo)
                 </button>
               ) : (
-                <div className="p-4 rounded-2xl bg-rose-950/40 border border-rose-500/30 text-center flex flex-col gap-3 animate-fade-in">
-                  <AlertTriangle className="mx-auto text-rose-400" size={24} />
+                <div
+                  className="p-4 rounded-2xl text-center flex flex-col gap-3 animate-fade-in"
+                  style={{ background: 'rgba(242,168,29,0.06)', border: '1px solid rgba(242,168,29,0.25)' }}
+                >
+                  <AlertTriangle className="mx-auto" size={24} style={{ color: '#F2A81D' }} />
                   <p className="text-xs font-bold text-white">
                     ¿Seguro que ya todos pagaron el mes del apto?
                   </p>
                   <div className="flex gap-2 pt-1">
                     <button
                       onClick={handleSaldar}
-                      className="flex-1 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-extrabold text-xs"
+                      className="flex-1 py-2.5 rounded-xl font-extrabold text-xs"
+                      style={{ background: '#F2A81D', color: '#100E40' }}
                     >
                       Sí, dejar en $0
                     </button>
                     <button
                       onClick={() => setConfirmLimpiar(false)}
-                      className="flex-1 py-2.5 rounded-xl bg-white/[0.08] hover:bg-white/[0.12] text-zinc-200 font-semibold text-xs"
+                      className="flex-1 py-2.5 rounded-xl font-semibold text-xs"
+                      style={{ background: 'rgba(255,255,255,0.07)', color: '#cbd5e1' }}
                     >
                       Cancelar
                     </button>
