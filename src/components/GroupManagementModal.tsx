@@ -134,7 +134,7 @@ export const GroupManagementModal: React.FC<GroupManagementModalProps> = ({
         role="dialog"
         aria-modal="true"
         aria-labelledby="group-management-title"
-        className="flex h-[100dvh] max-h-[100dvh] w-full max-w-[460px] flex-col overflow-hidden border border-white/[0.10] bg-[var(--azul-mid)] shadow-2xl sm:h-auto sm:max-h-[90dvh] sm:rounded-3xl"
+        className="flex h-full max-h-full w-full max-w-[460px] flex-col overflow-hidden border border-white/[0.10] bg-[var(--azul-mid)] shadow-2xl sm:h-auto sm:max-h-[90dvh] sm:rounded-3xl"
       >
         <div className="flex shrink-0 items-center justify-between border-b border-white/[0.10] px-5 pb-3 pt-[max(env(safe-area-inset-top),16px)] sm:pt-4">
           <h2 id="group-management-title" className="flex items-center gap-2 text-base font-semibold text-white"><Settings2 size={18} className="text-[#D2F25E]" /> Gestionar grupo</h2>

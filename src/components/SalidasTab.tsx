@@ -877,7 +877,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             role="dialog"
             aria-modal="true"
             aria-labelledby="friends-modal-title"
-            className="flex h-[100dvh] max-h-[100dvh] w-full max-w-[420px] flex-col overflow-hidden border border-white/[0.1] bg-[var(--azul-mid)] shadow-2xl sm:h-auto sm:max-h-[90dvh] sm:rounded-3xl"
+            className="flex h-full max-h-full w-full max-w-[420px] flex-col overflow-hidden border border-white/[0.1] bg-[var(--azul-mid)] shadow-2xl sm:h-auto sm:max-h-[90dvh] sm:rounded-3xl"
           >
             <div className="flex shrink-0 items-center justify-between border-b border-white/[0.08] px-5 pb-3 pt-[max(env(safe-area-inset-top),16px)] sm:pt-4">
               <div className="flex items-center gap-2">
