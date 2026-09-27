@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { Persona, GastoMensual, GastoSalida, TabType } from './types';
 import { DEFAULT_ROOMIES, DEFAULT_CONTACTOS } from './utils/storage';
 import { calcularDeudas, calcularDeudasSalida, uid } from './utils/calculations';
@@ -33,11 +33,12 @@ export default function App() {
     return 'teal';
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     document.documentElement.dataset.theme = theme;
   }, [theme]);
 
   const handleThemeChange = (nextTheme: AppTheme) => {
+    document.documentElement.dataset.theme = nextTheme;
     setTheme(nextTheme);
     try {
       localStorage.setItem('rm-theme', nextTheme);

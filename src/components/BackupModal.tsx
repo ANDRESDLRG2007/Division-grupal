@@ -92,7 +92,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
               playClickSound();
               onCerrar();
             }}
-            className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 border border-slate-700 flex items-center justify-center text-slate-300 hover:text-white transition-all active:scale-90"
+            className="w-8 h-8 rounded-full bg-[var(--azul-card)] hover:bg-[var(--azul-hover)] border border-white/10 flex items-center justify-center text-slate-300 hover:text-white transition-all active:scale-90"
           >
             <X size={16} />
           </button>

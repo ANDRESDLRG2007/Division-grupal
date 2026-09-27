@@ -94,7 +94,7 @@ export const GroupManagementModal: React.FC<GroupManagementModalProps> = ({
             <select value={avatarEdicion} onChange={event => setAvatarEdicion(event.target.value)} className="rounded-lg border border-white/10 bg-[var(--azul)] p-1">
             {AVATARES.map(avatar => <option key={avatar} value={avatar}>{avatar}</option>)}
           </select>
-          <input value={nombreEdicion} onChange={event => setNombreEdicion(event.target.value)} onKeyDown={event => event.key === 'Enter' && guardarEdicion()} className="min-w-0 flex-1 rounded-lg border border-white/10 bg-[var(--azul)] px-2 py-1 text-sm text-white focus:border-[#D2F25E] focus:outline-none" autoFocus />
+          <input value={nombreEdicion} onChange={event => setNombreEdicion(event.target.value)} onKeyDown={event => event.key === 'Enter' && guardarEdicion()} className="min-w-0 flex-1 rounded-lg border border-white/10 bg-[var(--azul)] px-2 py-1 text-sm text-white focus:border-[#D2F25E] focus:outline-none" />
           <button type="button" onClick={guardarEdicion} className="rounded-lg bg-[#D2F25E] p-2 text-[#0B2028]" title="Guardar edición"><Check size={14} /></button>
           <button type="button" onClick={() => setEditando(null)} className="rounded-lg bg-[var(--azul-card)] p-2 text-slate-300" title="Cancelar edición"><X size={14} /></button>
         </div>
@@ -126,13 +126,22 @@ export const GroupManagementModal: React.FC<GroupManagementModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto p-4 backdrop-blur-md animate-fade-in" style={{ background: 'var(--azul-overlay)' }}>
-      <div className="max-h-[90vh] w-full max-w-[460px] space-y-4 overflow-y-auto rounded-3xl border border-white/[0.10] bg-[var(--azul-mid)] p-5 shadow-2xl">
-        <div className="flex items-center justify-between border-b border-white/[0.10] pb-3">
-          <h2 className="flex items-center gap-2 text-base font-semibold text-white"><Settings2 size={18} className="text-[#D2F25E]" /> Gestionar grupo</h2>
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center overflow-hidden overscroll-none backdrop-blur-md animate-fade-in"
+      style={{ background: 'var(--azul-overlay)' }}
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="group-management-title"
+        className="flex h-[100dvh] max-h-[100dvh] w-full max-w-[460px] flex-col overflow-hidden border border-white/[0.10] bg-[var(--azul-mid)] shadow-2xl sm:h-auto sm:max-h-[90dvh] sm:rounded-3xl"
+      >
+        <div className="flex shrink-0 items-center justify-between border-b border-white/[0.10] px-5 pb-3 pt-[max(env(safe-area-inset-top),16px)] sm:pt-4">
+          <h2 id="group-management-title" className="flex items-center gap-2 text-base font-semibold text-white"><Settings2 size={18} className="text-[#D2F25E]" /> Gestionar grupo</h2>
           <button type="button" onClick={onCerrar} className="rounded-full bg-[var(--azul-card)] p-2 text-slate-300" title="Cerrar"><X size={16} /></button>
         </div>
 
+        <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-5 py-4">
         <section className="space-y-2 border-b border-white/[0.10] pb-4">
           <div>
             <h3 className="text-sm font-semibold text-slate-100">Apariencia</h3>
@@ -189,9 +198,12 @@ export const GroupManagementModal: React.FC<GroupManagementModalProps> = ({
             <button type="button" onClick={agregarContacto} className="rounded-xl bg-[#4EC26E] px-3 py-2 text-xs font-bold text-[#0B2028]">Agregar</button>
           </div>
         </section>
+        </div>
 
-        <button type="button" onClick={() => { playClickSound(); onOpenBackup(); }} className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.10] bg-[var(--azul-card)] px-3 py-2 text-xs font-bold text-slate-200"><Upload size={14} /> Abrir respaldo de datos</button>
-        <button type="button" onClick={onCerrar} className="w-full rounded-xl bg-[var(--azul-hover)] px-3 py-2 text-sm font-semibold text-white">Cerrar</button>
+        <div className="z-10 shrink-0 space-y-2 border-t border-white/[0.10] bg-[var(--azul-mid)] px-5 pt-3 pb-[max(env(safe-area-inset-bottom),12px)]">
+          <button type="button" onClick={() => { playClickSound(); onOpenBackup(); }} className="flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.10] bg-[var(--azul-card)] px-3 py-2 text-xs font-bold text-slate-200"><Upload size={14} /> Abrir respaldo de datos</button>
+          <button type="button" onClick={onCerrar} className="w-full rounded-xl bg-[var(--azul-hover)] px-3 py-2 text-sm font-semibold text-white">Cerrar</button>
+        </div>
       </div>
     </div>
   );

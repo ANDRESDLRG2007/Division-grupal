@@ -354,7 +354,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                   ))}
                 </div>
               </div>
-              <div className="flex items-center bg-[#151c30] border border-white/[0.1] focus-within:border-emerald-500 rounded-2xl px-4 py-2.5">
+              <div className="flex items-center bg-[var(--azul)] border border-white/[0.1] focus-within:border-[#4EC26E] rounded-2xl px-4 py-2.5">
                 <span className="text-emerald-400 font-mono font-bold text-xl mr-2">$</span>
                 <input
                   type="number"
@@ -491,14 +491,14 @@ export const MensualTab: React.FC<MensualTabProps> = ({
             </div>
 
             {/* Add roomie */}
-            <div className="flex items-center gap-2 p-2 rounded-2xl" style={{ background: 'rgba(16,14,64,0.6)', border: '1px solid rgba(255,255,255,0.08)' }}>
+            <div className="flex items-center gap-2 p-2 rounded-2xl" style={{ background: 'var(--azul-input)', border: '1px solid rgba(255,255,255,0.08)' }}>
               <select
                 value={nuevoAvatar}
                 onChange={(e) => setNuevoAvatar(e.target.value)}
                 className="bg-transparent text-lg p-1 text-white outline-none cursor-pointer"
               >
                 {AVATARES.map((a) => (
-                  <option key={a} value={a} className="bg-zinc-900 text-white">
+                  <option key={a} value={a} className="bg-[var(--azul-mid)] text-white">
                     {a}
                   </option>
                 ))}
@@ -534,7 +534,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                       className="bg-transparent text-lg text-white"
                     >
                       {AVATARES.map((a) => (
-                        <option key={a} value={a} className="bg-zinc-900">
+                        <option key={a} value={a} className="bg-[var(--azul-mid)]">
                           {a}
                         </option>
                       ))}
