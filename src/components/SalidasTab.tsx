@@ -225,9 +225,9 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       <section
         className="relative overflow-hidden rounded-3xl p-5 flex flex-col gap-4"
         style={{
-          background: 'linear-gradient(160deg, #1a1860 0%, #100E40 60%, #0c0b34 100%)',
+          background: 'linear-gradient(160deg, var(--azul-card) 0%, var(--azul) 60%, var(--azul-mid) 100%)',
           border: '1px solid rgba(210,242,94,0.15)',
-          boxShadow: '0 12px 40px -10px rgba(16,14,64,0.8)',
+          boxShadow: '0 12px 40px -10px rgba(0,0,0,0.55)',
         }}
       >
         {/* Decorative glows */}
@@ -400,7 +400,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
         onClick={() => { playClickSound(); onAbrirRuleta(); }}
         className="p-4 rounded-2xl flex items-center justify-between cursor-pointer transition-all group"
         style={{
-          background: 'linear-gradient(120deg, rgba(210,242,94,0.08) 0%, rgba(22,20,72,0.6) 100%)',
+          background: 'linear-gradient(120deg, rgba(210,242,94,0.08) 0%, color-mix(in srgb, var(--azul-mid) 60%, transparent) 100%)',
           border: '1px solid rgba(210,242,94,0.20)',
         }}
       >
@@ -526,7 +526,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       ══════════════════════════════════════════════════════════ */}
       {mostrarModalGasto && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto animate-fade-in">
-          <div className="w-full max-w-[460px] bg-[#121829] border border-white/[0.1] rounded-t-3xl sm:rounded-3xl p-5 flex flex-col gap-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+          <div className="w-full max-w-[460px] bg-[var(--azul-mid)] border border-white/[0.1] rounded-t-3xl sm:rounded-3xl p-5 flex flex-col gap-4 shadow-2xl max-h-[92vh] overflow-y-auto">
             {/* Header */}
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
               <div className="flex items-center gap-2">
@@ -591,7 +591,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   ))}
                 </div>
               </div>
-              <div className="flex items-center bg-[#151c30] border border-white/[0.1] focus-within:border-indigo-500 rounded-2xl px-4 py-2.5">
+              <div className="flex items-center bg-[var(--azul)] border border-white/[0.1] focus-within:border-[#D2F25E] rounded-2xl px-4 py-2.5">
                 <span className="text-emerald-400 font-mono font-bold text-xl mr-2">$</span>
                 <input
                   type="number"
@@ -750,7 +750,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       ══════════════════════════════════════════════════════════ */}
       {mostrarCalculadora && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-          <div className="w-full max-w-[400px] bg-[#121829] border border-white/[0.1] rounded-3xl p-5 flex flex-col gap-4 shadow-2xl">
+          <div className="w-full max-w-[400px] bg-[var(--azul-mid)] border border-white/[0.1] rounded-3xl p-5 flex flex-col gap-4 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 rounded-xl bg-cyan-500/20 border border-cyan-500/30 flex items-center justify-center text-sm">
@@ -803,7 +803,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                     }}
                     className={`flex-1 py-2 rounded-xl text-xs font-extrabold transition-all ${
                       calcPersonas === n
-                        ? 'bg-cyan-600 text-white shadow-md shadow-cyan-600/30'
+                        ? 'bg-[#D2F25E] text-[#0B2028] shadow-md shadow-[#D2F25E]/20'
                         : 'bg-white/[0.04] border border-white/[0.08] text-zinc-400'
                     }`}
                   >
@@ -825,7 +825,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   setIncluirPropina(!incluirPropina);
                 }}
                 className={`py-1 px-3 rounded-xl text-xs font-extrabold transition-all ${
-                  incluirPropina ? 'bg-emerald-600 text-white' : 'bg-white/[0.08] text-zinc-400'
+                  incluirPropina ? 'bg-[#4EC26E] text-[#0B2028]' : 'bg-white/[0.08] text-zinc-400'
                 }`}
               >
                 {incluirPropina ? 'SÍ (+10%)' : 'NO'}
@@ -833,7 +833,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </div>
 
             {/* Result */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-950/40 to-[#121829] border border-cyan-500/30 text-center flex flex-col gap-1">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-cyan-950/40 to-[var(--azul-mid)] border border-cyan-500/30 text-center flex flex-col gap-1">
               <span className="text-[11px] uppercase tracking-wider font-extrabold text-cyan-300">
                 Cada uno debe poner:
               </span>
@@ -856,7 +856,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   setMostrarCalculadora(false);
                 }
               }}
-              className="w-full py-3 rounded-2xl bg-cyan-600 hover:bg-cyan-500 text-white font-extrabold text-xs transition-all active:scale-95"
+              className="w-full py-3 rounded-2xl bg-[#D2F25E] hover:brightness-105 text-[#0B2028] font-extrabold text-xs transition-all active:scale-95"
             >
               Guardar como Gasto del Parche
             </button>
@@ -869,7 +869,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
       ══════════════════════════════════════════════════════════ */}
       {mostrarModalAmigos && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-          <div className="w-full max-w-[420px] bg-[#121829] border border-white/[0.1] rounded-3xl p-5 flex flex-col gap-4 shadow-2xl">
+          <div className="w-full max-w-[420px] bg-[var(--azul-mid)] border border-white/[0.1] rounded-3xl p-5 flex flex-col gap-4 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
               <div className="flex items-center gap-2">
                 <Users size={16} style={{ color: '#4EC26E' }} />
@@ -919,7 +919,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                 return isEditing ? (
                   <div
                     key={c.id}
-                    className="flex items-center gap-2 p-2 bg-[#151c30] border border-indigo-500 rounded-xl"
+                    className="flex items-center gap-2 p-2 bg-[var(--azul)] border border-white/10 rounded-xl"
                   >
                     <select
                       value={avatarTemp}
@@ -937,12 +937,12 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                       value={nombreTemp}
                       onChange={(e) => setNombreTemp(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && guardarEdicionContacto(c.id)}
-                      className="flex-1 bg-transparent text-xs font-bold text-white border-b border-indigo-400 outline-none"
+                      className="flex-1 bg-transparent text-xs font-bold text-white border-b border-[#D2F25E] outline-none"
                       autoFocus
                     />
                     <button
                       onClick={() => guardarEdicionContacto(c.id)}
-                      className="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs"
+                      className="w-7 h-7 rounded-lg bg-[#D2F25E] text-[#0B2028] flex items-center justify-center text-xs"
                     >
                       <Check size={14} />
                     </button>

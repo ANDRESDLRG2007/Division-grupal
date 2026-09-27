@@ -1,0 +1,312 @@
+# Propuesta de Rediseño UI/UX — UniSplit 🎓
+**Diseñador UI/UX Senior — Identidad de Marca y Sistemas de Diseño Mobile-First**
+
+---
+
+## 1. Diagnóstico de los Problemas Detectados en las Capturas
+
+1. **Monotonía Cromática (Violación de la Guía de Marca):** La interfaz actual cayó en el cliché del "modo oscuro genérico con acentos morados/índigos (`#6366f1`)". Se ignoraron los colores nucleares de la marca: el **Lima (`#D2F25E`)** como imán de atención, el **Azul Noche (`#100E40`)** como fondo base unificado, el **Verde (`#4EC26E`)** para saldos positivos y el **Naranja (`#F2A81D`)** para deudas.
+2. **Isomorfismo de Tarjetas (Falta de Jerarquía):** Todas las tarjetas tienen idéntica elevación, idéntico radio y peso visual similar. El ojo del estudiante no sabe si mirar el total, los amigos, la ruleta o las deudas.
+3. **Estados Vacíos Elefantiásicos:** Bloques vacíos gigantescos que empujan el contenido útil fuera del viewport móvil, ocupando más del 40% de la pantalla vertical sin aportar valor interactivo.
+4. **Tipografía Plana:** Al no aplicar **Baloo 2** para títulos/cifras clave ni **Manrope** para lectura funcional, la interfaz perdió su carácter joven y universitario.
+
+---
+
+## 2. Reglas Estrictas del Sistema de Color y Tipografía
+
+Basado 100% en la Guía de Marca de UniSplit:
+
+| Token / Rol | Color HEX | Color de Texto Encima | Aplicación en la Interfaz |
+| :--- | :--- | :--- | :--- |
+| **Fondo Base** | `#100E40` (Azul Noche) | `#F2F2F2` (Gris claro) | `<body>`, fondo general de la app y del viewport móvil. |
+| **Superficie / Card N1** | `#18154C` | `#F2F2F2` | Tarjeta Hero principal (Total de la salida / mes). Borde `rgba(242, 242, 242, 0.1)`. |
+| **Superficie / Card N2** | `#1F1A62` (o `#100E40` c/ borde) | `#F2F2F2` | Tarjetas secundarias (feed de consumos, opciones, banners). |
+| **CTA Primario (Acción Clave)**| `#D2F25E` (Lima) | `#100E40` (Azul Noche, Bold) | Botón principal de la pantalla (*"+ Dividir Cuenta"*, *"Girar Ruleta"*). Contraste máximo. |
+| **Positivo / Saldo a Favor** | `#4EC26E` (Verde) | `#FFFFFF` (Blanco) | Cifras a favor, badges de paz y salvo, confirmaciones de pago. **Nunca deuda.** |
+| **Alerta / Deuda / Pendiente** | `#F2A81D` (Naranja) | `#100E40` (Azul Noche) | Botones de cobro Nequi (*"Cobrar"*), badges de adeudo (*"Debes"*), advertencias. **Nunca saldo a favor.** |
+| **Texto Principal y Bordes** | `#F2F2F2` (Gris) | — | Texto de lectura, labels y bordes divisorios sutiles. |
+
+### Tipografía Oficial
+* **Baloo 2 (Display):** Títulos de pantallas, logo (`Uni` en Gris + `Split` en Lima), botones principales y cifras hero monetarias (`$45.000`).
+* **Manrope (Texto/UI):** Párrafos, nombres de amigos, labels descriptivos, subtítulos y desglose de items.
+
+---
+
+## 3. Sistema de Espaciado y Escala de Jerarquía
+
+Trabajaremos con una escala modular estricta de base 4:
+* **Márgenes de contenedor móvil:** `px-4` (16px) y `pt-3 pb-6`.
+* **Separación entre bloques principales:** `gap-5` (20px) o `gap-6` (24px) vía Flexbox nativo (para evitar bugs de renderizado en Tailwind 4).
+* **Padding interno de tarjetas:**
+  * **Tarjeta Hero (Nivel 1):** `p-5` (20px), radio `rounded-3xl` (24px).
+  * **Tarjeta Secundaria (Nivel 2):** `p-4` (16px), radio `rounded-2xl` (16px).
+  * **Pills / Chips:** `py-1.5 px-3`, radio `rounded-xl` (12px).
+* **Jerarquía de Importancia:**
+  1. **Nivel 1 (Foco del usuario):** Tarjeta Hero con fondo `#18154C`, cifra en Baloo 2 y CTA en Lima `#D2F25E`.
+  2. **Nivel 2 (Interacción frecuente):** Fila horizontal de amigos (tipo stories) y deudas pendientes en Naranja `#F2A81D`.
+  3. **Nivel 3 (Informativo / Feed):** Lista de consumos con fondos discretos y tipografía Manrope limpia.
+
+---
+
+## 4. Reestructuración de Jerarquía Visual por Pantalla
+
+### 🍕 Pantalla 1: Salidas (La experiencia principal)
+* **Acción Primaria:** El botón **`[ + Dividir Cuenta ]`**, background **Lima `#D2F25E`** con texto **Azul Noche `#100E40`**, situado en la Tarjeta Hero superior.
+* **Elemento Secundario (Hero):** Cifra total del parche en Baloo 2 grande (`$0` o `$120.000`) y acceso discreto tipo enlace/icono a `🧮 Calculadora Mesa` en la esquina superior derecha.
+* **El Parche (Social):** Barra horizontal de burbujas circulares con avatar + nombre en Manrope + botón `(+) Añadir`. No ocupa espacio vertical excesivo.
+* **Ruleta Shortcut:** Un banner estilizado con acento en Lima/Azul Noche: *"¿A quién le toca la ronda? Girar 🎲"*.
+* **Lo que se oculta a Modales:** El formulario de registro de gasto, la calculadora de mesa y la edición de amigos. La pantalla principal permanece limpia.
+
+### 💸 Pantalla 2: Balances (Liquidación y Nequi)
+* **Acción Primaria:** **`[ Cobrar por WhatsApp / Nequi ]`**, background **Naranja `#F2A81D`** con texto `#100E40`, en las tarjetas de transferencia pendiente para presionar el cobro amistoso.
+* **Elemento Hero:** 2 métricas claras en tarjetas asimétricas (`Total Salidas` con cifra en Verde `#4EC26E` si todo está al día, y `Por Liquidar` en Naranja `#F2A81D` si hay deudas).
+* **Lista de Transferencias:** Formato de fila con dirección limpia: `Deudor ➡️ Acreedor`, monto destacado y botón compacto de acción.
+* **Lo que se mueve a segundo plano:** El selector *"Salidas / Apartamento"* debe ser un toggle pill en la parte superior con acento Lima.
+
+### 🎰 Pantalla 3: Ruleta (Modo Juego Universitario)
+* **Acción Primaria:** El botón central **`[ ¡GIRAR RULETA! 🎲 ]`** en **Lima `#D2F25E`** con texto **`#100E40`** (en lugar del botón morado actual).
+* **Elemento Central:** La ruleta en canvas usando los colores de la paleta oficial (Lima `#D2F25E`, Verde `#4EC26E`, Naranja `#F2A81D`, Azul Noche y acentos contrastantes).
+* **Selectores de Modo:** Tabs compactos (`💸 Quién Paga | 🧽 Castigos | ✏️ Libre`) con estilo píldora discreto sobre `#18154C`.
+* **Lo que se oculta:** La lista de edición de opciones personalizadas solo aparece si el modo seleccionado es *"Libre"*, evitando ensuciar la pantalla cuando solo se quiere girar.
+
+### 🏠 Pantalla 4: Roomies (Apartamento — Modo Secundario)
+* **Acción Primaria:** Botón **`[ + Registrar Gasto de Apto ]`** en Verde `#4EC26E` o Lima `#D2F25E`.
+* **Elemento Secundario:** Tarjeta resumen con total del mes y promedio por roomie.
+* **Historial de Apto:** Tarjetas sobrias tipo recibo para arriendo, WiFi y servicios públicos.
+
+---
+
+## 5. Simplificación de Estados Vacíos
+
+En vez de ocupar 220px de alto con ilustraciones pesadas:
+* **Micro-estado vacío (64px - 72px):** Una tarjeta delgada con borde punteado sutil `border-dashed border-white/10`, un emoji amigable en 20px (`🍕` o `🧾`), y un copy directo en Manrope:
+  > *"Sin consumos en esta salida · Toca **Dividir Cuenta** arriba"*
+* Cero botones duplicados en el estado vacío, ya que el CTA principal siempre está accesible y visible en la tarjeta superior.
+
+---
+
+## 6. Fragmentos de Clases Tailwind CSS y Tokens Listos para Aplicar
+
+### A. Configuración en `src/index.css`
+```css
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  /* Paleta Oficial UniSplit */
+  --unisplit-azul: #100E40;
+  --unisplit-azul-card: #18154C;
+  --unisplit-azul-hover: #1F1B5C;
+  --unisplit-verde: #4EC26E;
+  --unisplit-lima: #D2F25E;
+  --unisplit-naranja: #F2A81D;
+  --unisplit-gris: #F2F2F2;
+
+  --font-display: 'Baloo 2', cursive, sans-serif;
+  --font-body: 'Manrope', system-ui, sans-serif;
+}
+
+body {
+  background-color: var(--unisplit-azul);
+  color: var(--unisplit-gris);
+  font-family: var(--font-body);
+}
+
+.font-baloo {
+  font-family: var(--font-display);
+}
+
+.font-manrope {
+  font-family: var(--font-body);
+}
+
+/* Tarjeta Base de la Guía */
+.card-unisplit {
+  background-color: var(--unisplit-azul-card);
+  border: 1px solid rgba(242, 242, 242, 0.08);
+  border-radius: 20px;
+}
+
+/* Botón Primario Lima */
+.btn-lima {
+  background-color: var(--unisplit-lima);
+  color: var(--unisplit-azul);
+  font-family: var(--font-display);
+  font-weight: 700;
+  border-radius: 16px;
+  transition: all 0.18s ease;
+}
+.btn-lima:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+.btn-lima:active {
+  transform: scale(0.97);
+}
+
+/* Botón Naranja (Cobro / Alerta) */
+.btn-naranja {
+  background-color: var(--unisplit-naranja);
+  color: var(--unisplit-azul);
+  font-family: var(--font-body);
+  font-weight: 700;
+  border-radius: 12px;
+}
+```
+
+---
+
+### B. Navbar con Identidad Oficial (`src/components/Navbar.tsx`)
+```tsx
+<header className="sticky top-0 z-40 px-4 pt-[max(env(safe-area-inset-top,0px),12px)] pb-3 bg-[#100E40]/95 backdrop-blur-md border-b border-[#F2F2F2]/10">
+  <div className="max-w-[480px] mx-auto flex items-center justify-between">
+    {/* Isotipo contextual: Uni en Blanco + Split en Lima */}
+    <div className="flex items-center gap-2">
+      <div className="w-8 h-8 rounded-xl bg-[#18154C] border border-[#F2F2F2]/10 flex items-center justify-center text-base">
+        🍕
+      </div>
+      <h1 className="font-baloo text-xl font-extrabold tracking-tight">
+        <span className="text-[#F2F2F2]">Uni</span>
+        <span className="text-[#D2F25E]">Split</span>
+      </h1>
+      <span className="text-[10px] font-manrope font-bold px-2 py-0.5 rounded-full bg-[#D2F25E]/15 text-[#D2F25E] border border-[#D2F25E]/30">
+        Parche
+      </span>
+    </div>
+
+    {/* Acciones */}
+    <div className="flex items-center gap-2">
+      <button onClick={onOpenTicket} className="p-2 rounded-xl bg-[#18154C] border border-[#F2F2F2]/10 text-[#F2F2F2] hover:text-[#D2F25E]">
+        <ReceiptText size={16} />
+      </button>
+      <button onClick={onOpenBackup} className="p-2 rounded-xl bg-[#18154C] border border-[#F2F2F2]/10 text-[#F2F2F2] hover:text-[#D2F25E]">
+        <Settings2 size={16} />
+      </button>
+      <div className="py-1 px-2.5 rounded-xl bg-[#4EC26E]/15 border border-[#4EC26E]/30 text-[#4EC26E] font-manrope text-xs font-bold">
+        {fmt(totalActual)}
+      </div>
+    </div>
+  </div>
+</header>
+```
+
+---
+
+### C. Tarjeta Hero y Amigos en Salidas (`src/components/SalidasTab.tsx`)
+```tsx
+{/* 1. Tarjeta Hero Salida */}
+<section className="card-unisplit p-5 flex flex-col gap-3 relative overflow-hidden">
+  <div className="flex items-center justify-between">
+    <span className="text-[11px] font-manrope font-bold uppercase tracking-wider text-[#F2F2F2]/60">
+      Total de la Salida
+    </span>
+    <button 
+      onClick={() => setMostrarCalculadora(true)}
+      className="text-xs font-manrope font-semibold text-[#D2F25E] hover:underline flex items-center gap-1"
+    >
+      <Calculator size={13} /> Calculadora Mesa
+    </button>
+  </div>
+
+  <h2 className="font-baloo text-4xl font-extrabold text-[#F2F2F2] tracking-tight">
+    {fmt(totalSalidas)}
+  </h2>
+
+  {/* CTA Primario LIMA */}
+  <button
+    onClick={abrirModalNuevoGasto}
+    className="btn-lima w-full py-3.5 px-4 text-base flex items-center justify-center gap-2 shadow-lg shadow-[#D2F25E]/15"
+  >
+    <Plus size={19} strokeWidth={3} />
+    <span>Dividir Cuenta</span>
+  </button>
+</section>
+
+{/* 2. Burbujas de Amigos (Stories) */}
+<section className="flex flex-col gap-2">
+  <div className="flex items-center justify-between px-1">
+    <span className="text-xs font-manrope font-bold text-[#F2F2F2]/80 uppercase tracking-wider">
+      El Parche ({contactos.length})
+    </span>
+    <button onClick={() => setMostrarModalAmigos(true)} className="text-xs font-manrope font-bold text-[#D2F25E]">
+      Gestionar
+    </button>
+  </div>
+  <div className="flex items-center gap-2.5 overflow-x-auto pb-1">
+    {contactos.map(c => (
+      <div key={c.id} className="flex flex-col items-center gap-1 shrink-0">
+        <div className="w-12 h-12 rounded-2xl bg-[#18154C] border border-[#F2F2F2]/10 flex items-center justify-center text-xl">
+          {c.avatar || '😎'}
+        </div>
+        <span className="text-[10px] font-manrope font-semibold text-[#F2F2F2]/90 max-w-[50px] truncate">
+          {c.nombre}
+        </span>
+      </div>
+    ))}
+    <button onClick={() => setMostrarModalAmigos(true)} className="flex flex-col items-center gap-1 shrink-0">
+      <div className="w-12 h-12 rounded-2xl border-2 border-dashed border-[#D2F25E]/40 text-[#D2F25E] flex items-center justify-center">
+        <Plus size={18} strokeWidth={3} />
+      </div>
+      <span className="text-[10px] font-manrope font-bold text-[#D2F25E]">Añadir</span>
+    </button>
+  </div>
+</section>
+
+{/* 3. Micro Estado Vacío */}
+{gastosSalida.length === 0 && (
+  <div className="p-4 rounded-2xl border border-dashed border-[#F2F2F2]/10 bg-[#18154C]/50 flex items-center gap-3 text-left">
+    <span className="text-2xl">🍕</span>
+    <p className="text-xs font-manrope text-[#F2F2F2]/70 leading-snug">
+      Aún no hay consumos registrados. Toca <strong className="text-[#D2F25E]">"Dividir Cuenta"</strong> para empezar.
+    </p>
+  </div>
+)}
+```
+
+---
+
+### D. Cobros en Balances (`src/components/CuentasTab.tsx`)
+```tsx
+{/* Transferencia con botón de cobro en Naranja de Marca */}
+<div className="p-3.5 rounded-2xl bg-[#18154C] border border-[#F2F2F2]/10 flex items-center justify-between">
+  <div>
+    <p className="text-xs font-manrope text-[#F2F2F2]">
+      <strong className="text-[#F2F2F2]">{deudorNombre}</strong> le debe a <strong className="text-[#4EC26E]">{acreedorNombre}</strong>
+    </p>
+    <p className="font-baloo text-base font-bold text-[#F2A81D] mt-0.5">
+      {fmt(d.monto)}
+    </p>
+  </div>
+
+  {/* Botón de cobro en NARANJA */}
+  <button
+    onClick={() => enviarCobroSalida(d)}
+    className="btn-naranja py-2 px-3 text-xs flex items-center gap-1.5 shadow-md shadow-[#F2A81D]/20 active:scale-95"
+  >
+    <Send size={12} />
+    <span>Cobrar Nequi</span>
+  </button>
+</div>
+```
+
+---
+
+### E. Botón de la Ruleta (`src/components/RuletaModal.tsx`)
+```tsx
+{/* Botón de girar ruleta con el Lima oficial de máximo contraste */}
+<button
+  onClick={girar}
+  disabled={girando || count < 2}
+  className="btn-lima w-full max-w-[280px] py-3.5 px-6 text-lg tracking-wide flex items-center justify-center gap-2 shadow-lg shadow-[#D2F25E]/20"
+>
+  <Dices size={22} strokeWidth={2.5} />
+  <span>¡GIRAR RULETA!</span>
+</button>
+```
+
+---
+
+### 💡 Resumen del Impacto
+1. **Identidad 100% groundeada en la guía**: Se eliminan todos los morados arbitrarios y se establece el **Azul Noche `#100E40`** con tarjetas `#18154C`, tipografías **Baloo 2** y **Manrope**, y los acentos exactos **Lima**, **Verde** y **Naranja**.
+2. **Jerarquía inmediata**: El ojo va directo al botón Lima `#D2F25E` (acción principal), luego al total y por último a los consumos.
+3. **Cero saturación visual**: Estados vacíos compactos (70px en lugar de 220px) y amigos organizados en una fila natural tipo stories.

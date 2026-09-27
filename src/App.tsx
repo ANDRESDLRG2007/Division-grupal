@@ -12,6 +12,8 @@ import { TicketModal } from './components/TicketModal';
 import { BackupModal } from './components/BackupModal';
 import { GroupManagementModal } from './components/GroupManagementModal';
 
+type AppTheme = 'teal' | 'navy' | 'charcoal';
+
 export default function App() {
   // Primary feature is now 'salida'!
   const [tab, setTab] = useState<TabType>('salida');
@@ -21,6 +23,28 @@ export default function App() {
   const [gastosMensuales, setGastosMensuales] = useState<GastoMensual[]>([]);
   const [contactos, setContactos] = useState<Persona[]>(DEFAULT_CONTACTOS);
   const [gastosSalida, setGastosSalida] = useState<GastoSalida[]>([]);
+  const [theme, setTheme] = useState<AppTheme>(() => {
+    try {
+      const savedTheme = localStorage.getItem('rm-theme');
+      if (savedTheme === 'navy' || savedTheme === 'charcoal') return savedTheme;
+    } catch {
+      // Continue with the default theme when storage is unavailable.
+    }
+    return 'teal';
+  });
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  const handleThemeChange = (nextTheme: AppTheme) => {
+    setTheme(nextTheme);
+    try {
+      localStorage.setItem('rm-theme', nextTheme);
+    } catch {
+      // The selected theme still applies for this session.
+    }
+  };
 
   // Modals
   const [mostrarRuletaOverlay, setMostrarRuletaOverlay] = useState(false);
@@ -242,6 +266,8 @@ export default function App() {
 
       {mostrarGestionGrupo && (
         <GroupManagementModal
+          theme={theme}
+          onThemeChange={handleThemeChange}
           roomies={roomies}
           contactos={contactos}
           gastosMensuales={gastosMensuales}

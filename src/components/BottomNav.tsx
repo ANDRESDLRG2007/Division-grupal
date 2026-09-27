@@ -41,7 +41,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 px-3 pb-[max(calc(8px+var(--safe-bottom)),12px)] pt-2 border-t border-white/[0.08]"
-      style={{ background: 'rgba(16,14,64,0.97)', backdropFilter: 'blur(24px)' }}
+      style={{ background: 'var(--azul-overlay)', backdropFilter: 'blur(24px)' }}
     >
       <div className="max-w-[480px] mx-auto grid grid-cols-4 gap-1.5">
         {tabs.map((tab) => {
@@ -77,7 +77,7 @@ export const BottomNav: React.FC<BottomNavProps> = ({
                   style={{
                     background: '#F2A81D',
                     boxShadow: '0 0 8px rgba(242,168,29,0.5)',
-                    color: '#100E40',
+                    color: '#0B2028',
                   }}
                 >
                   {tab.badge}

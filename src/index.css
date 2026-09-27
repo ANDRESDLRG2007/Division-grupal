@@ -4,9 +4,12 @@
 /* ─── UniSplit Brand Tokens ─────────────────────────────── */
 :root {
   /* Brand Palette */
-  --azul:       #100E40;
-  --azul-mid:   #16144f;
-  --azul-card:  #1a1860;
+  --azul:       #0B2028;
+  --azul-mid:   #102A33;
+  --azul-card:  #16343D;
+  --azul-hover: #243F4A;
+  --azul-input: rgba(11, 32, 40, 0.6);
+  --azul-overlay: rgba(11, 32, 40, 0.95);
   --verde:      #4EC26E;
   --verde-glow: rgba(78, 194, 110, 0.30);
   --lima:       #D2F25E;
@@ -16,8 +19,8 @@
   --gris:       #F2F2F2;
 
   /* Surface */
-  --card:       rgba(22, 20, 72, 0.90);
-  --card-hover: rgba(26, 24, 80, 0.95);
+  --card:       rgba(16, 42, 51, 0.90);
+  --card-hover: rgba(22, 52, 61, 0.95);
 
   /* Borders */
   --border:       rgba(255, 255, 255, 0.09);
@@ -38,6 +41,28 @@
   /* Safe area */
   --safe-top:    env(safe-area-inset-top, 0px);
   --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+:root[data-theme='navy'] {
+  --azul: #101D2A;
+  --azul-mid: #172A3C;
+  --azul-card: #20394D;
+  --azul-hover: #2A465B;
+  --azul-input: rgba(16, 29, 42, 0.6);
+  --azul-overlay: rgba(16, 29, 42, 0.95);
+  --card: rgba(23, 42, 60, 0.90);
+  --card-hover: rgba(32, 57, 77, 0.95);
+}
+
+:root[data-theme='charcoal'] {
+  --azul: #171E24;
+  --azul-mid: #202B32;
+  --azul-card: #2B3941;
+  --azul-hover: #374850;
+  --azul-input: rgba(23, 30, 36, 0.65);
+  --azul-overlay: rgba(23, 30, 36, 0.95);
+  --card: rgba(32, 43, 50, 0.92);
+  --card-hover: rgba(43, 57, 65, 0.96);
 }
 
 /* ─── Reset ─────────────────────────────────────────────── */
@@ -115,7 +140,7 @@ input, select { outline: none; }
 /* ─── Inputs ─────────────────────────────────────────────── */
 .input-clean {
   width: 100%;
-  background: rgba(16, 14, 64, 0.6);
+  background: var(--azul-input);
   border: 1.5px solid var(--border);
   border-radius: 14px;
   padding: 0.75rem 1rem;
@@ -141,7 +166,7 @@ input, select { outline: none; }
 /* Primary CTA — Lima */
 .btn-primary {
   background: var(--lima);
-  color: #100E40;
+  color: var(--azul);
   font-weight: 800;
   border-radius: 16px;
   padding: 0.9rem 1.25rem;

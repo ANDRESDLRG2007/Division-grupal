@@ -26,19 +26,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header
       className="sticky top-0 z-40 px-4 pt-[max(env(safe-area-inset-top,0px),12px)] pb-3 border-b border-white/[0.07]"
-      style={{ background: 'rgba(16,14,64,0.93)', backdropFilter: 'blur(18px)' }}
+      style={{ background: 'var(--azul-overlay)', backdropFilter: 'blur(18px)' }}
     >
       <div className="max-w-[480px] mx-auto flex items-center justify-between gap-3">
 
         {/* Brand */}
         <div className="flex items-center gap-2.5">
-          {/* Logo pill */}
-          <div
-            className="w-10 h-10 rounded-2xl flex items-center justify-center text-xl shrink-0 shadow-lg"
-            style={{ background: 'linear-gradient(135deg, #D2F25E 0%, #4EC26E 100%)' }}
-          >
-            {isApto ? '🏠' : '🍕'}
-          </div>
+          <img src="/logo-miniatura.png" alt="" aria-hidden="true" className="h-10 w-10 shrink-0 object-contain" />
 
           <div>
             <div className="flex items-center gap-1.5">

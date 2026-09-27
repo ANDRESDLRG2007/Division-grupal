@@ -87,9 +87,14 @@ export const generarResumenCompleto = (
 };
 
 export const compartirPorWhatsApp = (texto: string) => {
-  const encoded = encodeURIComponent(texto);
-  const url = `https://wa.me/?text=${encoded}`;
-  if (typeof window !== 'undefined') {
-    window.open(url, '_blank');
-  }
+  if (typeof window === 'undefined') return;
+
+  const url = `https://wa.me/?text=${encodeURIComponent(texto)}`;
+  const link = document.createElement('a');
+  link.href = url;
+  link.target = '_blank';
+  link.rel = 'noopener noreferrer';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 };

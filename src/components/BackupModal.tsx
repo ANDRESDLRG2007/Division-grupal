@@ -80,8 +80,8 @@ export const BackupModal: React.FC<BackupModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-[#0b0f19]/90 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-      <div className="w-full max-w-[420px] bg-[#12192b] border-2 border-slate-700/80 rounded-3xl p-5 space-y-4 shadow-2xl">
+    <div className="fixed inset-0 z-50 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in" style={{ background: 'var(--azul-overlay)' }}>
+      <div className="w-full max-w-[420px] bg-[var(--azul-mid)] border border-white/10 rounded-3xl p-5 space-y-4 shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-slate-700/80">
           <h3 className="text-sm font-black text-white flex items-center gap-2">
@@ -100,15 +100,15 @@ export const BackupModal: React.FC<BackupModalProps> = ({
 
         {/* Message Alert */}
         {mensaje && (
-          <div className="p-3 rounded-2xl bg-violet-500/20 border-2 border-violet-500/40 text-xs font-bold text-violet-200 animate-pop-in">
+          <div className="p-3 rounded-2xl bg-[#4EC26E]/15 border border-[#4EC26E]/35 text-xs font-bold text-[#BDF3C9] animate-pop-in">
             {mensaje}
           </div>
         )}
 
         {/* Export JSON */}
-        <div className="p-4 rounded-2xl bg-[#161f33] border border-slate-700/80 space-y-2.5 shadow-sm">
+        <div className="p-4 rounded-2xl bg-[var(--azul-card)] border border-white/10 space-y-2.5 shadow-sm">
           <p className="text-xs font-black text-white flex items-center gap-2">
-            <Download size={15} className="text-violet-400" />
+            <Download size={15} className="text-[#D2F25E]" />
             Descargar Respaldo JSON
           </p>
           <p className="text-xs text-slate-300 font-medium leading-relaxed">
@@ -116,7 +116,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
           </p>
           <button
             onClick={handleExportar}
-            className="w-full py-2.5 px-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-white font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md shadow-violet-600/30"
+            className="w-full py-2.5 px-3 rounded-xl bg-[#D2F25E] hover:brightness-105 text-[#0B2028] font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
           >
             <Download size={14} />
             Exportar datos (.json)
@@ -124,9 +124,9 @@ export const BackupModal: React.FC<BackupModalProps> = ({
         </div>
 
         {/* Import JSON */}
-        <div className="p-4 rounded-2xl bg-[#161f33] border border-slate-700/80 space-y-2.5 shadow-sm">
+        <div className="p-4 rounded-2xl bg-[var(--azul-card)] border border-white/10 space-y-2.5 shadow-sm">
           <p className="text-xs font-black text-white flex items-center gap-2">
-            <Upload size={15} className="text-cyan-400" />
+            <Upload size={15} className="text-[#4EC26E]" />
             Restaurar Respaldo
           </p>
           <p className="text-xs text-slate-300 font-medium leading-relaxed">
@@ -141,7 +141,7 @@ export const BackupModal: React.FC<BackupModalProps> = ({
           />
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="w-full py-2.5 px-3 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-95 shadow-md shadow-cyan-600/30"
+            className="w-full py-2.5 px-3 rounded-xl bg-[#4EC26E] hover:brightness-105 text-[#0B2028] font-black text-xs flex items-center justify-center gap-2 transition-all active:scale-95"
           >
             <Upload size={14} />
             Cargar archivo (.json)

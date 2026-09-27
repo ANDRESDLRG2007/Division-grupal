@@ -33,6 +33,21 @@ const MEMES_GANADOR = [
   'Que le quede de aprendizaje 🎓',
 ];
 
+const getLuminance = (hex: string): number => {
+  const channels = [1, 3, 5].map((offset) => parseInt(hex.slice(offset, offset + 2), 16) / 255);
+  const [red, green, blue] = channels.map((channel) =>
+    channel <= 0.04045 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
+  );
+  return 0.2126 * red + 0.7152 * green + 0.0722 * blue;
+};
+
+const getContrastTextColor = (hex: string): string => {
+  const luminance = getLuminance(hex);
+  const darkContrast = (luminance + 0.05) / (getLuminance('#08191F') + 0.05);
+  const lightContrast = 1.05 / (luminance + 0.05);
+  return darkContrast >= lightContrast ? '#08191F' : '#F8FAFC';
+};
+
 export const RuletaModal: React.FC<RuletaProps> = ({
   roomies,
   contactos,
@@ -86,6 +101,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
+      const themeBase = getComputedStyle(document.documentElement).getPropertyValue('--azul').trim() || '#0B2028';
 
       const dpr = window.devicePixelRatio || 1;
       const width = canvas.clientWidth;
@@ -106,11 +122,11 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
       // Subtle outer shadow (no neon glow)
       ctx.save();
-      ctx.shadowColor = 'rgba(79, 70, 229, 0.2)';
+      ctx.shadowColor = 'rgba(210, 242, 94, 0.2)';
       ctx.shadowBlur = 20;
       ctx.beginPath();
       ctx.arc(cx, cy, r + 4, 0, 2 * Math.PI);
-      ctx.fillStyle = '#101420';
+      ctx.fillStyle = themeBase;
       ctx.fill();
       ctx.restore();
 
@@ -137,7 +153,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         ctx.fill();
 
         // Slice border
-        ctx.strokeStyle = '#090a0f';
+        ctx.strokeStyle = themeBase;
         ctx.lineWidth = 2;
         ctx.stroke();
 
@@ -146,12 +162,13 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         ctx.translate(cx, cy);
         ctx.rotate(start + slice / 2);
         ctx.textAlign = 'right';
-        ctx.fillStyle = '#ffffff';
+        const textColor = getContrastTextColor(color);
+        ctx.fillStyle = textColor;
 
         const fontSize = Math.min(13, Math.max(10, 160 / count));
         ctx.font = `600 ${fontSize}px "Plus Jakarta Sans", sans-serif`;
-        ctx.shadowColor = 'rgba(0,0,0,0.7)';
-        ctx.shadowBlur = 3;
+        ctx.shadowColor = textColor === '#08191F' ? 'rgba(255,255,255,0.25)' : 'rgba(0,0,0,0.7)';
+        ctx.shadowBlur = 2;
 
         const maxLen = 13;
         const label = item.length > maxLen ? item.slice(0, maxLen) + '…' : item;
@@ -163,15 +180,15 @@ export const RuletaModal: React.FC<RuletaProps> = ({
       ctx.save();
       ctx.beginPath();
       ctx.arc(cx, cy, 22, 0, 2 * Math.PI);
-      ctx.fillStyle = '#090a0f';
+      ctx.fillStyle = themeBase;
       ctx.fill();
       ctx.lineWidth = 2;
-      ctx.strokeStyle = 'rgba(99, 102, 241, 0.5)';
+      ctx.strokeStyle = 'rgba(210, 242, 94, 0.5)';
       ctx.stroke();
 
       ctx.beginPath();
       ctx.arc(cx, cy, 9, 0, 2 * Math.PI);
-      ctx.fillStyle = '#6366f1';
+      ctx.fillStyle = '#D2F25E';
       ctx.fill();
       ctx.restore();
 
@@ -183,8 +200,8 @@ export const RuletaModal: React.FC<RuletaProps> = ({
       ctx.lineTo(-10, -6);
       ctx.lineTo(10, -6);
       ctx.closePath();
-      ctx.fillStyle = '#6366f1';
-      ctx.shadowColor = 'rgba(99, 102, 241, 0.5)';
+      ctx.fillStyle = '#D2F25E';
+      ctx.shadowColor = 'rgba(210, 242, 94, 0.5)';
       ctx.shadowBlur = 8;
       ctx.fill();
       ctx.strokeStyle = '#ffffff';
@@ -289,7 +306,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
     <div
       className={`${
         isModal
-          ? 'fixed inset-0 z-50 bg-[#090a0f]/96 backdrop-blur-xl flex flex-col items-center justify-center p-4 overflow-y-auto'
+          ? 'fixed inset-0 z-50 bg-[var(--azul)]/96 backdrop-blur-xl flex flex-col items-center justify-center p-4 overflow-y-auto'
           : 'px-5 py-5 animate-fade-in'
       }`}
     >
@@ -309,7 +326,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
         {/* Title Header */}
         <div className="text-center mb-4">
-          <span className="inline-block text-[11px] font-semibold text-indigo-300 bg-indigo-500/[0.08] border border-indigo-500/20 px-3 py-1 rounded-full mb-2">
+          <span className="inline-block text-[11px] font-semibold text-[#D2F25E] bg-[#D2F25E]/[0.08] border border-[#D2F25E]/20 px-3 py-1 rounded-full mb-2">
             🎰 RULETA UNIVERSITARIA
           </span>
           <h2 className="text-xl font-bold text-white tracking-tight">
@@ -329,7 +346,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
             }}
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
               modo === 'pagador'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#D2F25E] text-[#0B2028]'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
@@ -342,7 +359,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
             }}
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
               modo === 'castigo'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#D2F25E] text-[#0B2028]'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
@@ -355,7 +372,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
             }}
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
               modo === 'personalizado'
-                ? 'bg-indigo-600 text-white'
+                ? 'bg-[#D2F25E] text-[#0B2028]'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
@@ -374,7 +391,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               }}
               className={`px-3 py-1.5 rounded-lg font-semibold transition-all active:scale-95 ${
                 fuentePersonas === 'contactos'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-[#D2F25E] text-[#0B2028]'
                   : 'bg-white/[0.04] border border-white/[0.07] text-zinc-400 hover:text-white'
               }`}
             >
@@ -387,7 +404,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               }}
               className={`px-3 py-1.5 rounded-lg font-semibold transition-all active:scale-95 ${
                 fuentePersonas === 'roomies'
-                  ? 'bg-indigo-600 text-white'
+                  ? 'bg-[#D2F25E] text-[#0B2028]'
                   : 'bg-white/[0.04] border border-white/[0.07] text-zinc-400 hover:text-white'
               }`}
             >
@@ -410,10 +427,10 @@ export const RuletaModal: React.FC<RuletaProps> = ({
           disabled={girando || count < 2}
           className={`w-full max-w-[300px] mt-4 py-4 px-6 rounded-xl font-bold text-base tracking-wide flex items-center justify-center gap-2 transition-all active:scale-95 ${
             girando
-              ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
+              ? 'bg-[var(--azul-card)] text-slate-300 cursor-not-allowed'
               : count < 2
-              ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed'
-              : 'bg-indigo-600 hover:bg-indigo-500 text-white'
+              ? 'bg-[var(--azul-card)] text-slate-300 cursor-not-allowed'
+              : 'bg-[#D2F25E] hover:brightness-105 text-[#0B2028]'
           }`}
         >
           {girando ? (
@@ -431,13 +448,13 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
         {/* Result Winner Popup / Banner */}
         {mostrarGanador && ganador && (
-          <div className="w-full mt-5 p-5 rounded-xl clean-card border-indigo-500/30 text-center animate-fade-in">
+          <div className="w-full mt-5 p-5 rounded-xl clean-card border-[#D2F25E]/30 text-center animate-fade-in">
             <div className="inline-flex items-center gap-1.5 text-2xl mb-1">
-              <PartyPopper className="text-indigo-400" />
+              <PartyPopper className="text-[#D2F25E]" />
               <span>👑</span>
             </div>
 
-            <p className="text-[11px] font-semibold uppercase tracking-widest text-indigo-300 mt-1">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-[#D2F25E] mt-1">
               {modo === 'castigo' ? 'Le toca el castigo a:' : 'Hoy le toca pagar a:'}
             </p>
 
@@ -452,7 +469,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
             <div className="flex items-center gap-2.5 justify-center">
               <button
                 onClick={compartirResultado}
-                className="py-2.5 px-4 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95"
+                className="py-2.5 px-4 rounded-lg bg-[#4EC26E] hover:brightness-105 text-[#0B2028] text-xs font-bold flex items-center gap-1.5 transition-all active:scale-95"
               >
                 <Share2 size={14} />
                 Mandar al WhatsApp
@@ -505,7 +522,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               />
               <button
                 onClick={agregarCustomItem}
-                className="px-3.5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center gap-1 transition-colors"
+                className="px-3.5 py-2 rounded-xl bg-[#D2F25E] hover:brightness-105 text-[#0B2028] text-xs font-bold flex items-center gap-1 transition-colors"
               >
                 <Plus size={15} />
                 Añadir

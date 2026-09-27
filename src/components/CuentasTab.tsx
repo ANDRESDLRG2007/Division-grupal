@@ -131,7 +131,7 @@ export const CuentasTab: React.FC<CuentasTabProps> = ({
       {/* ── SELECTOR: SALIDAS VS APARTAMENTO ───────────────── */}
       <div
         className="grid grid-cols-2 gap-1.5 p-1.5 rounded-2xl"
-        style={{ background: 'rgba(16,14,64,0.7)', border: '1px solid rgba(255,255,255,0.08)' }}
+        style={{ background: 'color-mix(in srgb, var(--azul) 70%, transparent)', border: '1px solid rgba(255,255,255,0.08)' }}
       >
         <button
           onClick={() => {

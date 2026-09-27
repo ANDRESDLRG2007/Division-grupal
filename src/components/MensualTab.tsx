@@ -168,7 +168,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
   return (
     <div className="px-4 pt-3 pb-8 flex flex-col gap-5 animate-fade-in max-w-[480px] mx-auto">
       {/* ── APARTAMENTO HEADER ────────────────────────────── */}
-      <section className="card-glass p-5 flex flex-col gap-3.5 bg-gradient-to-br from-[#121829] to-[#0c101c]">
+      <section className="card-glass p-5 flex flex-col gap-3.5" style={{ background: 'linear-gradient(135deg, var(--azul-mid), var(--azul-card))' }}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-xl">🏠</span>
@@ -263,7 +263,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                     <div>
                       <h4 className="text-sm font-extrabold text-white">{g.descripcion}</h4>
                       <p className="text-xs text-zinc-400 mt-0.5">
-                        Pagó <strong className="text-indigo-300">{pagadorNombre}</strong> ·{' '}
+                        Pagó <strong className="text-[#D2F25E]">{pagadorNombre}</strong> ·{' '}
                         {g.participantes.length} personas ({fmt(parte)} c/u)
                       </p>
                     </div>
@@ -297,7 +297,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
       ══════════════════════════════════════════════════════════ */}
       {mostrarModalGasto && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 overflow-y-auto animate-fade-in">
-          <div className="w-full max-w-[460px] bg-[#121829] border border-white/[0.1] rounded-t-3xl sm:rounded-3xl p-5 flex flex-col gap-4 shadow-2xl max-h-[92vh] overflow-y-auto">
+          <div className="w-full max-w-[460px] bg-[var(--azul-mid)] border border-white/[0.1] rounded-t-3xl sm:rounded-3xl p-5 flex flex-col gap-4 shadow-2xl max-h-[92vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
               <div className="flex items-center gap-2">
                 <span className="text-lg">🏠</span>
@@ -421,7 +421,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                 </label>
                 <button
                   onClick={seleccionarTodos}
-                  className="text-xs font-bold text-indigo-400"
+                  className="text-xs font-bold text-[#D2F25E]"
                 >
                   {participantes.length === roomies.length ? 'Deseleccionar' : 'Todos'}
                 </button>
@@ -476,7 +476,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
       ══════════════════════════════════════════════════════════ */}
       {mostrarModalRoomies && (
         <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-          <div className="w-full max-w-[420px] bg-[#121829] border border-white/[0.1] rounded-3xl p-5 flex flex-col gap-4 shadow-2xl">
+          <div className="w-full max-w-[420px] bg-[var(--azul-mid)] border border-white/[0.1] rounded-3xl p-5 flex flex-col gap-4 shadow-2xl">
             <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
               <div className="flex items-center gap-2">
                 <span className="text-lg">🏠</span>
@@ -526,7 +526,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                 return isEditing ? (
                   <div
                     key={r.id}
-                    className="flex items-center gap-2 p-2 bg-[#151c30] border border-indigo-500 rounded-xl"
+                    className="flex items-center gap-2 p-2 bg-[var(--azul)] border border-white/10 rounded-xl"
                   >
                     <select
                       value={avatarTemp}
@@ -544,12 +544,12 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                       value={nombreTemp}
                       onChange={(e) => setNombreTemp(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && guardarEdicionRoomie(r.id)}
-                      className="flex-1 bg-transparent text-xs font-bold text-white border-b border-indigo-400 outline-none"
+                      className="flex-1 bg-transparent text-xs font-bold text-white border-b border-[#D2F25E] outline-none"
                       autoFocus
                     />
                     <button
                       onClick={() => guardarEdicionRoomie(r.id)}
-                      className="w-7 h-7 rounded-lg bg-indigo-600 text-white flex items-center justify-center text-xs"
+                      className="w-7 h-7 rounded-lg bg-[#D2F25E] text-[#0B2028] flex items-center justify-center text-xs"
                     >
                       <Check size={14} />
                     </button>
@@ -578,7 +578,7 @@ export const MensualTab: React.FC<MensualTabProps> = ({
                           setNombreTemp(r.nombre);
                           setAvatarTemp(r.avatar || '😎');
                         }}
-                        className="p-1.5 rounded-lg text-zinc-400 hover:text-indigo-300 hover:bg-white/[0.05]"
+                        className="p-1.5 rounded-lg text-zinc-400 hover:text-[#D2F25E] hover:bg-white/[0.05]"
                       >
                         <Edit2 size={13} />
                       </button>

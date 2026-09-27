@@ -14,7 +14,7 @@ export const uid = (): string =>
 export const AVATARES = ['😎', '🤓', '🤠', '🦊', '🚀', '⚡', '🍕', '🎸', '🎮', '☕', '🐱', '🐼', '🦁', '🥑'];
 
 export const PALETA_COLORES = [
-  '#8b5cf6', // Violeta
+  '#6B43A8', // Violeta oscuro
   '#06b6d4', // Cyan
   '#10b981', // Esmeralda / Mint
   '#f59e0b', // Ámbar
@@ -22,7 +22,7 @@ export const PALETA_COLORES = [
   '#3b82f6', // Azul eléctrico
   '#ec4899', // Magenta
   '#84cc16', // Lima
-  '#a855f7', // Púrpura brillante
+  '#8B3FE0', // Púrpura
   '#14b8a6', // Teal
 ];
 
