@@ -141,8 +141,8 @@ export const GroupManagementModal: React.FC<GroupManagementModalProps> = ({
           <button type="button" onClick={onCerrar} className="rounded-full bg-[var(--azul-card)] p-2 text-slate-300" title="Cerrar"><X size={16} /></button>
         </div>
 
-        <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-5 py-4">
-        <section className="space-y-2 border-b border-white/[0.10] pb-4">
+        <div className="shrink-0 px-5 pt-3">
+        <section className="space-y-2 border-b border-white/[0.10] pb-3">
           <div>
             <h3 className="text-sm font-semibold text-slate-100">Apariencia</h3>
             <p className="text-xs text-slate-400">Elige un tema de fondo</p>
@@ -166,7 +166,9 @@ export const GroupManagementModal: React.FC<GroupManagementModalProps> = ({
             ))}
           </div>
         </section>
+        </div>
 
+        <div className="min-h-0 flex-1 space-y-4 overflow-y-auto overscroll-contain px-5 py-4">
         <section className="space-y-3 border-b border-white/[0.10] pb-5">
           <div className="flex items-center justify-between">
             <div>

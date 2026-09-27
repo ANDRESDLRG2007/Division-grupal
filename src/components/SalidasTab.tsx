@@ -868,12 +868,20 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
           MODAL: GESTIÓN DE AMIGOS
       ══════════════════════════════════════════════════════════ */}
       {mostrarModalAmigos && (
-        <div className="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto animate-fade-in">
-          <div className="w-full max-w-[420px] bg-[var(--azul-mid)] border border-white/[0.1] rounded-3xl p-5 flex flex-col gap-4 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
+        <div
+          className="fixed inset-0 z-[60] flex items-center justify-center overflow-hidden overscroll-none backdrop-blur-md animate-fade-in"
+          style={{ background: 'var(--azul-overlay)' }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="friends-modal-title"
+            className="flex h-[100dvh] max-h-[100dvh] w-full max-w-[420px] flex-col overflow-hidden border border-white/[0.1] bg-[var(--azul-mid)] shadow-2xl sm:h-auto sm:max-h-[90dvh] sm:rounded-3xl"
+          >
+            <div className="flex shrink-0 items-center justify-between border-b border-white/[0.08] px-5 pb-3 pt-[max(env(safe-area-inset-top),16px)] sm:pt-4">
               <div className="flex items-center gap-2">
                 <Users size={16} style={{ color: '#4EC26E' }} />
-                <h3 className="text-sm font-extrabold text-white">Amigos del Parche</h3>
+                <h3 id="friends-modal-title" className="text-sm font-extrabold text-white">Amigos del Parche</h3>
               </div>
               <button
                 onClick={() => setMostrarModalAmigos(false)}
@@ -884,7 +892,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </div>
 
             {/* Add friend */}
-            <div className="flex items-center gap-2 p-2 bg-[var(--azul)] rounded-2xl border border-white/[0.08]">
+            <div className="mx-5 mt-4 flex shrink-0 items-center gap-2 rounded-2xl border border-white/[0.08] bg-[var(--azul)] p-2">
               <select
                 value={nuevoAvatar}
                 onChange={(e) => setNuevoAvatar(e.target.value)}
@@ -913,7 +921,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </div>
 
             {/* Friends list */}
-            <div className="flex flex-col gap-2 max-h-[300px] overflow-y-auto pr-1">
+            <div className="min-h-0 flex-1 space-y-2 overflow-y-auto overscroll-contain px-5 py-3">
               {contactos.map((c) => {
                 const isEditing = editandoId === c.id;
                 return isEditing ? (
@@ -938,7 +946,6 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                       onChange={(e) => setNombreTemp(e.target.value)}
                       onKeyDown={(e) => e.key === 'Enter' && guardarEdicionContacto(c.id)}
                       className="flex-1 bg-transparent text-xs font-bold text-white border-b border-[#D2F25E] outline-none"
-                      autoFocus
                     />
                     <button
                       onClick={() => guardarEdicionContacto(c.id)}
@@ -948,7 +955,7 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                     </button>
                     <button
                       onClick={() => setEditandoId(null)}
-                      className="w-7 h-7 rounded-lg bg-zinc-800 text-zinc-400 flex items-center justify-center text-xs"
+                      className="w-7 h-7 rounded-lg bg-[var(--azul-card)] text-zinc-300 flex items-center justify-center text-xs"
                     >
                       <X size={14} />
                     </button>
@@ -989,12 +996,14 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
               })}
             </div>
 
+            <div className="shrink-0 border-t border-white/[0.08] px-5 pt-3 pb-[max(env(safe-area-inset-bottom),12px)]">
             <button
               onClick={() => setMostrarModalAmigos(false)}
-              className="w-full py-2.5 rounded-2xl bg-white/[0.06] hover:bg-white/[0.1] text-white font-bold text-xs"
+              className="w-full py-2.5 rounded-2xl bg-[var(--azul-card)] hover:bg-[var(--azul-hover)] text-white font-bold text-xs"
             >
               Listo
             </button>
+            </div>
           </div>
         </div>
       )}
