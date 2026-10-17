@@ -16,6 +16,9 @@
   --lima-glow:  rgba(210, 242, 94, 0.28);
   --naranja:    #F2A81D;
   --naranja-glow: rgba(242, 168, 29, 0.30);
+  --ambiente-verde: rgba(78, 194, 110, 0.12);
+  --ambiente-lima: rgba(210, 242, 94, 0.10);
+  --ambiente-naranja: rgba(242, 168, 29, 0.08);
   --gris:       #F2F2F2;
 
   /* Surface */
@@ -52,6 +55,9 @@
   --azul-overlay: rgba(16, 29, 42, 0.95);
   --card: rgba(23, 42, 60, 0.90);
   --card-hover: rgba(32, 57, 77, 0.95);
+  --ambiente-verde: rgba(81, 157, 206, 0.14);
+  --ambiente-lima: rgba(124, 194, 225, 0.10);
+  --ambiente-naranja: rgba(225, 176, 103, 0.07);
 }
 
 :root[data-theme='charcoal'] {
@@ -63,6 +69,9 @@
   --azul-overlay: rgba(23, 30, 36, 0.95);
   --card: rgba(32, 43, 50, 0.92);
   --card-hover: rgba(43, 57, 65, 0.96);
+  --ambiente-verde: rgba(111, 158, 139, 0.11);
+  --ambiente-lima: rgba(169, 186, 117, 0.08);
+  --ambiente-naranja: rgba(184, 145, 102, 0.06);
 }
 
 /* ─── Reset ─────────────────────────────────────────────── */
@@ -81,9 +90,9 @@ html, body {
 body {
   background-color: var(--azul);
   background-image:
-    radial-gradient(ellipse at 15% 10%, rgba(78, 194, 110, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse at 85% 30%, rgba(210, 242, 94, 0.10) 0%, transparent 45%),
-    radial-gradient(ellipse at 50% 85%, rgba(242, 168, 29, 0.08) 0%, transparent 40%);
+    radial-gradient(ellipse at 15% 10%, var(--ambiente-verde) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 30%, var(--ambiente-lima) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 85%, var(--ambiente-naranja) 0%, transparent 40%);
   background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-body);
@@ -166,7 +175,7 @@ input, select { outline: none; }
 /* Primary CTA — Lima */
 .btn-primary {
   background: var(--lima);
-  color: var(--azul);
+  color: #102719;
   font-weight: 800;
   border-radius: 16px;
   padding: 0.9rem 1.25rem;
@@ -206,7 +215,7 @@ input, select { outline: none; }
 /* Verde — positive/collect */
 .btn-verde {
   background: var(--verde);
-  color: #0a1f11;
+  color: #102719;
   font-weight: 800;
   border-radius: 14px;
   padding: 0.7rem 1.1rem;

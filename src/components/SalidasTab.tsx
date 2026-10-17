@@ -538,8 +538,8 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   ⚡
                 </div>
                 <div>
-                  <h3 className="text-sm font-extrabold text-white">Dividir Gasto de Salida</h3>
-                  <p className="text-[11px] text-zinc-400">Cero enredos para calcular quién debe</p>
+                  <h3 className="text-sm font-extrabold text-white">Nueva cuenta compartida</h3>
+                  <p className="text-[11px] text-zinc-400">Completa los pasos y revisa cuánto le toca a cada quien</p>
                 </div>
               </div>
               <button
@@ -552,9 +552,10 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
 
             {/* Presets */}
             <div className="flex flex-col gap-1.5">
-              <label className="text-[11px] font-bold uppercase tracking-wider text-zinc-400">
-                Atajos rápidos:
-              </label>
+              <div>
+                <p className="text-xs font-extrabold text-zinc-200">1. ¿Qué pagaron?</p>
+                <p className="text-[11px] text-zinc-400">Elige una categoría o escribe el concepto abajo.</p>
+              </div>
               <div className="flex items-center gap-1.5 overflow-x-auto pb-1">
                 {PRESETS_SALIDA.map((preset) => (
                   <button
@@ -575,11 +576,12 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </div>
 
             {/* Monto Total */}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-3">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-extrabold text-zinc-200">
-                  Monto total a pagar
-                </label>
+                <div>
+                  <label htmlFor="salida-monto" className="text-xs font-extrabold text-zinc-200">2. ¿Cuánto fue en total?</label>
+                  <p className="text-[11px] text-zinc-400">Escribe el valor completo de la cuenta, antes de dividirla.</p>
+                </div>
                 <div className="flex gap-1">
                   {[20000, 50000, 100000].map((val) => (
                     <button
@@ -592,12 +594,13 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   ))}
                 </div>
               </div>
-              <div className="flex items-center bg-[var(--azul)] border border-white/[0.1] focus-within:border-[#D2F25E] rounded-2xl px-4 py-2.5">
-                <span className="text-emerald-400 font-mono font-bold text-xl mr-2">$</span>
+              <div className="flex items-center bg-[var(--azul)] border border-white/[0.1] focus-within:border-[#D2F25E] rounded-xl px-4 py-2.5">
+                <span className="text-[#D2F25E] font-mono font-bold text-xl mr-2">$</span>
                 <input
+                  id="salida-monto"
                   type="number"
                   inputMode="numeric"
-                  placeholder="0"
+                  placeholder="85000"
                   value={monto}
                   onChange={(e) => setMonto(e.target.value)}
                   className="w-full bg-transparent text-xl font-mono font-extrabold text-white placeholder-zinc-600 outline-none"
@@ -607,13 +610,15 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </div>
 
             {/* Concepto */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-extrabold text-zinc-200">
-                ¿Qué compraron?
+            <div className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-3">
+              <label htmlFor="salida-concepto" className="text-xs font-extrabold text-zinc-200">
+                3. Describe la cuenta
               </label>
+              <p className="text-[11px] text-zinc-400">Por ejemplo: pizza, bebidas o taxi de regreso.</p>
               <input
+                id="salida-concepto"
                 type="text"
-                placeholder="Ej. Polas BBC, Hamburguesas, Taxi a la casa..."
+                placeholder="Ej. Pizza para el parche"
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}
                 className="input-clean font-medium !py-2.5 !text-sm"
@@ -621,10 +626,11 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </div>
 
             {/* Quién pagó */}
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-extrabold text-zinc-200">
-                ¿Quién puso la plata? 💳
-              </label>
+            <div className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-3">
+              <div>
+                <p className="text-xs font-extrabold text-zinc-200">4. ¿Quién pagó?</p>
+                <p className="text-[11px] text-zinc-400">Selecciona a quien adelantó el dinero de la cuenta.</p>
+              </div>
               <div className="flex flex-wrap gap-1.5">
                 {contactos.map((c) => {
                   const isPayer = pagadoPor === c.id;
@@ -652,11 +658,12 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
             </div>
 
             {/* Quiénes dividen */}
-            <div className="flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5 rounded-2xl border border-white/[0.08] bg-white/[0.025] p-3">
               <div className="flex items-center justify-between">
-                <label className="text-xs font-extrabold text-zinc-200">
-                  ¿Quiénes dividen? ({seleccionados.length}/{contactos.length})
-                </label>
+                <div>
+                  <p className="text-xs font-extrabold text-zinc-200">5. ¿Entre quiénes se divide?</p>
+                  <p className="text-[11px] text-zinc-400">Toca los nombres que comparten el gasto.</p>
+                </div>
                 <button
                   onClick={seleccionarTodos}
                   className="text-xs font-bold"
@@ -703,6 +710,11 @@ export const SalidasTab: React.FC<SalidasTabProps> = ({
                   <p className="text-[11px] text-zinc-400">
                     Le transfieren a{' '}
                     <strong style={{ color: '#4EC26E' }}>{getNombre(pagadoPor, contactos)}</strong>
+                  </p>
+                  <p className="text-[11px] text-zinc-400">
+                    {seleccionados.includes(pagadoPor)
+                      ? `${getNombre(pagadoPor, contactos)} ya pagó; no se transfiere a sí mismo.`
+                      : `${getNombre(pagadoPor, contactos)} no participa en el reparto.`}
                   </p>
                 </div>
                 <span

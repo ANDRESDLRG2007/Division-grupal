@@ -14,23 +14,23 @@ interface RuletaProps {
 }
 
 const CASTIGOS_DEFAULT = [
-  'Lavar la loza 🧽',
-  'Sacar la basura 🗑️',
-  'Ir a la tienda por hielo 🧊',
-  'Poner la música 🎵',
-  'Traer las polas 🍻',
-  'Hacer el café de las 6am ☕',
-  'Barrer la sala 🧹',
-  'Pagar el taxi/Uber 🚕',
+  'Lavar la loza',
+  'Sacar la basura',
+  'Ir a la tienda por hielo',
+  'Poner la música',
+  'Traer las bebidas',
+  'Preparar el café de las 6am',
+  'Barrer la sala',
+  'Pagar el taxi o Uber',
 ];
 
 const MEMES_GANADOR = [
-  '¡Que no se haga el loco! 💸',
-  'Le tocó el destino universitario 🎯',
-  'A pagar con Nequi sin chistar 📱',
-  'El universo ha hablado 🪐',
-  'Hoy no te salvaste 😂',
-  'Que le quede de aprendizaje 🎓',
+  '¡Que no se haga el loco!',
+  'Le tocó el destino universitario',
+  'A pagar sin chistar',
+  'El universo ha hablado',
+  'Hoy no te salvaste',
+  'Que le quede de aprendizaje',
 ];
 
 const getLuminance = (hex: string): number => {
@@ -59,11 +59,11 @@ export const RuletaModal: React.FC<RuletaProps> = ({
   
   // Custom items list
   const [customItems, setCustomItems] = useState<string[]>([
-    'Pizza 🍕',
-    'Hamburguesa 🍔',
-    'Tacos 🌮',
-    'Sushi 🍣',
-    'Chuzo desgranado 🌭',
+    'Pizza',
+    'Hamburguesa',
+    'Tacos',
+    'Sushi',
+    'Chuzo desgranado',
   ]);
   const [nuevoItem, setNuevoItem] = useState('');
 
@@ -126,7 +126,6 @@ export const RuletaModal: React.FC<RuletaProps> = ({
       ctx.shadowBlur = 20;
       ctx.beginPath();
       ctx.arc(cx, cy, r + 4, 0, 2 * Math.PI);
-      ctx.fillStyle = themeBase;
       ctx.fill();
       ctx.restore();
 
@@ -150,9 +149,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
         const color = PALETA_COLORES[i % PALETA_COLORES.length];
         ctx.fillStyle = color;
-        ctx.fill();
-
-        // Slice border
+          ctx.fill();
         ctx.strokeStyle = themeBase;
         ctx.lineWidth = 2;
         ctx.stroke();
@@ -294,11 +291,11 @@ export const RuletaModal: React.FC<RuletaProps> = ({
 
   const compartirResultado = () => {
     if (!ganador) return;
-    const msg = `🎰 *UniSplit - ¡La Ruleta Ha Decidido!* 🎯\n\n` +
-      `📌 *Modo:* ${modo === 'pagador' ? '¿Quién paga hoy?' : modo === 'castigo' ? 'Castigo Universitario' : 'Ruleta de la suerte'}\n` +
-      `👑 *Resultado:* 👉 *${ganador}* 👈\n` +
-      `💬 _"${memeActual}"_\n\n` +
-      `_¡Cero excusas! Generado con UniSplit 🎓_`;
+    const msg = `*UniSplit: la ruleta ha decidido*\n\n` +
+      `*Modo:* ${modo === 'pagador' ? '¿Quién paga hoy?' : modo === 'castigo' ? 'Castigo universitario' : 'Ruleta de la suerte'}\n` +
+      `*Resultado:* *${ganador}*\n` +
+      `_${memeActual}_\n\n` +
+      `_Generado con UniSplit_`;
     compartirPorWhatsApp(msg);
   };
 
@@ -327,13 +324,13 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         {/* Title Header */}
         <div className="text-center mb-4">
           <span className="inline-block text-[11px] font-semibold text-[#D2F25E] bg-[#D2F25E]/[0.08] border border-[#D2F25E]/20 px-3 py-1 rounded-full mb-2">
-            🎰 RULETA UNIVERSITARIA
+            RULETA UNIVERSITARIA
           </span>
           <h2 className="text-xl font-bold text-white tracking-tight">
             {modo === 'pagador' ? '¿Quién paga la cuenta?' : modo === 'castigo' ? 'Ruleta de Castigos' : 'Ruleta Personalizada'}
           </h2>
           <p className="text-xs text-zinc-400 mt-1">
-            {count < 2 ? '⚠️ Agrega al menos 2 opciones' : `Girando entre ${count} opciones`}
+            {count < 2 ? 'Agrega al menos 2 opciones' : `Girando entre ${count} opciones`}
           </p>
         </div>
 
@@ -344,39 +341,42 @@ export const RuletaModal: React.FC<RuletaProps> = ({
               playClickSound();
               setModo('pagador');
             }}
+            style={modo === 'pagador' ? { color: '#08191F' } : undefined}
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
               modo === 'pagador'
                 ? 'bg-[#D2F25E] text-[#0B2028]'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
-            💸 Quién paga
+            Quién paga
           </button>
           <button
             onClick={() => {
               playClickSound();
               setModo('castigo');
             }}
+            style={modo === 'castigo' ? { color: '#08191F' } : undefined}
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
               modo === 'castigo'
                 ? 'bg-[#D2F25E] text-[#0B2028]'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
-            🧽 Castigos
+            Castigos
           </button>
           <button
             onClick={() => {
               playClickSound();
               setModo('personalizado');
             }}
+            style={modo === 'personalizado' ? { color: '#08191F' } : undefined}
             className={`py-2 px-1 text-xs font-bold rounded-lg transition-all active:scale-95 ${
               modo === 'personalizado'
                 ? 'bg-[#D2F25E] text-[#0B2028]'
                 : 'text-zinc-400 hover:text-white'
             }`}
           >
-            ✏️ Libre
+            Libre
           </button>
         </div>
 
@@ -389,26 +389,28 @@ export const RuletaModal: React.FC<RuletaProps> = ({
                 playClickSound();
                 setFuentePersonas('contactos');
               }}
+              style={fuentePersonas === 'contactos' ? { color: '#08191F' } : undefined}
               className={`px-3 py-1.5 rounded-lg font-semibold transition-all active:scale-95 ${
                 fuentePersonas === 'contactos'
                   ? 'bg-[#D2F25E] text-[#0B2028]'
                   : 'bg-white/[0.04] border border-white/[0.07] text-zinc-400 hover:text-white'
               }`}
             >
-              🍕 Salidas ({contactos.length})
+              Salidas ({contactos.length})
             </button>
             <button
               onClick={() => {
                 playClickSound();
                 setFuentePersonas('roomies');
               }}
+              style={fuentePersonas === 'roomies' ? { color: '#08191F' } : undefined}
               className={`px-3 py-1.5 rounded-lg font-semibold transition-all active:scale-95 ${
                 fuentePersonas === 'roomies'
                   ? 'bg-[#D2F25E] text-[#0B2028]'
                   : 'bg-white/[0.04] border border-white/[0.07] text-zinc-400 hover:text-white'
               }`}
             >
-              🏠 Roomies ({roomies.length})
+              Roomies ({roomies.length})
             </button>
           </div>
         )}
@@ -425,6 +427,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         <button
           onClick={girar}
           disabled={girando || count < 2}
+          style={!girando && count >= 2 ? { color: '#08191F' } : undefined}
           className={`w-full max-w-[300px] mt-4 py-4 px-6 rounded-xl font-bold text-base tracking-wide flex items-center justify-center gap-2 transition-all active:scale-95 ${
             girando
               ? 'bg-[var(--azul-card)] text-slate-300 cursor-not-allowed'
@@ -451,7 +454,6 @@ export const RuletaModal: React.FC<RuletaProps> = ({
           <div className="w-full mt-5 p-5 rounded-xl clean-card border-[#D2F25E]/30 text-center animate-fade-in">
             <div className="inline-flex items-center gap-1.5 text-2xl mb-1">
               <PartyPopper className="text-[#D2F25E]" />
-              <span>👑</span>
             </div>
 
             <p className="text-[11px] font-semibold uppercase tracking-widest text-[#D2F25E] mt-1">
@@ -490,7 +492,7 @@ export const RuletaModal: React.FC<RuletaProps> = ({
         {modo === 'personalizado' && (
           <div className="w-full mt-5 clean-card p-5">
             <p className="text-xs font-bold text-zinc-300 mb-3 flex items-center gap-1.5">
-              <span>🎯</span> Opciones de la ruleta ({customItems.length}):
+              Opciones de la ruleta ({customItems.length}):
             </p>
             <div className="flex flex-wrap gap-2 mb-3">
               {customItems.map((item, idx) => (
